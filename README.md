@@ -7,6 +7,6 @@
 - cd stellar-fighter
 - npm install --development
 - After setup:
-   - Write some code...
+   - Write some code with nano or vim command
    - npm start
    - Open http://localhost:8080 in your browser
