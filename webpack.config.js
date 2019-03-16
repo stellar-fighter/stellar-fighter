@@ -17,6 +17,17 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                 }
+            },
+            {
+                test: /\.(jpg|jpeg|png|gif|svg)$/,
+                use: {
+                    loader: "url-loader",
+                    options: {
+                        name: "[path][name].[hash].[ext]",
+                        publicPath: "./dist",
+                        limit: 8192
+                    }
+                }
             }
         ]
     }
