@@ -3,7 +3,7 @@
 - Install git (https://git-scm.com/)
 - Install nodejs (https://nodejs.org/)
 - Open git bash
-- git clone https://github.com/stellar-fighter/stellar-fighter
+- git clone -b dev https://github.com/stellar-fighter/stellar-fighter
 - cd stellar-fighter
 - npm install --development
 - After setup:
