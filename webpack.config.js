@@ -11,6 +11,13 @@ module.exports = {
     module: {
         rules: [
             {
+                enforce: "pre",
+                test: /\.js$/,
+                include: path.join(__dirname),
+                exclude: /node_modules/,
+                loader: "eslint-loader"
+            },
+            {
                 test: /\.js$/,
                 include: path.join(__dirname),
                 exclude: /(node_modules)|(dist)/,
