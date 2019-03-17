@@ -14,6 +14,8 @@ module.exports = {
     },
     "rules": {
         "indent": ["error", 2],
-        "semi": ["error", "always"]
+        "semi": ["error", "always"],
+        "no-unused-vars": "off",
+        "no-console": "off"
     }
 };

@@ -1,10 +1,13 @@
-import _ from 'lodash';
+let element = document.createElement('h1');
+element.innerHTML = 'hello world!';
+document.body.appendChild(element);
 
-function component() {
-  let element = document.createElement('div');
-
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  return element;
+class AAA {
+  constructor(args) {
+    console.log(`hello ${args}`);
+  }
 }
 
-document.body.appendChild(component());
+let aaa = new AAA({'a': 1, 'b': 2, 'c': 3, 'd': 4});
+
+console.log(aaa);
