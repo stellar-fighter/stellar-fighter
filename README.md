@@ -1,5 +1,5 @@
 # stellar-fighter
-## Development guide on windows
+## Development guide for Windows
 - Install git (https://git-scm.com/)
 - Install nodejs (https://nodejs.org/)
 - Open git bash
