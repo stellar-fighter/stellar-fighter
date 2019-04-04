@@ -1,13 +1,29 @@
-let element = document.createElement('h1');
-element.innerHTML = 'hello world!';
-document.body.appendChild(element);
+import './main.scss';
 
-class AAA {
+class Animal {
   constructor(args) {
-    console.log(`hello ${args}`);
+    this.name = args.name || 'unnamed';
+    this.age = args.age || 0;
+  }
+  static staticMethod() {
+    console.log('this is a static method');
+  }
+  greet() {
+    console.log(`My name is ${this.name} and age is ${this.age}`);
   }
 }
 
-let aaa = new AAA({'a': 1, 'b': 2, 'c': 3, 'd': 4});
+class Cow extends Animal {
+  constructor(args) {
+    super(args);
+    this.from = args.from || 'Korea';
+  }
+  greet() { // overrides the parent method
+    console.log(`Moo~~ my name is ${this.name} and ${this.age} years old. I am from ${this.from}`);
+  }
+}
 
-console.log(aaa);
+let unknownAnimal = new Animal({});
+unknownAnimal.greet();
+let cow = new Cow({age: 10, name: 'mooey'});
+cow.greet();
