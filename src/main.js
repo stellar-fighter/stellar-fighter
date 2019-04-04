@@ -1,4 +1,9 @@
+/*eslint-env node*/
 import './main.scss';
+var $ = require('jquery'); // Load jQuery as a module
+require('jsrender')($);    // Load JsRender as jQuery plugin (jQuery instance as parameter)
+console.log($);
+console.log($.templates);
 
 class Animal {
   constructor(args) {

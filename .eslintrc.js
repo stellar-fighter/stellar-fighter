@@ -16,6 +16,7 @@ module.exports = {
         "indent": ["error", 2, {"MemberExpression": 0}],
         "semi": ["error", "always"],
         "no-unused-vars": "off",
-        "no-console": "off"
+        "no-console": "off",
+        "global-require": "error"
     }
 };
