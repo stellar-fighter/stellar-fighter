@@ -17,7 +17,7 @@
 - git checkout -b 'NEW BRANCH NAME'
 - Make changes to the code
 - git commit -m 'COMMIT MESSAGE'
-- git push
+- git push (git push -u origin 'NEW BRANCH NAME' for initial push)
 - Click 'New pull request' from github.com
 - Send pull request to https://github.com/stellar-fighter/stellar-fighter dev branch
 - For more information: https://help.github.com/en/articles/creating-a-pull-request-from-a-fork
