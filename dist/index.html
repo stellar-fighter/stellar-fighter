@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Document</title>
+   
+    <style>
+
+		#stage{position:absolute;width:500px;height:500px;border:solid;background-image: url(data:image/jpeg;base64,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)}
+
+		#player{position:absolute;top:450px;left:230px;width:25px;height:25px;background-color:white;color:black}
+
+		.bullet{position:absolute;width:10px;height:10px;background-color:red;border:solid 1px}
+
+	</style>
+
+
+
+
+        
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="theme-color" content="#FF0000"><meta name="charset" content="UTF-8"><link href="./main.css" rel="stylesheet"></head>
+<body>
+    
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Home</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#">Article <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">New</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Start</a>
+                      </li>
+                  </ul>
+                </div>
+              </nav>
+            <div class="container" style="margin-top: 30px; margin-left: 300px;">
+                <div id="stage">
+
+                    <div id="player"></div>
+            
+                </div>
+            
+            
+            
+            
+
+
+            </div>
+            
+
+
+            
+            
+           
+
+      
+
+<script type="text/javascript" src="./main.js"></script></body>
+
+
+<script>
+
+    var keyValue = {};
+
+    
+
+    setInterval(function(){
+
+        if(keyValue[37] == 'on'){
+
+           
+
+            $("#player").css("left", "-=5");
+
+        }
+
+        if(keyValue[38] == 'on'){
+
+           
+            $("#player").css("top", "-=5");
+
+        }
+
+        if(keyValue[39] == 'on'){
+
+            
+            $("#player").css("left", "+=5");
+
+        }
+
+        if(keyValue[40] == 'on'){
+
+            
+            $("#player").css("top", "+=5");
+
+        }
+
+    }, 10);
+
+    
+
+    $(function(){
+
+        $(document).on("keydown", function(e){
+
+            keyValue[e.keyCode] = 'on';
+
+        })
+
+        
+
+        $(document).on("keyup", function(e){
+
+            keyValue[e.keyCode] = undefined;
+
+        })
+
+    })
+
+</script>
+
+
+
+
+    
+    
+
+
+
+</html>
