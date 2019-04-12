@@ -10,6 +10,13 @@
    - Write some code with nano or vim command
    - npm start
    - Open http://localhost:8080 in your browser
+   
+## Using VS Code instead of Vim or Nano
+- Install VS Code (https://code.visualstudio.com/download)
+- Install 'Terminal Here' plugin (https://marketplace.visualstudio.com/items?itemName=Tyriar.vscode-terminal-here)
+- File -> Open Folder
+- File -> Save Workspace As
+- File -> Open Workspace later
 
 ## How to send a pull request
 - Fork this repository
