@@ -54,13 +54,18 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      'template': './src/index.html',
-      'filename': './index.html',
-      'meta': {
+      template: './src/index.html',
+      filename: './index.html',
+      meta: {
         'viewport': 'width=device-width, initial-scale=1, shrink-to-fit=no',
         'theme-color': '#FF0000',
         'charset': 'UTF-8'
       },
+      minify: {
+        collapseWhitespace: true,
+        minifyJS: true,
+        minifyCSS: true
+      }
     }),
     new CopyWebpackPlugin([
       {from: 'asset', to: 'asset'}
