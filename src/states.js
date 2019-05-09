@@ -1,7 +1,7 @@
 import {Camera} from './camera';
 import {StellarFighter, A001} from './entities';
-import {PosComp, MovComp} from './comps';
-import {MovSystem} from './systems';
+import {PosComp, MovComp, CamDeathComp} from './comps';
+import {MovSystem, CamDeathSystem} from './systems';
 
 class State {
   constructor({game, running, systems, entities}) {
@@ -35,6 +35,7 @@ class PlayState extends State {
     this.level = level;
     this.levelEntityIndex = 0;
     this.systems.push(new MovSystem({state: this}));
+    this.systems.push(new CamDeathSystem({state: this}));
     this.player = new StellarFighter({
       state: this,
       comps: {
@@ -42,46 +43,20 @@ class PlayState extends State {
         mov: new MovComp({velY: -15})
       }
     });
+    this.player.addComp(new CamDeathComp({}));
     this.entities.push(this.player);
 
     const that = this;
     this.handleKeyDown = function(event) {
-      switch(event.code) {
-      case 'ArrowUp':
-        that.event.up = true;
-        break;
-      case 'ArrowDown':
-        that.event.down = true;
-        break;
-      case 'ArrowLeft':
-        that.event.left = true;
-        break;
-      case 'ArrowRight':
-        that.event.right = true;
-        break;
-      case 'Space':
-        that.event.space = true;
-        break;
+      console.log(event.code);
+      if(event.code == 'KeyP') {
+        that.running = !that.running;
+        return;
       }
+      that.event[event.code] = true;
     };
     this.handleKeyUp = function(event) {
-      switch(event.code) {
-      case 'ArrowUp':
-        that.event.up = false;
-        break;
-      case 'ArrowDown':
-        that.event.down = false;
-        break;
-      case 'ArrowLeft':
-        that.event.left = false;
-        break;
-      case 'ArrowRight':
-        that.event.right = false;
-        break;
-      case 'Space':
-        that.event.space = false;
-        break;
-      }
+      that.event[event.code] = false;
     };
     addEventListener('keydown', this.handleKeyDown);
     addEventListener('keyup', this.handleKeyUp);
@@ -110,18 +85,18 @@ class PlayState extends State {
   }
 
   update() {
-    if(this.running === false)
+    if(this.running == false)
       return;
     const pos = this.player.comps['pos'];
-    if(this.event.up)
+    if(this.event.ArrowUp)
       pos.y -= 30;
-    if(this.event.down)
+    if(this.event.ArrowDown)
       pos.y += 30;
-    if(this.event.left)
+    if(this.event.ArrowLeft)
       pos.x -= 30;
-    if(this.event.right)
+    if(this.event.ArrowRight)
       pos.x += 30;
-    if(this.event.space) {
+    if(this.event.Space) {
       this.entities.push(
         new StellarFighter({
           state: this,
