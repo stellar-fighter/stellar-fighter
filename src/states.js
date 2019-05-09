@@ -43,7 +43,6 @@ class PlayState extends State {
         mov: new MovComp({velY: -15})
       }
     });
-    this.player.addComp(new CamDeathComp({}));
     this.entities.push(this.player);
 
     const that = this;
@@ -74,7 +73,8 @@ class PlayState extends State {
           new StellarFighter({
             state: this,
             comps: {
-              pos: new PosComp({x: entityData.x, y: entityData.y})
+              pos: new PosComp({x: entityData.x, y: entityData.y}),
+              camDeath: new CamDeathComp({})
             }
           })
         );
