@@ -5,10 +5,11 @@ class Comp {
 }
 
 class PosComp extends Comp {
-  constructor({x, y}) {
+  constructor({x, y, abs}) {
     super({name: 'pos'});
     this.x = x || 0;
     this.y = y || 0;
+    this.abs = abs || false;
   }
 }
 
@@ -43,14 +44,12 @@ class VisComp extends Comp {
 class CollComp extends Comp {
   constructor({enabled}) {
     super({name: 'coll'});
-    this.enabled = enabled || true;
   }
 }
 
 class CtrlComp extends Comp {
   constructor({enabled}) {
     super({name: 'ctrl'});
-    this.enabled = enabled || false;
   }
 }
 
@@ -61,4 +60,11 @@ class HpComp extends Comp {
   }
 }
 
-export {Comp, PosComp, MovComp, SizeComp, VisComp};
+class CamDeathComp extends Comp {
+  constructor({enabled}) {
+    super({name: 'cam-death'});
+  }
+}
+
+
+export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamDeathComp};

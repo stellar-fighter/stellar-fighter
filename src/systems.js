@@ -36,4 +36,29 @@ class MovSystem extends System {
 class CollSystem extends System {
 }
 
-export {System, MovSystem, CollSystem};
+class CamDeathSystem extends System {
+  constructor({state, compNames}) {
+    super({state, compNames: ['cam-death', 'pos']});
+  }
+  process() {
+    const camera = this.state.camera;
+    const canvas = this.state.canvas;
+    for(let index = this.state.entities.length - 1; index >= 0; --index) {
+      let entity = this.state.entities[index];
+      let camDeath = entity.comps['cam-death'];
+      let pos = entity.comps['pos'];
+
+      if(camDeath && pos)
+        console.log((pos.y - camera.y) * camera.scale);
+      if(this.filter(entity) == true && camDeath &&
+         ((pos.x - camera.x) * camera.scale < 0 ||
+          (pos.x - camera.x) * camera.scale > canvas.width ||
+          (pos.y - camera.y) * camera.scale < 0 ||
+          (pos.y - camera.y) * camera.scale > canvas.height)) {
+        this.state.entities.splice(index, 1);
+      }
+    }
+  }
+}
+
+export {System, MovSystem, CollSystem, CamDeathSystem};
