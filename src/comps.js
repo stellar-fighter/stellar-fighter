@@ -40,4 +40,25 @@ class VisComp extends Comp {
   }
 }
 
+class CollComp extends Comp {
+  constructor({enabled}) {
+    super({name: 'coll'});
+    this.enabled = enabled || true;
+  }
+}
+
+class CtrlComp extends Comp {
+  constructor({enabled}) {
+    super({name: 'ctrl'});
+    this.enabled = enabled || false;
+  }
+}
+
+class HpComp extends Comp {
+  constructor({value}) {
+    super({name: 'hp'});
+    this.value = value || 1;
+  }
+}
+
 export {Comp, PosComp, MovComp, SizeComp, VisComp};
