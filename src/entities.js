@@ -17,7 +17,7 @@ class StellarFighter extends Entity {
     super({state, comps});
     this.addComp(comps['pos'] || new PosComp({}));
     this.addComp(comps['mov'] || new MovComp({}));
-    this.addComp(comps['size'] || new SizeComp({width: 300, height: 400}));
+    this.addComp(comps['size'] || new SizeComp({width: 600, height: 800}));
     this.addComp(comps['vis'] || new VisComp({image: this.state.game.assets.stellarFighter}));
   }
 }
