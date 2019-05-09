@@ -14,20 +14,17 @@ class Game {
   get state() {
     return this.states[this.states.length - 1];
   }
-  set running(value) {
-    this.states[this.states.length - 1].running = value;
-  }
-  get running() {
-    return this.states[this.states.length - 1].running;
-  }
   setTime(timeStamp) {
-    this.states[this.states.length - 1].setTime(timeStamp);
+    if(this.states.length > 0)
+      this.states[this.states.length - 1].setTime(timeStamp);
   }
   update() {
-    this.states[this.states.length - 1].update();
+    if(this.states.length > 0)
+      this.states[this.states.length - 1].update();
   }
   render() {
-    this.states[this.states.length - 1].render();
+    if(this.states.length > 0)
+      this.states[this.states.length - 1].render();
   }
 }
 
