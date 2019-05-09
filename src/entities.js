@@ -15,10 +15,16 @@ class Entity {
 class StellarFighter extends Entity {
   constructor({state, comps}) {
     super({state, comps});
-    this.addComp(comps['pos'] || new PosComp({}));
-    this.addComp(comps['mov'] || new MovComp({}));
-    this.addComp(comps['size'] || new SizeComp({width: 600, height: 800}));
-    this.addComp(comps['vis'] || new VisComp({image: this.state.game.assets.stellarFighter}));
+    for(let comp in comps)
+      this.addComp(comp);
+    if(this.comps['pos'] === undefined)
+      this.addComp(new PosComp({}));
+    if(this.comps['mov'] === undefined)
+      this.addComp(new MovComp({}));
+    if(this.comps['size'] === undefined)
+      this.addComp(new SizeComp({width: 600, height: 800}));
+    if(this.comps['vis'] === undefined)
+      this.addComp(new VisComp({image: this.state.game.assets.stellarFighter}));
   }
 }
 
