@@ -1,34 +1,43 @@
 /*eslint-env node*/
 import './main.scss';
-var $ = require('jquery'); // Load jQuery as a module
-require('jsrender')($);    // Load JsRender as jQuery plugin (jQuery instance as parameter)
-console.log($);
-console.log($.templates);
+import {Game} from './game';
+import {State, PlayState} from './states';
 
-class Animal {
-  constructor(args) {
-    this.name = args.name || 'unnamed';
-    this.age = args.age || 0;
+function main() {
+  const canvas = document.getElementById('main-canvas');
+  function resizeCanvas() {
+    canvas.width = 3;
+    canvas.height = 4;
+    if(canvas.height / canvas.width >= window.innerHeight / window.innerWidth) {
+      const newHeight = window.innerHeight;
+      canvas.width = newHeight * canvas.width / canvas.height;
+      canvas.height = newHeight;
+    } else {
+      const newWidth = window.innerWidth;
+      canvas.height = newWidth * canvas.height / canvas.width;
+      canvas.width = newWidth;
+    }
   }
-  static staticMethod() {
-    console.log('this is a static method');
+  addEventListener("resize", resizeCanvas);
+  addEventListener("load", resizeCanvas);
+
+  const game = new Game();
+
+  const level = [{x: 0, y: -1000, type: 's-fighter'}, {x: 1000, y: -2000, type: 's-fighter', player: true}];
+  level.sort((a, b) => {
+    return b.y - a.y;
+  });
+
+  let state = new PlayState({game, running: true, canvas, level});
+  game.pushState(state);
+  function step(timeStamp) {
+    game.setTime(timeStamp);
+    game.update();
+    game.render();
+    if(game.running)
+      requestAnimationFrame(step);
   }
-  greet() {
-    console.log(`My name is ${this.name} and age is ${this.age}`);
-  }
+  requestAnimationFrame(step);
 }
 
-class Cow extends Animal {
-  constructor(args) {
-    super(args);
-    this.from = args.from || 'Korea';
-  }
-  greet() { // overrides the parent method
-    console.log(`Moo~~ my name is ${this.name} and ${this.age} years old. I am from ${this.from}`);
-  }
-}
-
-let unknownAnimal = new Animal({});
-unknownAnimal.greet();
-let cow = new Cow({age: 10, name: 'mooey'});
-cow.greet();
+main();
