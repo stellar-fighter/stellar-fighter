@@ -59,6 +59,9 @@ class PlayState extends State {
       case 'ArrowRight':
         that.event.right = true;
         break;
+      case 'Space':
+        that.event.space = true;
+        break;
       }
     };
     this.handleKeyUp = function(event) {
@@ -74,6 +77,9 @@ class PlayState extends State {
         break;
       case 'ArrowRight':
         that.event.right = false;
+        break;
+      case 'Space':
+        that.event.space = false;
         break;
       }
     };
@@ -115,6 +121,17 @@ class PlayState extends State {
       pos.x -= 30;
     if(this.event.right)
       pos.x += 30;
+    if(this.event.space) {
+      this.entities.push(
+        new StellarFighter({
+          state: this,
+          comps: {
+            pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
+            mov: new MovComp({velY: -30})
+          }
+        })
+      );
+    }
     this.genEntity();
     for(let system of this.systems) {
       system.process();
