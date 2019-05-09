@@ -62,9 +62,8 @@ class HpComp extends Comp {
 
 class CamDeathComp extends Comp {
   constructor({enabled}) {
-    super({name: 'cam-death'});
+    super({name: 'camDeath'});
   }
 }
-
 
 export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamDeathComp};
