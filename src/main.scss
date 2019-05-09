@@ -1,4 +1,11 @@
 $bgcolor: #FFFFFF;
 html {
   background-color: $bgcolor;
+  body {
+    padding: 0px;
+    margin: 0px;
+  }
+}
+#main-canvas {
+  display: block;
 }
