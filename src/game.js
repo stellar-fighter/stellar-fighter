@@ -11,6 +11,9 @@ class Game {
   popState() {
     this.states.pop();
   }
+  get state() {
+    return this.states[this.states.length - 1];
+  }
   set running(value) {
     this.states[this.states.length - 1].running = value;
   }
