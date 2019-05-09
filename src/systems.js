@@ -38,14 +38,14 @@ class CollSystem extends System {
 
 class CamDeathSystem extends System {
   constructor({state, compNames}) {
-    super({state, compNames: ['cam-death', 'pos']});
+    super({state, compNames: ['camDeath', 'pos']});
   }
   process() {
     const camera = this.state.camera;
     const canvas = this.state.canvas;
     for(let index = this.state.entities.length - 1; index >= 0; --index) {
       let entity = this.state.entities[index];
-      let camDeath = entity.comps['cam-death'];
+      let camDeath = entity.comps['camDeath'];
       let pos = entity.comps['pos'];
 
       if(camDeath && pos)
