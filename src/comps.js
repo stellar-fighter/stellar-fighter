@@ -42,8 +42,9 @@ class VisComp extends Comp {
 }
 
 class CollComp extends Comp {
-  constructor() {
+  constructor({damage}) {
     super({name: 'coll'});
+    this.damage = damage || 0;
   }
 }
 
@@ -76,4 +77,11 @@ class CamOutComp extends Comp {
   }
 }
 
-export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp};
+class TeamComp extends Comp {
+  constructor({value}) {
+    super({name: 'team'});
+    this.value = value || 'DEFAULT';
+  }
+}
+
+export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp, CollComp, TeamComp};

@@ -6,7 +6,6 @@ import $ from 'jquery';
 
 function main() {
   let started = false;
-
   const controls = document.getElementById('controls');
   const canvas = document.getElementById('main-canvas');
 
