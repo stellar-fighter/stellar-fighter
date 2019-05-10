@@ -49,22 +49,19 @@ class CollSystem extends System {
             pos2.y + size2.height > pos1.y);
   }
   constructor({state, compNames}) {
-    super({state, compNames: ['pos', 'size']});
+    super({state, compNames: ['coll', 'team', 'pos', 'size']});
   }
   process() {
     for(let i = this.state.entities.length - 1; i >= 1; --i) {
-      let entity1 = this.state.entities[i];
-      if(this.filter(entity1)) {
-        for(let j = i - 1; j >= 0; --j) {
-          let entity2 = this.state.entities[j];
-          if(this.filter(entity2)) {
-            if(CollSystem.checkColl(entity1, entity2)) {
-              entity1.comps['size'].width = 100;
-              entity2.comps['size'].width = 100;
-              entity1.comps['size'].height = 100;
-              entity2.comps['size'].height = 100;
-            }
-          }
+      for(let j = i - 1; j >= 0; --j) {
+        const entity1 = this.state.entities[i];
+        const entity2 = this.state.entities[j];
+        if(this.filter(entity1) &&
+           this.filter(entity2) &&
+           entity1.comps['team'].value != entity2.comps['team'].value &&
+           CollSystem.checkColl(entity1, entity2)) {
+          entity1.comps['hp'].value -= entity2.comps['coll'].damage;
+          entity2.comps['hp'].value -= entity1.comps['coll'].damage;
         }
       }
     }
@@ -79,10 +76,10 @@ class CamOutSystem extends System {
     const camera = this.state.camera;
     const canvas = this.state.canvas;
     for(let index = this.state.entities.length - 1; index >= 0; --index) {
-      let entity = this.state.entities[index];
-      let camOut = entity.comps['camOut'];
-      let pos = entity.comps['pos'];
-      let size = entity.comps['size'];
+      const entity = this.state.entities[index];
+      const camOut = entity.comps['camOut'];
+      const pos = entity.comps['pos'];
+      const size = entity.comps['size'];
       if(this.filter(entity) == true) {
         if(camOut.type == CamOutComp.DESTROY) {
           if((pos.x + size.width - camera.x) * camera.scale < 0 ||
@@ -106,4 +103,16 @@ class CamOutSystem extends System {
   }
 }
 
-export {System, MovSystem, CollSystem, CamOutSystem};
+class HpSystem extends System {
+  constructor({state, compNames}) {
+    super({state, compNames: ['hp']});
+  }
+  process() {
+    for(let index = this.state.entities.length - 1; index >= 0; --index) {
+      if(this.state.entities[index].comps['hp'].value < 0)
+        this.state.entities.splice(index, 1);
+    }
+  }
+}
+
+export {System, MovSystem, CollSystem, CamOutSystem, HpSystem};
