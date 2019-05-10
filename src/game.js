@@ -4,6 +4,8 @@ class Game {
     this.assets = {};
     this.assets.stellarFighter = new Image();
     this.assets.stellarFighter.src = './asset/fighter.png';
+    this.assets.fire = new Image();
+    this.assets.fire.src = './asset/fire.png';
   }
   pushState(state) {
     this.states.push(state);
