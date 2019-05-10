@@ -6,6 +6,18 @@ html {
     margin: 0px;
   }
 }
+
 #main-canvas {
   display: block;
+  background-color: grey;
+  margin: auto;
+}
+
+#controls {
+  background-color: darkblue;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0
 }
