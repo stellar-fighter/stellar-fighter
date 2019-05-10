@@ -1,7 +1,7 @@
 import {Camera} from './camera';
-import {StellarFighter, A001} from './entities';
-import {PosComp, SizeComp, MovComp, VisComp, CamOutComp} from './comps';
-import {MovSystem, CamOutSystem, CollSystem} from './systems';
+import {F001, A001} from './entities';
+import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
+import {MovSystem, CamOutSystem, CollSystem, HpSystem} from './systems';
 
 class State {
   constructor({game, running, systems, entities}) {
@@ -35,14 +35,15 @@ class PlayState extends State {
     this.level = level;
     this.levelEntityIndex = 0;
     this.systems.push(new MovSystem({state: this}));
+    this.systems.push(new HpSystem({state: this}));
     this.systems.push(new CamOutSystem({state: this}));
     this.systems.push(new CollSystem({state: this}));
-    this.player = new StellarFighter({
+    this.player = new F001({
       state: this,
       comps: {
         pos: new PosComp({x: 1500, y: 2000}),
         mov: new MovComp({velY: -15}),
-        camOut: new CamOutComp({type: CamOutComp.BLOCK})
+        camOut: new CamOutComp({type: CamOutComp.BLOCK}),
       }
     });
     this.entities.push(this.player);
@@ -73,7 +74,7 @@ class PlayState extends State {
         break;
       case 's-fighter':
         this.entities.push(
-          new StellarFighter({
+          new F001({
             state: this,
             comps: {
               pos: new PosComp({x: entityData.x, y: entityData.y}),
@@ -87,11 +88,12 @@ class PlayState extends State {
     */
     if(Math.random() > 0.99) {
       this.entities.push(
-        new StellarFighter({
+        new F001({
           state: this,
           comps: {
             pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x) , y: this.camera.y}),
-          }
+            team: new TeamComp({value: 'enemy'})
+          },
         })
       );
     }
@@ -112,13 +114,14 @@ class PlayState extends State {
       pos.x += 30;
     if(this.event.Space) {
       this.entities.push(
-        new StellarFighter({
+        new F001({
           state: this,
           comps: {
             size: new SizeComp({width: 100, height: 500}),
             pos: new PosComp({x: (this.player.comps['pos'].x)  , y: this.player.comps['pos'].y}),
             mov: new MovComp({velY: -30}),
             vis: new VisComp({image: this.game.assets.fire}),
+            coll: new CollComp({damage: 1}),
           }
         })
       );

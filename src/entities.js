@@ -1,4 +1,4 @@
-import {PosComp, MovComp, SizeComp, VisComp, CamOutComp} from './comps';
+import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
 class Entity {
   constructor({state, comps}) {
     this.state = state;
@@ -12,7 +12,7 @@ class Entity {
   }
 }
 
-class StellarFighter extends Entity {
+class F001 extends Entity {
   constructor({state, comps}) {
     super({state, comps});
     for(let comp in comps)
@@ -27,10 +27,16 @@ class StellarFighter extends Entity {
       this.addComp(new VisComp({image: this.state.game.assets.stellarFighter}));
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
+    if(this.comps['coll'] === undefined)
+      this.addComp(new CollComp({damage: 1}));
+    if(this.comps['hp'] === undefined)
+      this.addComp(new HpComp({value: 100}));
+    if(this.comps['team'] === undefined)
+      this.addComp(new TeamComp({value: 'PLAYER'}));
   }
 }
 
 class A001 extends Entity {
 }
 
-export {Entity, StellarFighter, A001};
+export {Entity, F001, A001};
