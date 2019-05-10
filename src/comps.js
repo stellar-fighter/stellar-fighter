@@ -42,13 +42,13 @@ class VisComp extends Comp {
 }
 
 class CollComp extends Comp {
-  constructor({enabled}) {
+  constructor() {
     super({name: 'coll'});
   }
 }
 
 class CtrlComp extends Comp {
-  constructor({enabled}) {
+  constructor() {
     super({name: 'ctrl'});
   }
 }
@@ -60,10 +60,20 @@ class HpComp extends Comp {
   }
 }
 
-class CamDeathComp extends Comp {
-  constructor({enabled}) {
-    super({name: 'camDeath'});
+class CamOutComp extends Comp {
+  constructor({type}) {
+    super({name: 'camOut'});
+    this.type = type || CamOutComp.DESTROY;
+  }
+  static get NONE() {
+    return 0;
+  }
+  static get DESTROY() {
+    return 1;
+  }
+  static get BLOCK() {
+    return 2;
   }
 }
 
-export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamDeathComp};
+export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp};
