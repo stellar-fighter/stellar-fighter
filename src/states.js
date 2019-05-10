@@ -1,7 +1,7 @@
 import {Camera} from './camera';
 import {StellarFighter, A001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp} from './comps';
-import {MovSystem, CamOutSystem} from './systems';
+import {MovSystem, CamOutSystem, CollSystem} from './systems';
 
 class State {
   constructor({game, running, systems, entities}) {
@@ -36,6 +36,7 @@ class PlayState extends State {
     this.levelEntityIndex = 0;
     this.systems.push(new MovSystem({state: this}));
     this.systems.push(new CamOutSystem({state: this}));
+    this.systems.push(new CollSystem({state: this}));
     this.player = new StellarFighter({
       state: this,
       comps: {
