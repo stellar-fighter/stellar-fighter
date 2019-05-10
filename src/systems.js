@@ -52,9 +52,9 @@ class CamOutSystem extends System {
       let size = entity.comps['size'];
       if(this.filter(entity) == true && camOut) {
         if(camOut.type == CamOutComp.DESTROY) {
-          if((pos.x - camera.x) * camera.scale < 0 ||
+          if((pos.x + size.width - camera.x) * camera.scale < 0 ||
              (pos.x - camera.x) * camera.scale > canvas.width ||
-             (pos.y - camera.y) * camera.scale < 0 ||
+             (pos.y + size.height - camera.y) * camera.scale < 0 ||
              (pos.y - camera.y) * camera.scale > canvas.height) {
             this.state.entities.splice(index, 1);
           }
