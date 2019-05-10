@@ -1,4 +1,4 @@
-import {PosComp, MovComp, SizeComp, VisComp} from './comps';
+import {PosComp, MovComp, SizeComp, VisComp, CamOutComp} from './comps';
 class Entity {
   constructor({state, comps}) {
     this.state = state;
@@ -25,6 +25,8 @@ class StellarFighter extends Entity {
       this.addComp(new SizeComp({width: 600, height: 800}));
     if(this.comps['vis'] === undefined)
       this.addComp(new VisComp({image: this.state.game.assets.stellarFighter}));
+    if(this.comps['camOut'] === undefined)
+      this.addComp(new CamOutComp({}));
   }
 }
 
