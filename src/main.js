@@ -2,9 +2,12 @@
 import './main.scss';
 import {Game} from './game';
 import {State, PlayState} from './states';
+import $ from 'jquery';
 
 function main() {
   let started = false;
+
+  const controls = document.getElementById('controls');
   const canvas = document.getElementById('main-canvas');
 
   const game = new Game();
@@ -33,15 +36,20 @@ function main() {
       canvas.height = newWidth * canvas.height / canvas.width;
       canvas.width = newWidth;
     }
+    const $canvas = $(canvas);
+    const $controls = $(controls);
+    $controls.css('bottom', window.innerHeight - canvas.height);
+    $controls.css('left', $canvas.offset().left);
+    $controls.css('width', $canvas.width());
     if(started == false) {
       started = true;
       game.pushState(new PlayState({game, running: true, canvas, level}));
       requestAnimationFrame(step);
     }
   }
-  addEventListener("resize", resizeCanvas);
-  addEventListener("load", resizeCanvas);
-
+  addEventListener('resize', resizeCanvas);
+  addEventListener('load', resizeCanvas);
+  addEventListener('focus', (event) => document.activeElement.blur());
 }
 
 main();
