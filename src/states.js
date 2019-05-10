@@ -1,7 +1,7 @@
 import {Camera} from './camera';
 import {StellarFighter, A001} from './entities';
-import {PosComp, MovComp, CamDeathComp} from './comps';
-import {MovSystem, CamDeathSystem} from './systems';
+import {PosComp, SizeComp, MovComp, VisComp, CamOutComp} from './comps';
+import {MovSystem, CamOutSystem} from './systems';
 
 class State {
   constructor({game, running, systems, entities}) {
@@ -35,12 +35,13 @@ class PlayState extends State {
     this.level = level;
     this.levelEntityIndex = 0;
     this.systems.push(new MovSystem({state: this}));
-    this.systems.push(new CamDeathSystem({state: this}));
+    this.systems.push(new CamOutSystem({state: this}));
     this.player = new StellarFighter({
       state: this,
       comps: {
-        pos: new PosComp({x: 1000, y: 2500}),
-        mov: new MovComp({velY: -15})
+        pos: new PosComp({x: 1500, y: 2000}),
+        mov: new MovComp({velY: -15}),
+        camOut: new CamOutComp({type: CamOutComp.BLOCK})
       }
     });
     this.entities.push(this.player);
@@ -74,7 +75,6 @@ class PlayState extends State {
             state: this,
             comps: {
               pos: new PosComp({x: entityData.x, y: entityData.y}),
-              camDeath: new CamDeathComp({})
             }
           })
         );
@@ -101,8 +101,10 @@ class PlayState extends State {
         new StellarFighter({
           state: this,
           comps: {
-            pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
-            mov: new MovComp({velY: -30})
+            size: new SizeComp({width: 100, height: 500}),
+            pos: new PosComp({x: (this.player.comps['pos'].x)  , y: this.player.comps['pos'].y}),
+            mov: new MovComp({velY: -30}),
+            vis: new VisComp({image: this.game.assets.fire})
           }
         })
       );
@@ -116,24 +118,56 @@ class PlayState extends State {
 
   render() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.beginPath();
+    this.ctx.rect(
+      0,
+      0,
+      this.canvas.width / 2,
+      this.canvas.height / 2
+    );
+    this.ctx.stroke();
+
     /*
-    this.ctx.save();
-    this.ctx.setTransform(1, 0, 1, 1, 1, 1);
-    */
+       */
     if(this.entities.length > 0) {
       for(let entity of this.entities) {
-        this.ctx.drawImage(
-          entity.comps['vis'].image,
-          (entity.comps['pos'].x - this.camera.x) * this.camera.scale,
-          (entity.comps['pos'].y - this.camera.y) * this.camera.scale,
-          entity.comps['size'].width * this.camera.scale,
-          entity.comps['size'].height * this.camera.scale
+        let pos = entity.comps['pos'];
+        let size = entity.comps['size'];
+        let vis = entity.comps['vis'];
+        this.ctx.save();
+        this.ctx.setTransform(
+          this.camera.scale, 0,
+          0, this.camera.scale,
+          //size.width / -2 * this.camera.scale, 0 
+          0, 0
         );
+        this.ctx.drawImage(
+          vis.image,
+          (pos.x - this.camera.x),
+          (pos.y - this.camera.y),
+          size.width,
+          size.height
+        );
+        this.ctx.beginPath();
+        this.ctx.rect(
+          (pos.x - this.camera.x),
+          (pos.y - this.camera.y),
+          size.width,
+          size.height
+        );
+        this.ctx.stroke();
+        this.ctx.beginPath();
+        this.ctx.rect(
+          (pos.x - this.camera.x),
+          (pos.y - this.camera.y),
+          10,
+          10
+        );
+        this.ctx.fill();
+        this.ctx.closePath();
+        this.ctx.restore();
       }
     }
-    /*
-    this.ctx.restore();
-    */
   }
   destroy() {
     removeEventListener('keydown', this.handleKeyDown);
