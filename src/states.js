@@ -63,6 +63,7 @@ class PlayState extends State {
   }
 
   genEntity() {
+    /*
     let entityData = this.level[this.levelEntityIndex];
     while(entityData && this.camera.y <= entityData.y) {
       switch(entityData.type) {
@@ -82,6 +83,18 @@ class PlayState extends State {
       }
       entityData = this.level[++this.levelEntityIndex];
     }
+    */
+    if(Math.random() > 0.99) {
+      this.entities.push(
+        new StellarFighter({
+          state: this,
+          comps: {
+            pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x) , y: this.camera.y}),
+          }
+        })
+      );
+    }
+    console.log(this.entities);
   }
 
   update() {
@@ -104,7 +117,7 @@ class PlayState extends State {
             size: new SizeComp({width: 100, height: 500}),
             pos: new PosComp({x: (this.player.comps['pos'].x)  , y: this.player.comps['pos'].y}),
             mov: new MovComp({velY: -30}),
-            vis: new VisComp({image: this.game.assets.fire})
+            vis: new VisComp({image: this.game.assets.fire}),
           }
         })
       );
