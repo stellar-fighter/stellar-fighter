@@ -1,5 +1,5 @@
 import {Camera} from './camera';
-import {F001, A001} from './entities';
+import {F001, A001, Bullet001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem} from './systems';
 
@@ -97,7 +97,7 @@ class PlayState extends State {
         })
       );
     }
-    console.log(this.entities);
+    //console.log(this.entities);
   }
 
   update() {
@@ -114,14 +114,10 @@ class PlayState extends State {
       pos.x += 30;
     if(this.event.Space) {
       this.entities.push(
-        new F001({
+        new Bullet001({
           state: this,
           comps: {
-            size: new SizeComp({width: 100, height: 500}),
-            pos: new PosComp({x: (this.player.comps['pos'].x)  , y: this.player.comps['pos'].y}),
-            mov: new MovComp({velY: -30}),
-            vis: new VisComp({image: this.game.assets.fire}),
-            coll: new CollComp({damage: 1}),
+            pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
           }
         })
       );
