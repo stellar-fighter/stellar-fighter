@@ -114,7 +114,7 @@ class PlayState extends State {
     if(this.event.ArrowRight)
       pos.x += 30;
     if(this.event.Space) {
-      if (this.player.comps['shooting'].enabled()) {
+      if (this.player.comps['shooting'].enabled) {
         this.entities.push(
           new Bullet001({
             state: this,
@@ -143,8 +143,6 @@ class PlayState extends State {
     );
     this.ctx.stroke();
 
-    /*
-       */
     if(this.entities.length > 0) {
       for(let entity of this.entities) {
         let pos = entity.comps['pos'];
@@ -172,14 +170,6 @@ class PlayState extends State {
           size.height
         );
         this.ctx.stroke();
-        this.ctx.beginPath();
-        this.ctx.rect(
-          (pos.x - this.camera.x),
-          (pos.y - this.camera.y),
-          10,
-          10
-        );
-        this.ctx.fill();
         this.ctx.closePath();
         this.ctx.restore();
       }
