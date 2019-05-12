@@ -1,5 +1,5 @@
 import {Camera} from './camera';
-import {F001, A001, Bullet001} from './entities';
+import {Fighter001, Alien001, Bullet001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem} from './systems';
 
@@ -38,7 +38,7 @@ class PlayState extends State {
     this.systems.push(new HpSystem({state: this}));
     this.systems.push(new CamOutSystem({state: this}));
     this.systems.push(new CollSystem({state: this}));
-    this.player = new F001({
+    this.player = new Fighter001({
       state: this,
       comps: {
         pos: new PosComp({x: 1500, y: 2000}),
@@ -73,11 +73,11 @@ class PlayState extends State {
     while(entityData && this.camera.y <= entityData.y) {
       switch(entityData.type) {
       case 'a-001':
-        //this.entities.push(new A001({state: this}));
+        //this.entities.push(new Alien001({state: this}));
         break;
       case 's-fighter':
         this.entities.push(
-          new F001({
+          new Fighter001({
             state: this,
             comps: {
               pos: new PosComp({x: entityData.x, y: entityData.y}),
@@ -91,7 +91,7 @@ class PlayState extends State {
     */
     if(Math.random() > 0.99) {
       this.entities.push(
-        new F001({
+        new Fighter001({
           state: this,
           comps: {
             pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x) , y: this.camera.y}),
