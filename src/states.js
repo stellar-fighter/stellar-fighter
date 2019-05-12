@@ -50,7 +50,7 @@ class PlayState extends State {
     this.entities.push(this.player);
 
     const that = this;
-    this.handleKeyDown = function(event) {
+    this.handleKeyDown = (event) => {
       console.log(event.code);
       if(event.code == 'KeyP') {
         that.running = !that.running;
@@ -58,7 +58,7 @@ class PlayState extends State {
       }
       that.event[event.code] = true;
     };
-    this.handleKeyUp = function(event) {
+    this.handleKeyUp = (event) => {
       that.event[event.code] = false;
     };
     addEventListener('keydown', this.handleKeyDown);
