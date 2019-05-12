@@ -21,6 +21,7 @@
 ## How to send a pull request
 - Fork this repository
 - git clone 'YOUR FORKED REPOSITORY'
+- git checkout dev
 - git checkout -b 'NEW BRANCH NAME'
 - Make changes to the code
 - git commit -m 'COMMIT MESSAGE'
