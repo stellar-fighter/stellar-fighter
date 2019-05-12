@@ -1,6 +1,7 @@
 import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
 class Entity {
-  constructor({state, comps}) {
+  constructor({id, state, comps}) {
+    this.id = id;
     this.state = state;
     this.comps = comps || {};
   }
