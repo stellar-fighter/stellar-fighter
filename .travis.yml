@@ -1,0 +1,5 @@
+dist: xenial
+sudo: required
+language: node_js
+script:
+  - npm run build
