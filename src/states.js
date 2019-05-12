@@ -48,6 +48,9 @@ class PlayState extends State {
     });
     this.entities.push(this.player);
 
+    //연속 스페이스 사용 금지 위한 변수
+    this.previousSpace = 0;
+
     const that = this;
     this.handleKeyDown = function(event) {
       console.log(event.code);
@@ -113,14 +116,21 @@ class PlayState extends State {
     if(this.event.ArrowRight)
       pos.x += 30;
     if(this.event.Space) {
-      this.entities.push(
-        new Bullet001({
-          state: this,
-          comps: {
-            pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
-          }
-        })
-      );
+      // 연속적인 스페이스 사용 금지하고 0.15초에 한번씩 bullet 쏠 수 있게
+      var currentSpace = new Date().getTime();
+      
+      if (currentSpace - this.previousSpace > 150) {
+        this.entities.push(
+          new Bullet001({
+            state: this,
+            comps: {
+              pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
+            }
+          })
+        );
+        this.previousSpace = currentSpace; 
+      }
+      
     }
     this.genEntity();
     for(let system of this.systems) {
