@@ -3,13 +3,6 @@ class Entity {
   constructor({state, comps}) {
     this.state = state;
     this.comps = comps || {};
-    //this.comps = {};
-    for(let comp in comps) {
-      console.log(comps);
-      console.log('------------');
-      console.log(comp.name);
-      this.addComp(comp);
-    }
   }
   addComp(comp) {
     this.comps[comp.name] = comp;
@@ -19,7 +12,7 @@ class Entity {
   }
 }
 
-class F001 extends Entity {
+class Fighter001 extends Entity {
   constructor({state, comps}) {
     super({state, comps});
     if(this.comps['pos'] === undefined)
@@ -41,7 +34,7 @@ class F001 extends Entity {
   }
 }
 
-class A001 extends Entity {
+class Alien001 extends Entity {
 }
 
 class Bullet001 extends Entity {
@@ -66,4 +59,4 @@ class Bullet001 extends Entity {
   }
 }
 
-export {Entity, F001, A001, Bullet001};
+export {Entity, Fighter001, Alien001, Bullet001};
