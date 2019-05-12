@@ -1,6 +1,6 @@
 import {Camera} from './camera';
 import {Fighter001, Alien001, Bullet001} from './entities';
-import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
+import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem} from './systems';
 
 class State {
@@ -43,7 +43,8 @@ class PlayState extends State {
       comps: {
         pos: new PosComp({x: 1500, y: 2000}),
         mov: new MovComp({velY: -15}),
-        camOut: new CamOutComp({type: CamOutComp.BLOCK}),
+        camOut: new CamOutComp({type: CamOutComp.BLOCK}),        
+        shooting: new ShootingComp({coolTime:150}),
       }
     });
     this.entities.push(this.player);
@@ -113,14 +114,16 @@ class PlayState extends State {
     if(this.event.ArrowRight)
       pos.x += 30;
     if(this.event.Space) {
-      this.entities.push(
-        new Bullet001({
-          state: this,
-          comps: {
-            pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
-          }
-        })
-      );
+      if (this.player.comps['shooting'].enabled()) {
+        this.entities.push(
+          new Bullet001({
+            state: this,
+            comps: {
+              pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
+            }
+          })
+        );
+      }      
     }
     this.genEntity();
     for(let system of this.systems) {
