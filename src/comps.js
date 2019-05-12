@@ -42,9 +42,10 @@ class VisComp extends Comp {
 }
 
 class CollComp extends Comp {
-  constructor({damage}) {
+  constructor({damage, coolTime}) {
     super({name: 'coll'});
     this.damage = damage || 0;
+    this.coolTime = coolTime || 0;
   }
 }
 
