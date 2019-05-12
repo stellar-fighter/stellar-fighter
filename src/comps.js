@@ -84,4 +84,22 @@ class TeamComp extends Comp {
   }
 }
 
-export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp, CollComp, TeamComp};
+class ShootingComp extends Comp {
+  constructor({coolTime}) {
+    super({name: 'shooting'});
+    this.previousShoot = 0;
+    this.coolTime = coolTime || 150;
+  }
+  enabled () {
+    let currentShoot = new Date().getTime();
+    if (currentShoot - this.previousShoot > this.coolTime) {
+      this.previousShoot = currentShoot;
+      return true;
+    }
+    else {
+      return false;
+    } 
+  }
+}
+
+export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp, CollComp, TeamComp, ShootingComp};
