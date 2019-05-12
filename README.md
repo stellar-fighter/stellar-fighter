@@ -19,6 +19,7 @@
 - File -> Open Workspace later
 
 ## How to send a pull request
+Please create a new branch from dev branch
 - Fork this repository
 - git clone 'YOUR FORKED REPOSITORY'
 - git checkout dev
@@ -30,3 +31,5 @@
 - Send pull request to https://github.com/stellar-fighter/stellar-fighter dev branch
 - Delete forked respository
 - For more information: https://help.github.com/en/articles/creating-a-pull-request-from-a-fork
+
+
