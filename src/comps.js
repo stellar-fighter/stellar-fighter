@@ -92,9 +92,6 @@ class ShootingComp extends Comp {
   }
   enabled () {
     let currentShoot = new Date().getTime();
-    console.log(currentShoot);
-    console.log(this.previousShoot);
-    console.log(currentShoot - this.previousShoot);
     if (currentShoot - this.previousShoot > this.coolTime) {
       this.previousShoot = currentShoot;
       return true;
