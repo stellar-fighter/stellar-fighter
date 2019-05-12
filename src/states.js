@@ -133,45 +133,59 @@ class PlayState extends State {
   }
 
   render() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.beginPath();
-    this.ctx.rect(
+    const ctx = this.ctx;
+    const camera = this.camera;
+    const canvas = this.canvas;
+    const entities = this.entities;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.rect(
       0,
       0,
-      this.canvas.width / 2,
-      this.canvas.height / 2
+      canvas.width / 2,
+      canvas.height / 2
     );
-    this.ctx.stroke();
+    ctx.stroke();
 
-    if(this.entities.length > 0) {
-      for(let entity of this.entities) {
-        let pos = entity.comps['pos'];
-        let size = entity.comps['size'];
-        let vis = entity.comps['vis'];
-        this.ctx.save();
-        this.ctx.setTransform(
-          this.camera.scale, 0,
-          0, this.camera.scale,
+    if(entities.length > 0) {
+      for(let entity of entities) {
+        const pos = entity.comps['pos'];
+        const size = entity.comps['size'];
+        const vis = entity.comps['vis'];
+        const hp = entity.comps['hp'];
+        ctx.save();
+        ctx.setTransform(
+          camera.scale, 0,
+          0, camera.scale,
           //size.width / -2 * this.camera.scale, 0 
           0, 0
         );
-        this.ctx.drawImage(
+        ctx.drawImage(
           vis.image,
-          (pos.x - this.camera.x),
-          (pos.y - this.camera.y),
+          (pos.x - camera.x),
+          (pos.y - camera.y),
           size.width,
           size.height
         );
-        this.ctx.beginPath();
-        this.ctx.rect(
-          (pos.x - this.camera.x),
-          (pos.y - this.camera.y),
+        ctx.beginPath();
+        ctx.rect(
+          (pos.x - camera.x),
+          (pos.y - camera.y),
           size.width,
           size.height
         );
-        this.ctx.stroke();
-        this.ctx.closePath();
-        this.ctx.restore();
+        ctx.stroke();
+        ctx.closePath();
+        ctx.beginPath();
+        ctx.fillStyle = '#00FF00';
+        ctx.font = '' + (300 * camera.scale) + 'px Arial';
+        ctx.fillText(
+          hp.value,
+          pos.x - camera.x,
+          pos.y - camera.y
+        );
+        ctx.closePath();
+        ctx.restore();
       }
     }
   }
