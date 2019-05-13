@@ -22,7 +22,7 @@ class MovSystem extends System {
     super({state, compNames: ['pos', 'mov']});
   }
   process() {
-    for(let entity of this.state.entities) {
+    for(let [id, entity] of Object.entries(this.state.entities)) {
       if(this.filter(entity) == true) {
         const mov = entity.comps['mov'];
         const pos = entity.comps['pos'];
@@ -52,10 +52,8 @@ class CollSystem extends System {
     super({state, compNames: ['coll', 'team', 'pos', 'size']});
   }
   process() {
-    for(let i = this.state.entities.length - 1; i >= 1; --i) {
-      for(let j = i - 1; j >= 0; --j) {
-        const entity1 = this.state.entities[i];
-        const entity2 = this.state.entities[j];
+    for(let [id1, entity1] of Object.entries(this.state.entities)) {
+      for(let [id2, entity2] of Object.entries(this.state.entities)) {
         if(this.filter(entity1) &&
            this.filter(entity2) &&
            entity1.comps['team'].value != entity2.comps['team'].value &&
@@ -75,8 +73,7 @@ class CamOutSystem extends System {
   process() {
     const camera = this.state.camera;
     const canvas = this.state.canvas;
-    for(let index = this.state.entities.length - 1; index >= 0; --index) {
-      const entity = this.state.entities[index];
+    for(let [id, entity] of Object.entries(this.state.entities)) {
       const camOut = entity.comps['camOut'];
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
@@ -86,7 +83,7 @@ class CamOutSystem extends System {
              (pos.x - camera.x) * camera.scale > canvas.width ||
              (pos.y + size.height - camera.y) * camera.scale < 0 ||
              (pos.y - camera.y) * camera.scale > canvas.height) {
-            this.state.entities.splice(index, 1);
+            this.state.entityMan.del(id);
           }
         } else if(camOut.type == CamOutComp.BLOCK) {
           if((pos.x - camera.x) * camera.scale < 0)
@@ -108,9 +105,9 @@ class HpSystem extends System {
     super({state, compNames: ['hp']});
   }
   process() {
-    for(let index = this.state.entities.length - 1; index >= 0; --index) {
-      if(this.state.entities[index].comps['hp'].value < 0)
-        this.state.entities.splice(index, 1);
+    for(let [id, entity] of Object.entries(this.state.entities)) {
+      if(entity.comps['hp'].value < 0)
+        this.state.entityMan.del(id);
     }
   }
 }

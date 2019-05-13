@@ -13,7 +13,7 @@ class Entity {
   }
 }
 
-class EntityManager {
+class EntityMan {
   constructor({entities}) {
     this.entities = entities || {};
     this.nextId = 0;
@@ -28,11 +28,15 @@ class EntityManager {
     return this.entities[id];
   }
   add(entity) {
-    entity.id = this.genId();
+    if(entity.id === undefined)
+      entity.id = this.genId();
     this.entities[entity.id] = entity;
+    return entity.id;
   }
   del(id) {
+    const entity = this.entities[id];
     delete this.entities[id];
+    return entity;
   }
 }
 
@@ -83,4 +87,4 @@ class Bullet001 extends Entity {
   }
 }
 
-export {Entity, EntityManager, Fighter001, Alien001, Bullet001};
+export {Entity, EntityMan, Fighter001, Alien001, Bullet001};
