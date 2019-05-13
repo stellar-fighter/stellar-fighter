@@ -22,7 +22,7 @@ class MovSystem extends System {
     super({state, compNames: ['pos', 'mov']});
   }
   process() {
-    for(let [id, entity] of Object.entries(this.state.entities)) {
+    for(let entity of Object.values(this.state.entities)) {
       if(this.filter(entity) == true) {
         const mov = entity.comps['mov'];
         const pos = entity.comps['pos'];
@@ -52,8 +52,8 @@ class CollSystem extends System {
     super({state, compNames: ['coll', 'team', 'pos', 'size']});
   }
   process() {
-    for(let [id1, entity1] of Object.entries(this.state.entities)) {
-      for(let [id2, entity2] of Object.entries(this.state.entities)) {
+    for(let entity1 of Object.values(this.state.entities)) {
+      for(let entity2 of Object.values(this.state.entities)) {
         if(this.filter(entity1) &&
            this.filter(entity2) &&
            entity1.comps['team'].value != entity2.comps['team'].value &&
@@ -73,7 +73,7 @@ class CamOutSystem extends System {
   process() {
     const camera = this.state.camera;
     const canvas = this.state.canvas;
-    for(let [id, entity] of Object.entries(this.state.entities)) {
+    for(let entity of Object.values(this.state.entities)) {
       const camOut = entity.comps['camOut'];
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
@@ -83,7 +83,7 @@ class CamOutSystem extends System {
              (pos.x - camera.x) * camera.scale > canvas.width ||
              (pos.y + size.height - camera.y) * camera.scale < 0 ||
              (pos.y - camera.y) * camera.scale > canvas.height) {
-            this.state.entityMan.del(id);
+            this.state.entityMan.del(entity.id);
           }
         } else if(camOut.type == CamOutComp.BLOCK) {
           if((pos.x - camera.x) * camera.scale < 0)
@@ -105,9 +105,9 @@ class HpSystem extends System {
     super({state, compNames: ['hp']});
   }
   process() {
-    for(let [id, entity] of Object.entries(this.state.entities)) {
+    for(let entity of Object.values(this.state.entities)) {
       if(entity.comps['hp'].value <= 0)
-        this.state.entityMan.del(id);
+        this.state.entityMan.del(entity.id);
     }
   }
 }

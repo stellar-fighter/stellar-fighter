@@ -38,6 +38,9 @@ class EntityMan {
     delete this.entities[id];
     return entity;
   }
+  forEach(callback) {
+    Object.values().forEach(callback);
+  }
 }
 
 class Fighter001 extends Entity {
