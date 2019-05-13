@@ -29,7 +29,8 @@ Please create a new branch from dev branch
 - git push (git push -u origin 'NEW BRANCH NAME' for initial push)
 - Click 'New pull request' from github.com
 - Send pull request to https://github.com/stellar-fighter/stellar-fighter dev branch
-- Delete forked respository
+- Delete forked respository of closed pull request by
+  git branch -d 'NEW BRANCH NAME'
 - For more information: https://help.github.com/en/articles/creating-a-pull-request-from-a-fork
 
 
