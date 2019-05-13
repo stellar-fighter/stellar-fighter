@@ -11,6 +11,7 @@ class Game {
     this.states.push(state);
   }
   popState() {
+    this.states[this.states.length - 1].destroy();
     this.states.pop();
   }
   get state() {

@@ -1,6 +1,6 @@
 import {Camera} from './camera';
 import {Fighter001, Alien001, Bullet001} from './entities';
-import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
+import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem} from './systems';
 
 class State {
@@ -43,13 +43,14 @@ class PlayState extends State {
       comps: {
         pos: new PosComp({x: 1500, y: 2000}),
         mov: new MovComp({velY: -15}),
-        camOut: new CamOutComp({type: CamOutComp.BLOCK}),
+        camOut: new CamOutComp({type: CamOutComp.BLOCK}),        
+        shooting: new ShootingComp({coolTime:150}),
       }
     });
     this.entities.push(this.player);
 
     const that = this;
-    this.handleKeyDown = function(event) {
+    this.handleKeyDown = (event) => {
       console.log(event.code);
       if(event.code == 'KeyP') {
         that.running = !that.running;
@@ -57,7 +58,7 @@ class PlayState extends State {
       }
       that.event[event.code] = true;
     };
-    this.handleKeyUp = function(event) {
+    this.handleKeyUp = (event) => {
       that.event[event.code] = false;
     };
     addEventListener('keydown', this.handleKeyDown);
@@ -113,14 +114,16 @@ class PlayState extends State {
     if(this.event.ArrowRight)
       pos.x += 30;
     if(this.event.Space) {
-      this.entities.push(
-        new Bullet001({
-          state: this,
-          comps: {
-            pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
-          }
-        })
-      );
+      if (this.player.comps['shooting'].enabled) {
+        this.entities.push(
+          new Bullet001({
+            state: this,
+            comps: {
+              pos: new PosComp({x: this.player.comps['pos'].x, y: this.player.comps['pos'].y}),
+            }
+          })
+        );
+      }      
     }
     this.genEntity();
     for(let system of this.systems) {
@@ -130,55 +133,59 @@ class PlayState extends State {
   }
 
   render() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.beginPath();
-    this.ctx.rect(
+    const ctx = this.ctx;
+    const camera = this.camera;
+    const canvas = this.canvas;
+    const entities = this.entities;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.rect(
       0,
       0,
-      this.canvas.width / 2,
-      this.canvas.height / 2
+      canvas.width / 2,
+      canvas.height / 2
     );
-    this.ctx.stroke();
+    ctx.stroke();
 
-    /*
-       */
-    if(this.entities.length > 0) {
-      for(let entity of this.entities) {
-        let pos = entity.comps['pos'];
-        let size = entity.comps['size'];
-        let vis = entity.comps['vis'];
-        this.ctx.save();
-        this.ctx.setTransform(
-          this.camera.scale, 0,
-          0, this.camera.scale,
+    if(entities.length > 0) {
+      for(let entity of entities) {
+        const pos = entity.comps['pos'];
+        const size = entity.comps['size'];
+        const vis = entity.comps['vis'];
+        const hp = entity.comps['hp'];
+        ctx.save();
+        ctx.setTransform(
+          camera.scale, 0,
+          0, camera.scale,
           //size.width / -2 * this.camera.scale, 0 
           0, 0
         );
-        this.ctx.drawImage(
+        ctx.drawImage(
           vis.image,
-          (pos.x - this.camera.x),
-          (pos.y - this.camera.y),
+          (pos.x - camera.x),
+          (pos.y - camera.y),
           size.width,
           size.height
         );
-        this.ctx.beginPath();
-        this.ctx.rect(
-          (pos.x - this.camera.x),
-          (pos.y - this.camera.y),
+        ctx.beginPath();
+        ctx.rect(
+          (pos.x - camera.x),
+          (pos.y - camera.y),
           size.width,
           size.height
         );
-        this.ctx.stroke();
-        this.ctx.beginPath();
-        this.ctx.rect(
-          (pos.x - this.camera.x),
-          (pos.y - this.camera.y),
-          10,
-          10
+        ctx.stroke();
+        ctx.closePath();
+        ctx.beginPath();
+        ctx.fillStyle = '#00FF00';
+        ctx.font = '' + (300 * camera.scale) + 'px Arial';
+        ctx.fillText(
+          hp.value,
+          pos.x - camera.x,
+          pos.y - camera.y
         );
-        this.ctx.fill();
-        this.ctx.closePath();
-        this.ctx.restore();
+        ctx.closePath();
+        ctx.restore();
       }
     }
   }
