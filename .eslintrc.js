@@ -17,6 +17,7 @@ module.exports = {
         "semi": ["error", "always"],
         "no-unused-vars": "off",
         "no-console": "off",
-        "global-require": "error"
+        "global-require": "error",
+        "spacebefore-blocks": "always"
     }
 };
