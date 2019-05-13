@@ -92,14 +92,13 @@ class ShootingComp extends Comp {
     this.coolTime = coolTime || 150;
   }
   get enabled() {
-    let currentShoot = new Date().getTime();
+    let currentShoot = Date.now();
     if (currentShoot - this.previousShoot > this.coolTime) {
       this.previousShoot = currentShoot;
       return true;
     }
-    else {
+    else
       return false;
-    } 
   }
 }
 
