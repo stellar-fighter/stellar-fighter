@@ -146,7 +146,7 @@ class PlayState extends State {
     const camera = this.camera;
     const canvas = this.canvas;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let [id, entity] of Object.entries(this.entities)) {
+    for(let entity of Object.values(this.entities)) {
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
       const vis = entity.comps['vis'];
