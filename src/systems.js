@@ -106,7 +106,7 @@ class HpSystem extends System {
   }
   process() {
     for(let [id, entity] of Object.entries(this.state.entities)) {
-      if(entity.comps['hp'].value < 0)
+      if(entity.comps['hp'].value <= 0)
         this.state.entityMan.del(id);
     }
   }

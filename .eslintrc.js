@@ -18,6 +18,10 @@ module.exports = {
         "no-unused-vars": "off",
         "no-console": "off",
         "global-require": "error",
-        "spacebefore-blocks": "always"
+        "space-before-blocks": "error",
+        "no-multi-spaces": "error",
+        "comma-spacing": "error",
+        "no-trailing-spaces": "error",
+        "space-infix-ops": "error"
     }
 };

@@ -98,7 +98,7 @@ class PlayState extends State {
         new Fighter001({
           state: this,
           comps: {
-            pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x) , y: this.camera.y}),
+            pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x), y: this.camera.y}),
             team: new TeamComp({value: 'enemy'})
           },
         })
