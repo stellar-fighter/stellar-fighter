@@ -74,15 +74,15 @@ class Bullet001 extends Entity {
     if(this.comps['pos'] === undefined)
       this.addComp(new PosComp({}));
     if(this.comps['mov'] === undefined)
-      this.addComp(new MovComp({velY: -30}));
+      this.addComp(new MovComp({velY: -60}));
     if(this.comps['size'] === undefined)
-      this.addComp(new SizeComp({width: 100, height: 500}));
+      this.addComp(new SizeComp({width: 100, height: 100}));
     if(this.comps['vis'] === undefined)
       this.addComp(new VisComp({image: this.state.game.assets.fire}));
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
     if(this.comps['coll'] === undefined)
-      this.addComp(new CollComp({damage: 1}));
+      this.addComp(new CollComp({damage: 10}));
     if(this.comps['hp'] === undefined)
       this.addComp(new HpComp({value: 1}));
     if(this.comps['team'] === undefined)
