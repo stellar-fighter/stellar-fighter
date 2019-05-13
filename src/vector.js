@@ -2,7 +2,7 @@ class Vector {
     // 수정완료
     //atan2 아크탄젠트 함수는 범위가 -pi ~ pi이라서 모든 점 표현 가능 sin은 -pi/2 ~ pi/2  cos은  0 ~ pi인거 같아서 오류가 있을 수있음 
   constructor(x, y) { // coordinate x, y 
-    if ( x == undefined && y == undefined) {
+    if ( x == undefined || y == undefined) {
         this.x = 0;
         this.y = 0;
     }
