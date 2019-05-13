@@ -1,7 +1,7 @@
 import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
+
 class Entity {
-  constructor({id, state, comps}) {
-    this.id = id;
+  constructor({state, comps}) {
     this.state = state;
     this.comps = comps || {};
   }
@@ -10,6 +10,29 @@ class Entity {
   }
   delComp(name) {
     delete this.comps[name];
+  }
+}
+
+class EntityManager {
+  constructor({entities}) {
+    this.entities = entities || {};
+    this.nextId = 0;
+  }
+  genId() {
+    ++this.nextId;
+    if(this.nextId == Infinity)
+      this.nextId = 0;
+    return Date.now() + this.nextId.toString();
+  }
+  get(id) {
+    return this.entities[id];
+  }
+  add(entity) {
+    entity.id = this.genId();
+    this.entities[entity.id] = entity;
+  }
+  del(id) {
+    delete this.entities[id];
   }
 }
 
@@ -60,4 +83,4 @@ class Bullet001 extends Entity {
   }
 }
 
-export {Entity, Fighter001, Alien001, Bullet001};
+export {Entity, EntityManager, Fighter001, Alien001, Bullet001};

@@ -98,7 +98,6 @@ class PlayState extends State {
         })
       );
     }
-    //console.log(this.entities);
   }
 
   update() {
