@@ -1,4 +1,4 @@
-# stellar-fighter
+# stellar-fighter [![Build Status](https://travis-ci.org/stellar-fighter/stellar-fighter.svg?branch=master)](https://travis-ci.org/stellar-fighter/stellar-fighter)
 ## Development guide for Windows
 - Install git (https://git-scm.com/)
 - Install nodejs (https://nodejs.org/)
