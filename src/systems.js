@@ -5,6 +5,8 @@ import {Vec} from './vec';
 class System {
   constructor({state, compNames}) {
     this.state = state;
+    if(this.state === undefined)
+      throw new Error('RequiredParam');
     this.compNames = compNames || [];
   }
   filter(entity) {
@@ -24,7 +26,8 @@ class MovSystem extends System {
     super({state, compNames: ['pos', 'mov']});
   }
   process() {
-    for(let entity of Object.values(this.state.entities)) {
+    for(let id in this.state.entities) {
+      const entity = this.state.entities[id];
       if(this.filter(entity) == true) {
         const mov = entity.comps['mov'];
         const pos = entity.comps['pos'];
@@ -54,9 +57,12 @@ class CollSystem extends System {
     super({state, compNames: ['coll', 'team', 'pos', 'size']});
   }
   process() {
-    for(let entity1 of Object.values(this.state.entities)) {
-      for(let entity2 of Object.values(this.state.entities)) {
-        if(this.filter(entity1) &&
+    for(let id1 in this.state.entities) {
+      const entity1 = this.state.entities[id1];
+      for(let id2 in this.state.entities) {
+        const entity2 = this.state.entities[id2];
+        if(id1 != id2 &&
+           this.filter(entity1) &&
            this.filter(entity2) &&
            entity1.comps['team'].val != entity2.comps['team'].val &&
            CollSystem.checkColl(entity1, entity2)) {
@@ -75,7 +81,8 @@ class CamOutSystem extends System {
   process() {
     const camera = this.state.camera;
     const canvas = this.state.canvas;
-    for(let entity of Object.values(this.state.entities)) {
+    for(let id in this.state.entities) {
+      const entity = this.state.entities[id];
       const camOut = entity.comps['camOut'];
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
@@ -149,7 +156,8 @@ class HpSystem extends System {
     super({state, compNames: ['hp']});
   }
   process() {
-    for(let entity of Object.values(this.state.entities)) {
+    for(let id in this.state.entities) {
+      const entity = this.state.entities[id];
       if(entity.comps['hp'].val <= 0)
         this.state.entityMan.del(entity.id);
     }
