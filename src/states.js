@@ -4,12 +4,27 @@ import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamC
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
 import {Timer} from './timer';
+import {SceneNode} from './scenes';
 
 class State {
   constructor({game, running, systems, entityMan}) {
     this.game = game;
+    if(this.game === undefined)
+      throw new Error('RequiredParam');
     this.running = running || false;
     this.timer = new Timer();
+    this.startTime = null;
+    this.curTime = null;
+    this.deltaTime = null;
+    this.systems = systems || [];
+    this.entityMan = entityMan || new EntityMan({});
+    this.scene = new SceneNode({name: 'root', state: this});
+  }
+  get entities() {
+    return this.entityMan.entities;
+  }
+  set entities(entities) {
+    this.entityMan.entities = entities;
   }
   setTime(timeStamp) {
     this.timer.record(timeStamp);
@@ -175,7 +190,8 @@ class PlayState extends State {
     const camera = this.camera;
     const canvas = this.canvas;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let entity of Object.values(this.entities)) {
+    for(let index in this.entities) {
+      const entity = this.entities[index];
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
       const vis = entity.comps['vis'];

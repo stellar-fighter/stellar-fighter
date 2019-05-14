@@ -4,6 +4,8 @@ import {Vec} from './vec';
 class Entity {
   constructor({state, comps, name}) {
     this.state = state;
+    if(this.state === undefined)
+      throw new Error('RequiredParam');
     this.comps = comps || {};
     this.name = name;
   }
