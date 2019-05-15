@@ -5,9 +5,16 @@ class SceneNode {
       throw new Error('RequiredParam');
     this.state = state;
     this.children = children || {};
+    this.valid = true;
   }
   get valid() {
-    return true;
+    if(this._valid === undefined)
+      return true;
+    return this._valid;
+  }
+  set valid(valid) {
+    if(this._valid === undefined || this._valid == true)
+      this._valid = valid;
   }
   addChild(child) {
     this.children[child.name] = child;
