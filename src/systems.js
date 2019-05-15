@@ -22,7 +22,7 @@ class MovSystem extends System {
     super({state, compNames: ['pos', 'mov']});
   }
   process() {
-    for(let entity of Object.values(this.state.entities)) {
+    for(let [id, entity] of Object.entries(this.state.entities)) {
       if(this.filter(entity) == true) {
         const mov = entity.comps['mov'];
         const pos = entity.comps['pos'];
@@ -52,12 +52,13 @@ class CollSystem extends System {
     super({state, compNames: ['coll', 'team', 'pos', 'size']});
   }
   process() {
-    for(let entity1 of Object.values(this.state.entities)) {
-      for(let entity2 of Object.values(this.state.entities)) {
+    for(let [id1, entity1] of Object.entries(this.state.entities)) {
+      for(let [id2, entity2] of Object.entries(this.state.entities)) {
         if(this.filter(entity1) &&
            this.filter(entity2) &&
            entity1.comps['team'].value != entity2.comps['team'].value &&
            CollSystem.checkColl(entity1, entity2)) {
+            
           entity1.comps['hp'].value -= entity2.comps['coll'].damage;
           entity2.comps['hp'].value -= entity1.comps['coll'].damage;
         }
@@ -73,19 +74,62 @@ class CamOutSystem extends System {
   process() {
     const camera = this.state.camera;
     const canvas = this.state.canvas;
-    for(let entity of Object.values(this.state.entities)) {
+    for(let [id, entity] of Object.entries(this.state.entities)) {
       const camOut = entity.comps['camOut'];
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
       if(this.filter(entity) == true) {
+        /////Boss 의 움직임입니당//
+        if(entity.name == "Boss"){
+         
+          const pivot = 15*entity.direction;  //보스 움직임의 x 담당
+          const pivot2 = 50*entity.directionY; //보스움직임의 y 담당
+          pos.y -= pivot2;
+          pos.x += pivot;
+          if((pos.y + size.height - camera.y) * camera.scale < 10){
+            entity.directionY *= -1;
+          }
+          if( (pos.y - camera.y) * camera.scale > canvas.height-401){
+            entity.directionY *= -1;
+          }
+
+          
+          if((pos.x + size.width - camera.x) * camera.scale < 10){
+            entity.direction *= -1;
+           
+          }
+
+          if(((pos.x - camera.x) * camera.scale > canvas.width-10)){
+            entity.direction *= -1;
+            
+          }
+        }
+        /////////////////potion 의 움직임입니다
+        if(entity.name == "Potion"){
+          pos.y -= 10 + 10*Math.sin(Date.now());
+          const pivot = 15*entity.direction;
+          pos.x += pivot;
+          
+          if((pos.x + size.width - camera.x) * camera.scale < 10){
+            entity.direction *= -1;
+           
+          }
+
+          if(((pos.x - camera.x) * camera.scale > canvas.width-10)){
+            entity.direction *= -1;
+            
+          }
+        }
+        ////////////////////
         if(camOut.type == CamOutComp.DESTROY) {
           if((pos.x + size.width - camera.x) * camera.scale < 0 ||
              (pos.x - camera.x) * camera.scale > canvas.width ||
              (pos.y + size.height - camera.y) * camera.scale < 0 ||
              (pos.y - camera.y) * camera.scale > canvas.height) {
-            this.state.entityMan.del(entity.id);
+            this.state.entityMan.del(id);
           }
         } else if(camOut.type == CamOutComp.BLOCK) {
+          //camOut block 이면 카메라 따라다니기.
           if((pos.x - camera.x) * camera.scale < 0)
             pos.x = camera.x;
           if((pos.x + size.width - camera.x) * camera.scale > canvas.width)
@@ -105,9 +149,9 @@ class HpSystem extends System {
     super({state, compNames: ['hp']});
   }
   process() {
-    for(let entity of Object.values(this.state.entities)) {
-      if(entity.comps['hp'].value <= 0)
-        this.state.entityMan.del(entity.id);
+    for(let [id, entity] of Object.entries(this.state.entities)) {
+      if(entity.comps['hp'].value < 0)
+        this.state.entityMan.del(id);
     }
   }
 }

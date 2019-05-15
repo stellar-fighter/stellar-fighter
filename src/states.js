@@ -1,5 +1,5 @@
 import {Camera} from './camera';
-import {EntityMan, Fighter001, Alien001, Bullet001} from './entities';
+import {EntityMan, Fighter001, Alien001, Bullet001, Potion, Boss} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem} from './systems';
 
@@ -31,7 +31,7 @@ class State {
   destroy() { throw new Error('AbstractMethod'); }
 }
 
-class PlayState extends State {
+class PlayState extends State { //게임상태를 계속 업데이트한다 game.js에서
   constructor({game, running, systems, entityMan, canvas, level}) {
     super({game, running, systems, entityMan});
     this.event = {up: false, down: false, left: false, right: false};
@@ -93,17 +93,49 @@ class PlayState extends State {
       entityData = this.level[++this.levelEntityIndex];
     }
     */
-    if(Math.random() > 0.99) {
+   
+    if(Math.random() > 0.98) { //행성은 자주 생겨납니다
       this.entityMan.add(
-        new Fighter001({
-          state: this,
+        new Alien001({ //적을생성합니다!
+          state: this, //playstate
           comps: {
-            pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x), y: this.camera.y}),
+            pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x) , y: this.camera.y}),
             team: new TeamComp({value: 'enemy'})
           },
         })
-      );
+      );   
     }
+
+    if(Math.random() > 0.995) { //포션을 생성합니다
+      this.entityMan.add(   //포션은 조금씩생성됩니다
+        new Potion({
+          state: this, //playstate
+          comps: {
+            pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x) , y: this.camera.y}),
+            team: new TeamComp({value: 'enemy'})
+          },
+        })
+      );   
+    }
+    
+
+    if(Math.random() > 0.9979) { //보스를 생성합니다. 보스는 조금생성됩니다
+      this.entityMan.add(
+        new Boss({
+          state: this, //playstate
+          comps: {
+            pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x) , y: this.camera.y+100}),
+            team: new TeamComp({value: 'enemy'})
+          },
+        })
+      );   
+    }
+
+
+
+
+
+
   }
 
   update() {
@@ -146,7 +178,7 @@ class PlayState extends State {
     const camera = this.camera;
     const canvas = this.canvas;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let entity of Object.values(this.entities)) {
+    for(let [id, entity] of Object.entries(this.entities)) {
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
       const vis = entity.comps['vis'];
