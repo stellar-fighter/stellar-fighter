@@ -1,4 +1,5 @@
-import {CamOutComp} from './comps';
+import {CamOutComp, ShootingComp, PosComp} from './comps';
+import {Bullet001} from './entities';
 
 class System {
   constructor({state, compNames}) {
@@ -112,4 +113,26 @@ class HpSystem extends System {
   }
 }
 
-export {System, MovSystem, CollSystem, CamOutSystem, HpSystem};
+class ShootingSystem extends System {
+  constructor({state, compNames}) {
+    super({state, compNames: ['shooting']});
+  }
+  process() {
+    if(this.state.event.Space) {
+      const player = this.state.entityMan.get(this.state.playerId);
+      const shooting = player.comps['shooting'];
+      if(shooting.enabled) {
+        this.state.entityMan.add(
+          new Bullet001({
+            state: this.state,
+            comps: {
+              pos: new PosComp({x: player.comps['pos'].x, y: player.comps['pos'].y}),
+            }
+          })
+        );
+      }
+    }
+  }
+}
+
+export {System, MovSystem, CollSystem, CamOutSystem, HpSystem, ShootingSystem};

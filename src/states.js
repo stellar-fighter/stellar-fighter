@@ -1,7 +1,7 @@
 import {Camera} from './camera';
 import {EntityMan, Fighter001, Alien001, Bullet001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
-import {MovSystem, CamOutSystem, CollSystem, HpSystem} from './systems';
+import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem} from './systems';
 
 class State {
   constructor({game, running, systems, entityMan}) {
@@ -44,6 +44,7 @@ class PlayState extends State {
     this.systems.push(new HpSystem({state: this}));
     this.systems.push(new CamOutSystem({state: this}));
     this.systems.push(new CollSystem({state: this}));
+    this.systems.push(new ShootingSystem({state: this}));
     this.playerId = this.entityMan.add(
       new Fighter001({
         state: this,
@@ -51,7 +52,7 @@ class PlayState extends State {
           pos: new PosComp({x: 1500, y: 2000}),
           mov: new MovComp({velY: -15}),
           camOut: new CamOutComp({type: CamOutComp.BLOCK}),
-          shooting: new ShootingComp({coolTime: 1}),
+          shooting: new ShootingComp({coolTime: 100}),
         }
       })
     );
@@ -121,18 +122,6 @@ class PlayState extends State {
         pos.x -= 30;
       if(this.event.ArrowRight)
         pos.x += 30;
-      if(this.event.Space) {
-        if(shooting.enabled) {
-          this.entityMan.add(
-            new Bullet001({
-              state: this,
-              comps: {
-                pos: new PosComp({x: pos.x, y: pos.y}),
-              }
-            })
-          );
-        }
-      }
     }
     this.genEntity();
     for(let system of this.systems) {
