@@ -106,7 +106,7 @@ class PlayState extends State {
                 this.camera.pos.y
               )
             }),
-            team: new TeamComp({value: 'ENEMY'}),
+            team: new TeamComp({val: 'ENEMY'}),
             shooting: new ShootingComp({enabled: true, coolTime: 3000})
           },
         })
@@ -177,7 +177,7 @@ class PlayState extends State {
       ctx.fillStyle = '#00FF00';
       ctx.font = '' + (300 * camera.scale) + 'px Arial';
       ctx.fillText(
-        hp.value,
+        hp.val,
         pos.vec.x - camera.pos.x,
         pos.vec.y - camera.pos.y
       );

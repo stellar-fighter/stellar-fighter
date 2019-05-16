@@ -58,10 +58,10 @@ class CollSystem extends System {
       for(let entity2 of Object.values(this.state.entities)) {
         if(this.filter(entity1) &&
            this.filter(entity2) &&
-           entity1.comps['team'].value != entity2.comps['team'].value &&
+           entity1.comps['team'].val != entity2.comps['team'].val &&
            CollSystem.checkColl(entity1, entity2)) {
-          entity1.comps['hp'].value -= entity2.comps['coll'].damage;
-          entity2.comps['hp'].value -= entity1.comps['coll'].damage;
+          entity1.comps['hp'].val -= entity2.comps['coll'].damage;
+          entity2.comps['hp'].val -= entity1.comps['coll'].damage;
         }
       }
     }
@@ -108,7 +108,7 @@ class HpSystem extends System {
   }
   process() {
     for(let entity of Object.values(this.state.entities)) {
-      if(entity.comps['hp'].value <= 0)
+      if(entity.comps['hp'].val <= 0)
         this.state.entityMan.del(entity.id);
     }
   }
@@ -132,7 +132,7 @@ class ShootingSystem extends System {
               pos: new PosComp({
                 vec: new Vec(pos.vec.x, pos.vec.y)
               }),
-              team: new TeamComp({value: team.value})
+              team: new TeamComp({val: team.val})
             }
           })
         );
