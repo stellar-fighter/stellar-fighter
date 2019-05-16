@@ -60,9 +60,9 @@ class Fighter001 extends Entity {
     if(this.comps['coll'] === undefined)
       this.addComp(new CollComp({damage: 1}));
     if(this.comps['hp'] === undefined)
-      this.addComp(new HpComp({value: 100}));
+      this.addComp(new HpComp({val: 100}));
     if(this.comps['team'] === undefined)
-      this.addComp(new TeamComp({value: 'PLAYER'}));
+      this.addComp(new TeamComp({val: 'PLAYER'}));
   }
 }
 
@@ -85,9 +85,9 @@ class Bullet001 extends Entity {
     if(this.comps['coll'] === undefined)
       this.addComp(new CollComp({damage: 10}));
     if(this.comps['hp'] === undefined)
-      this.addComp(new HpComp({value: 1}));
+      this.addComp(new HpComp({val: 1}));
     if(this.comps['team'] === undefined)
-      this.addComp(new TeamComp({value: 'PLAYER'}));
+      this.addComp(new TeamComp({val: 'PLAYER'}));
   }
 }
 
