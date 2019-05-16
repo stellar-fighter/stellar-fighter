@@ -100,7 +100,8 @@ class PlayState extends State {
           state: this,
           comps: {
             pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x), y: this.camera.y}),
-            team: new TeamComp({value: 'enemy'})
+            team: new TeamComp({value: 'ENEMY'}),
+            shooting: new ShootingComp({enabled: true, coolTime: 3000})
           },
         })
       );
@@ -122,6 +123,10 @@ class PlayState extends State {
         pos.x -= 30;
       if(this.event.ArrowRight)
         pos.x += 30;
+      if(this.event.Space)
+        shooting.enabled = true;
+      else
+        shooting.enabled = false;
     }
     this.genEntity();
     for(let system of this.systems) {

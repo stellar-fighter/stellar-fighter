@@ -86,15 +86,21 @@ class TeamComp extends Comp {
 }
 
 class ShootingComp extends Comp {
-  constructor({coolTime}) {
+  constructor({enabled, coolTime, dir}) {
     super({name: 'shooting'});
     this.previousShoot = 0;
+    this._enabled = enabled || false;
     this.coolTime = coolTime || 150;
+    this.dir = dir;
+  }
+  set enabled(enabled) {
+    this._enabled = enabled;
   }
   get enabled() {
-    let currentShoot = Date.now();
-    console.log(currentShoot - this.previousShoot);
-    if (currentShoot - this.previousShoot > this.coolTime) {
+    if(!this._enabled)
+      return false;
+    const currentShoot = Date.now();
+    if(currentShoot - this.previousShoot > this.coolTime) {
       this.previousShoot = currentShoot;
       return true;
     }

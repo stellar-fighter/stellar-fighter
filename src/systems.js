@@ -1,4 +1,4 @@
-import {CamOutComp, ShootingComp, PosComp} from './comps';
+import {CamOutComp, ShootingComp, PosComp, TeamComp} from './comps';
 import {Bullet001} from './entities';
 
 class System {
@@ -115,18 +115,21 @@ class HpSystem extends System {
 
 class ShootingSystem extends System {
   constructor({state, compNames}) {
-    super({state, compNames: ['shooting']});
+    super({state, compNames: ['shooting', 'pos', 'team']});
   }
   process() {
-    if(this.state.event.Space) {
-      const player = this.state.entityMan.get(this.state.playerId);
-      const shooting = player.comps['shooting'];
-      if(shooting.enabled) {
+    for(let id in this.state.entities) {
+      const entity = this.state.entities[id];
+      const pos = entity.comps['pos'];
+      const shooting = entity.comps['shooting'];
+      const team = entity.comps['team'];
+      if(this.filter(entity) && shooting.enabled) {
         this.state.entityMan.add(
           new Bullet001({
             state: this.state,
             comps: {
-              pos: new PosComp({x: player.comps['pos'].x, y: player.comps['pos'].y}),
+              pos: new PosComp({x: pos.x, y: pos.y}),
+              team: new TeamComp({value: team.value})
             }
           })
         );
