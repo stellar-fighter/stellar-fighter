@@ -1,4 +1,5 @@
 import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
+import {Vec} from './vec';
 
 class Entity {
   constructor({state, comps}) {
@@ -51,7 +52,7 @@ class Fighter001 extends Entity {
     if(this.comps['mov'] === undefined)
       this.addComp(new MovComp({}));
     if(this.comps['size'] === undefined)
-      this.addComp(new SizeComp({width: 600, height: 800}));
+      this.addComp(new SizeComp({vec: new Vec(600, 800)}));
     if(this.comps['vis'] === undefined)
       this.addComp(new VisComp({image: this.state.game.assets.stellarFighter}));
     if(this.comps['camOut'] === undefined)
@@ -74,9 +75,9 @@ class Bullet001 extends Entity {
     if(this.comps['pos'] === undefined)
       this.addComp(new PosComp({}));
     if(this.comps['mov'] === undefined)
-      this.addComp(new MovComp({velY: -60}));
+      this.addComp(new MovComp({vel: new Vec(0, -60)}));
     if(this.comps['size'] === undefined)
-      this.addComp(new SizeComp({width: 100, height: 100}));
+      this.addComp(new SizeComp({vec: new Vec(100, 100)}));
     if(this.comps['vis'] === undefined)
       this.addComp(new VisComp({image: this.state.game.assets.fire}));
     if(this.comps['camOut'] === undefined)

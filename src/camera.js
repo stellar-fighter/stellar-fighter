@@ -1,8 +1,8 @@
+import {Vec} from './vec';
 class Camera {
-  constructor({canvas, x, y, sFactor}) {
+  constructor({canvas, pos, sFactor}) {
     this.canvas = canvas;
-    this.x = x || 0;
-    this.y = y || 0;
+    this.pos = pos || new Vec();
     this.sFactor = sFactor || 3000;
   }
   get scale() {
