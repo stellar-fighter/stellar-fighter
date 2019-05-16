@@ -2,6 +2,7 @@ import {Camera} from './camera';
 import {EntityMan, Fighter001, Alien001, Bullet001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem} from './systems';
+import {Vec} from './vec';
 
 class State {
   constructor({game, running, systems, entityMan}) {
@@ -49,8 +50,8 @@ class PlayState extends State {
       new Fighter001({
         state: this,
         comps: {
-          pos: new PosComp({x: 1500, y: 2000}),
-          mov: new MovComp({velY: -15}),
+          pos: new PosComp({vec: new Vec(1500, 2000)}),
+          mov: new MovComp({vel: new Vec(0, -15)}),
           camOut: new CamOutComp({type: CamOutComp.BLOCK}),
           shooting: new ShootingComp({coolTime: 100}),
         }
@@ -75,7 +76,7 @@ class PlayState extends State {
   genEntity() {
     /*
     let entityData = this.level[this.levelEntityIndex];
-    while(entityData && this.camera.y <= entityData.y) {
+    while(entityData && this.camera.pos.y <= entityData.y) {
       switch(entityData.type) {
       case 'a-001':
         //this.entityMan.add(new Alien001({state: this}));
@@ -99,8 +100,13 @@ class PlayState extends State {
         new Fighter001({
           state: this,
           comps: {
-            pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x), y: this.camera.y}),
-            team: new TeamComp({value: 'ENEMY'}),
+            pos: new PosComp({
+              vec: new Vec(
+                Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
+                this.camera.pos.y
+              )
+            }),
+            team: new TeamComp({val: 'ENEMY'}),
             shooting: new ShootingComp({enabled: true, coolTime: 3000})
           },
         })
@@ -116,13 +122,13 @@ class PlayState extends State {
       const pos = player.comps['pos'];
       const shooting = player.comps['shooting'];
       if(this.event.ArrowUp)
-        pos.y -= 30;
+        pos.vec.y -= 30;
       if(this.event.ArrowDown)
-        pos.y += 30;
+        pos.vec.y += 30;
       if(this.event.ArrowLeft)
-        pos.x -= 30;
+        pos.vec.x -= 30;
       if(this.event.ArrowRight)
-        pos.x += 30;
+        pos.vec.x += 30;
       if(this.event.Space)
         shooting.enabled = true;
       else
@@ -132,7 +138,7 @@ class PlayState extends State {
     for(let system of this.systems) {
       system.process();
     }
-    this.camera.y -= 15;
+    this.camera.pos.y -= 15;
   }
 
   render() {
@@ -153,17 +159,17 @@ class PlayState extends State {
       );
       ctx.drawImage(
         vis.image,
-        (pos.x - camera.x),
-        (pos.y - camera.y),
-        size.width,
-        size.height
+        (pos.vec.x - camera.pos.x),
+        (pos.vec.y - camera.pos.y),
+        size.vec.x,
+        size.vec.y
       );
       ctx.beginPath();
       ctx.rect(
-        (pos.x - camera.x),
-        (pos.y - camera.y),
-        size.width,
-        size.height
+        (pos.vec.x - camera.pos.x),
+        (pos.vec.y - camera.pos.y),
+        size.vec.x,
+        size.vec.y
       );
       ctx.stroke();
       ctx.closePath();
@@ -171,9 +177,9 @@ class PlayState extends State {
       ctx.fillStyle = '#00FF00';
       ctx.font = '' + (300 * camera.scale) + 'px Arial';
       ctx.fillText(
-        hp.value,
-        pos.x - camera.x,
-        pos.y - camera.y
+        hp.val,
+        pos.vec.x - camera.pos.x,
+        pos.vec.y - camera.pos.y
       );
       ctx.closePath();
       ctx.restore();
