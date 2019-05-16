@@ -62,7 +62,7 @@ module.exports = {
         'charset': 'UTF-8',
         'cache-control': {'http-equiv': 'cache-control', 'content': 'no-cache, no-store, must-revalidate'},
         'pragma': {'http-equiv': 'pragma', 'content': 'no-cache'},
-        'pragma': {'http-equiv': 'expires', 'content': '0'},
+        'expires': {'http-equiv': 'expires', 'content': '0'},
       },
       minify: {
         collapseWhitespace: true,
