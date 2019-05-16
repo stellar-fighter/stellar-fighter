@@ -59,7 +59,10 @@ module.exports = {
       meta: {
         'viewport': 'width=device-width, initial-scale=1, shrink-to-fit=no',
         'theme-color': '#FF0000',
-        'charset': 'UTF-8'
+        'charset': 'UTF-8',
+        'cache-control': {'http-equiv': 'cache-control', 'content': 'no-cache, no-store, must-revalidate'},
+        'pragma': {'http-equiv': 'pragma', 'content': 'no-cache'},
+        'pragma': {'http-equiv': 'expires', 'content': '0'},
       },
       minify: {
         collapseWhitespace: true,
