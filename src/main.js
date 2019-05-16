@@ -1,4 +1,3 @@
-/*eslint-env node*/
 import './main.scss';
 import {Game} from './game';
 import {State, PlayState} from './states';

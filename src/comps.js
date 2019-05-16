@@ -1,3 +1,4 @@
+import {Vec} from './vec';
 class Comp {
   constructor({name}) {
     this.name = name;
@@ -7,39 +8,36 @@ class Comp {
 }
 
 class PosComp extends Comp {
-  constructor({x, y, abs}) {
+  constructor({vec, abs}) {
     super({name: 'pos'});
-    this.x = x || 0;
-    this.y = y || 0;
-    this.abs = abs || false;
+    this.vec = vec || new Vec();
+    this.abs = abs;
+    if(this.abs === undefined)
+      this.abs = false;
   }
 }
 
 class MovComp extends Comp {
-  constructor({velX, velY, accX, accY}) {
+  constructor({vel, acc}) {
     super({name: 'mov'});
-    this.velX = velX || 0;
-    this.velY = velY || 0;
-    this.accX = accX || 0;
-    this.accY = accY || 0;
+    this.vel = vel || new Vec();
+    this.acc = acc || new Vec();
   }
 }
 
 class SizeComp extends Comp {
-  constructor({width, height}) {
+  constructor({vec}) {
     super({name: 'size'});
-    this.width = width || 0;
-    this.height = height || 0;
+    this.vec = vec || new Vec();
   }
 }
 
 class VisComp extends Comp {
-  constructor({image, visible, width, height}) {
+  constructor({image, visible, size}) {
     super({name: 'vis'});
     this.image = image;
     this.visible = visible || true;
-    this.width = width || 0;
-    this.height = height || 0;
+    this.size = size || new Vec();
   }
 }
 
