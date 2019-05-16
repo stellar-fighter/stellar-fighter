@@ -1,5 +1,6 @@
 import {CamOutComp, ShootingComp, PosComp, TeamComp} from './comps';
 import {Bullet001} from './entities';
+import {Vec} from './vec';
 
 class System {
   constructor({state, compNames}) {
@@ -27,12 +28,12 @@ class MovSystem extends System {
       if(this.filter(entity) == true) {
         const mov = entity.comps['mov'];
         const pos = entity.comps['pos'];
-        mov.velX += mov.accX;
-        mov.accX = 0;
-        mov.velY += mov.accY;
-        mov.accY = 0;
-        pos.x += mov.velX;
-        pos.y += mov.velY;
+        mov.vel.x += mov.acc.x;
+        mov.acc.x = 0;
+        mov.vel.y += mov.acc.y;
+        mov.acc.y = 0;
+        pos.vec.x += mov.vel.x;
+        pos.vec.y += mov.vel.y;
       }
     }
   }
@@ -44,10 +45,10 @@ class CollSystem extends System {
     const size1 = entity1.comps['size'];
     const pos2 = entity2.comps['pos'];
     const size2 = entity2.comps['size'];
-    return (pos1.x + size1.width > pos2.x &&
-            pos2.x + size2.width > pos1.x &&
-            pos1.y + size1.height > pos2.y &&
-            pos2.y + size2.height > pos1.y);
+    return (pos1.vec.x + size1.vec.x > pos2.vec.x &&
+            pos2.vec.x + size2.vec.x > pos1.vec.x &&
+            pos1.vec.y + size1.vec.y > pos2.vec.y &&
+            pos2.vec.y + size2.vec.y > pos1.vec.y);
   }
   constructor({state, compNames}) {
     super({state, compNames: ['coll', 'team', 'pos', 'size']});
@@ -57,10 +58,10 @@ class CollSystem extends System {
       for(let entity2 of Object.values(this.state.entities)) {
         if(this.filter(entity1) &&
            this.filter(entity2) &&
-           entity1.comps['team'].value != entity2.comps['team'].value &&
+           entity1.comps['team'].val != entity2.comps['team'].val &&
            CollSystem.checkColl(entity1, entity2)) {
-          entity1.comps['hp'].value -= entity2.comps['coll'].damage;
-          entity2.comps['hp'].value -= entity1.comps['coll'].damage;
+          entity1.comps['hp'].val -= entity2.comps['coll'].damage;
+          entity2.comps['hp'].val -= entity1.comps['coll'].damage;
         }
       }
     }
@@ -80,21 +81,21 @@ class CamOutSystem extends System {
       const size = entity.comps['size'];
       if(this.filter(entity) == true) {
         if(camOut.type == CamOutComp.DESTROY) {
-          if((pos.x + size.width - camera.x) * camera.scale < 0 ||
-             (pos.x - camera.x) * camera.scale > canvas.width ||
-             (pos.y + size.height - camera.y) * camera.scale < 0 ||
-             (pos.y - camera.y) * camera.scale > canvas.height) {
+          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 0 ||
+             (pos.vec.x - camera.pos.x) * camera.scale > canvas.width ||
+             (pos.vec.y + size.vec.y - camera.pos.y) * camera.scale < 0 ||
+             (pos.vec.y - camera.pos.y) * camera.scale > canvas.height) {
             this.state.entityMan.del(entity.id);
           }
         } else if(camOut.type == CamOutComp.BLOCK) {
-          if((pos.x - camera.x) * camera.scale < 0)
-            pos.x = camera.x;
-          if((pos.x + size.width - camera.x) * camera.scale > canvas.width)
-            pos.x = (canvas.width / camera.scale) - size.width + camera.x;
-          if((pos.y - camera.y) * camera.scale < 0)
-            pos.y = camera.y;
-          if((pos.y + size.height - camera.y) * camera.scale > canvas.height)
-            pos.y = (canvas.height / camera.scale) - size.height + camera.y;
+          if((pos.vec.x - camera.pos.x) * camera.scale < 0)
+            pos.vec.x = camera.pos.x;
+          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale > canvas.width)
+            pos.vec.x = (canvas.width / camera.scale) - size.vec.x + camera.pos.x;
+          if((pos.vec.y - camera.pos.y) * camera.scale < 0)
+            pos.vec.y = camera.pos.y;
+          if((pos.vec.y + size.vec.y - camera.pos.y) * camera.scale > canvas.height)
+            pos.vec.y = (canvas.height / camera.scale) - size.vec.y + camera.pos.y;
         }
       }
     }
@@ -107,7 +108,7 @@ class HpSystem extends System {
   }
   process() {
     for(let entity of Object.values(this.state.entities)) {
-      if(entity.comps['hp'].value <= 0)
+      if(entity.comps['hp'].val <= 0)
         this.state.entityMan.del(entity.id);
     }
   }
@@ -128,8 +129,10 @@ class ShootingSystem extends System {
           new Bullet001({
             state: this.state,
             comps: {
-              pos: new PosComp({x: pos.x, y: pos.y}),
-              team: new TeamComp({value: team.value})
+              pos: new PosComp({
+                vec: new Vec(pos.vec.x, pos.vec.y)
+              }),
+              team: new TeamComp({val: team.val})
             }
           })
         );
