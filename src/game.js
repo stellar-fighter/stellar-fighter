@@ -14,6 +14,10 @@ class Game {
     this.states[this.states.length - 1].destroy();
     this.states.pop();
   }
+  switchState(state) {
+    this.states[this.states.length - 1].destroy();
+    this.states[this.states.length - 1] = state;
+  }
   get state() {
     return this.states[this.states.length - 1];
   }
@@ -22,12 +26,12 @@ class Game {
       this.states[this.states.length - 1].setTime(timeStamp);
   }
   update() {
-    if(this.states.length > 0)
-      this.states[this.states.length - 1].update();
+    for(let index = this.states.length - 1; index >= 0; --index)
+      this.states[index].update();
   }
   render() {
-    if(this.states.length > 0)
-      this.states[this.states.length - 1].render();
+    for(let index = 0; index < this.states.length; ++index)
+      this.states[index].render();
   }
 }
 
