@@ -39,6 +39,7 @@ function main() {
     $controls.css('bottom', window.innerHeight - canvas.height);
     $controls.css('left', $canvas.offset().left);
     $controls.css('width', $canvas.width());
+    $controls.children().css('font-size', (canvas.width / 40) + 'px');
     if(started == false) {
       started = true;
       game.pushState(new PlayState({game, running: true, canvas, level}));
