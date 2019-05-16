@@ -3,21 +3,16 @@ import {EntityMan, Fighter001, Alien001, Bullet001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem} from './systems';
 import {Vec} from './vec';
+import {Timer} from './timer';
 
 class State {
   constructor({game, running, systems, entityMan}) {
     this.game = game;
     this.running = running || false;
-    this.startTime = null;
-    this.curTime = null;
-    this.deltaTime = null;
+    this.timer = new Timer();
   }
   setTime(timeStamp) {
-    if(this.startTime === null)
-      this.startTime = timeStamp;
-    if(this.curTime != null)
-      this.deltaTime = timeStamp - this.curTime;
-    this.curTime = this.timeStamp;
+    this.timer.record(timeStamp);
   }
   update() { throw new Error('AbstractMethod'); }
   render() { throw new Error('AbstractMethod'); }
@@ -47,7 +42,7 @@ class PlayState extends State {
           pos: new PosComp({vec: new Vec(1500, 2000)}),
           mov: new MovComp({vel: new Vec(0, -15)}),
           camOut: new CamOutComp({type: CamOutComp.BLOCK}),
-          shooting: new ShootingComp({coolTime: 100}),
+          shooting: new ShootingComp({coolTime: 100, timer: this.timer}),
         }
       })
     );
@@ -106,7 +101,7 @@ class PlayState extends State {
               )
             }),
             team: new TeamComp({val: 'ENEMY'}),
-            shooting: new ShootingComp({enabled: true, coolTime: 3000})
+            shooting: new ShootingComp({enabled: true, coolTime: 3000, timer: this.timer})
           },
         })
       );
