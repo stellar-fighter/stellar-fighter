@@ -56,9 +56,9 @@ class CtrlComp extends Comp {
 }
 
 class HpComp extends Comp {
-  constructor({value}) {
+  constructor({val}) {
     super({name: 'hp'});
-    this.value = value || 1;
+    this.val = val || 1;
   }
 }
 
@@ -79,9 +79,9 @@ class CamOutComp extends Comp {
 }
 
 class TeamComp extends Comp {
-  constructor({value}) {
+  constructor({val}) {
     super({name: 'team'});
-    this.value = value || 'DEFAULT';
+    this.val = val || 'DEFAULT';
   }
 }
 
