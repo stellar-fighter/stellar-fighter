@@ -8,17 +8,9 @@ class State {
   constructor({game, running, systems, entityMan}) {
     this.game = game;
     this.running = running || false;
-    this.systems = systems || [];
-    this.entityMan = entityMan || new EntityMan({});
     this.startTime = null;
     this.curTime = null;
     this.deltaTime = null;
-  }
-  get entities() {
-    return this.entityMan.entities;
-  }
-  set entities(entities) {
-    this.entityMan.entities = entities;
   }
   setTime(timeStamp) {
     if(this.startTime === null)
@@ -34,10 +26,12 @@ class State {
 
 class PlayState extends State {
   constructor({game, running, systems, entityMan, canvas, level}) {
-    super({game, running, systems, entityMan});
+    super({game, running});
+    this.systems = systems || [];
+    this.entityMan = entityMan || new EntityMan({});
     this.event = {up: false, down: false, left: false, right: false};
     this.canvas = canvas;
-    this.camera = new Camera({canvas, x: 0, y: 0});
+    this.camera = new Camera({canvas, pos: new Vec(0, 0)});
     this.ctx = canvas.getContext('2d');
     this.level = level;
     this.levelEntityIndex = 0;
@@ -72,7 +66,12 @@ class PlayState extends State {
     addEventListener('keydown', this.handleKeyDown);
     addEventListener('keyup', this.handleKeyUp);
   }
-
+  get entities() {
+    return this.entityMan.entities;
+  }
+  set entities(entities) {
+    this.entityMan.entities = entities;
+  }
   genEntity() {
     /*
     let entityData = this.level[this.levelEntityIndex];
@@ -118,22 +117,24 @@ class PlayState extends State {
     if(this.running == false)
       return;
     const player = this.entityMan.get(this.playerId);
-    if(player) {
-      const pos = player.comps['pos'];
-      const shooting = player.comps['shooting'];
-      if(this.event.ArrowUp)
-        pos.vec.y -= 30;
-      if(this.event.ArrowDown)
-        pos.vec.y += 30;
-      if(this.event.ArrowLeft)
-        pos.vec.x -= 30;
-      if(this.event.ArrowRight)
-        pos.vec.x += 30;
-      if(this.event.Space)
-        shooting.enabled = true;
-      else
-        shooting.enabled = false;
+    if(!player) {
+      this.game.switchState(new GameOverState({game: this.game, running: true, canvas: this.canvas, camera: this.camera}));
+      return;
     }
+    const pos = player.comps['pos'];
+    const shooting = player.comps['shooting'];
+    if(this.event.ArrowUp)
+      pos.vec.y -= 30;
+    if(this.event.ArrowDown)
+      pos.vec.y += 30;
+    if(this.event.ArrowLeft)
+      pos.vec.x -= 30;
+    if(this.event.ArrowRight)
+      pos.vec.x += 30;
+    if(this.event.Space)
+      shooting.enabled = true;
+    else
+      shooting.enabled = false;
     this.genEntity();
     for(let system of this.systems) {
       system.process();
@@ -189,6 +190,37 @@ class PlayState extends State {
     removeEventListener('keydown', this.handleKeyDown);
     removeEventListener('keyup', this.handleKeyUp);
   }
+}
+
+class GameOverState extends State {
+  constructor({game, running, canvas, camera}) {
+    super({game, running});
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.camera = new Camera({canvas, pos: new Vec(0, 0)});
+  }
+  update() {
+    if(this.running == false)
+      return;
+  }
+  render() {
+    const ctx = this.ctx;
+    const canvas = this.canvas;
+    const camera = this.camera;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = '#00FF00';
+    ctx.font = '' + (300 * camera.scale) + 'px Arial';
+    ctx.fillText(
+      'GAME OVER',
+      600 * camera.scale,
+      2000 * camera.scale
+    );
+    ctx.closePath();
+    ctx.restore();
+  }
+  destroy() {}
 }
 
 export {State, PlayState};
