@@ -1,6 +1,8 @@
 class Comp {
   constructor({name}) {
     this.name = name;
+    if(this.name === undefined)
+      throw new Error('requiredParam');
   }
 }
 
