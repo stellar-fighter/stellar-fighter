@@ -46,6 +46,9 @@ class Vector {
     this.x - vector.x;
     this.y - vector.y;
   }
+  dot(vector) {
+    return this.x * vector.x + this.y * vector.y;
+  }
   mult(scalar) {
     this.x = scalar * this.x;
     this.y = scalar * this.y;
