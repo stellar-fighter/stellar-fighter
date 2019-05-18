@@ -1,9 +1,9 @@
 import {Vec} from './vec';
 class Camera {
   constructor({canvas, pos, sFactor}) {
-    this.canvas = canvas;
-    if(this.canvas === undefined)
+    if(canvas === undefined)
       throw new Error('RequiredParam');
+    this.canvas = canvas;
     this.pos = pos || new Vec();
     this.sFactor = sFactor || 3000;
   }

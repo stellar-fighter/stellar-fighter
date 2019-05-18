@@ -4,9 +4,9 @@ import {Vec} from './vec';
 
 class System {
   constructor({state, compNames}) {
-    this.state = state;
-    if(this.state === undefined)
+    if(state === undefined)
       throw new Error('RequiredParam');
+    this.state = state;
     this.compNames = compNames || [];
   }
   filter(entity) {

@@ -1,23 +1,31 @@
 class SceneNode {
-  constructor({name, state, children}) {
-    this.name = name;
-    if(this.name === undefined)
+  constructor({name, ctx, pos, size, children}) {
+    this.name = name || null;
+    if(ctx === undefined)
       throw new Error('RequiredParam');
-    this.state = state;
-    this.children = children || {};
-    this.valid = true;
+    this.ctx = ctx;
+    if(pos === undefined)
+      throw new Error('RequiredParam');
+    this.pos = pos;
+    if(size === undefined)
+      throw new Error('RequiredParam');
+    this.size = size;
+    //this.children = children || {};
+    this.children = children || [];
+    this.alive = true;
   }
-  get valid() {
-    if(this._valid === undefined)
+  get alive() {
+    if(this._alive === undefined)
       return true;
-    return this._valid;
+    return this._alive;
   }
-  set valid(valid) {
-    if(this._valid === undefined || this._valid == true)
-      this._valid = valid;
+  set alive(alive) {
+    if(this._alive === undefined || this._alive == true)
+      this._alive = alive;
   }
   addChild(child) {
-    this.children[child.name] = child;
+    child.ctx = this.ctx;
+    //this.children[child.name] = child;
   }
   delChild(name) {
     delete this.children[name];
@@ -27,7 +35,7 @@ class SceneNode {
     this.drawSelf();
     for(let name in this.children) {
       const child = this.children[name];
-      if(child.valid)
+      if(child.alive)
         child.draw();
       else
         this.delChild(child.name);

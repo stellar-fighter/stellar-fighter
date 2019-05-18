@@ -8,23 +8,14 @@ import {SceneNode} from './scenes';
 
 class State {
   constructor({game, running, systems, entityMan}) {
-    this.game = game;
-    if(this.game === undefined)
+    if(game === undefined)
       throw new Error('RequiredParam');
+    this.game = game;
     this.running = running || false;
     this.timer = new Timer();
     this.startTime = null;
     this.curTime = null;
     this.deltaTime = null;
-    this.systems = systems || [];
-    this.entityMan = entityMan || new EntityMan({});
-    this.scene = new SceneNode({name: 'root', state: this});
-  }
-  get entities() {
-    return this.entityMan.entities;
-  }
-  set entities(entities) {
-    this.entityMan.entities = entities;
   }
   setTime(timeStamp) {
     this.timer.record(timeStamp);
@@ -43,6 +34,7 @@ class PlayState extends State {
     this.canvas = canvas;
     this.camera = new Camera({canvas, pos: new Vec(0, 0)});
     this.ctx = canvas.getContext('2d');
+    this.scene = new SceneNode({name: 'root', ctx: this.ctx, pos: null, size: null});
     this.level = level;
     this.levelEntityIndex = 0;
     this.systems.push(new MovSystem({state: this}));
@@ -51,17 +43,17 @@ class PlayState extends State {
     this.systems.push(new CollSystem({state: this}));
     this.systems.push(new ShootingSystem({state: this}));
     this.systems.push(new PlayerSystem({state: this}));
-    this.playerId = this.entityMan.add(
-      new Fighter001({
-        state: this,
-        comps: {
-          pos: new PosComp({vec: new Vec(1500, 2000)}),
-          mov: new MovComp({vel: new Vec(0, -15)}),
-          camOut: new CamOutComp({type: CamOutComp.BLOCK}),
-          shooting: new ShootingComp({coolTime: 100, timer: this.timer}),
-        }
-      })
-    );
+    const player = new Fighter001({
+      state: this,
+      comps: {
+        pos: new PosComp({vec: new Vec(1500, 2000)}),
+        mov: new MovComp({vel: new Vec(0, -15)}),
+        camOut: new CamOutComp({type: CamOutComp.BLOCK}),
+        shooting: new ShootingComp({coolTime: 100, timer: this.timer}),
+      }
+    });
+    this.scene.addChild(player);
+    this.playerId = this.entityMan.add(player);
     const that = this;
     this.handleKeyDown = (event) => {
       console.log(event.code);
@@ -192,8 +184,6 @@ class PlayState extends State {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for(let index in this.entities) {
       const entity = this.entities[index];
-      const pos = entity.comps['pos'];
-      const size = entity.comps['size'];
       const vis = entity.comps['vis'];
       const hp = entity.comps['hp'];
       ctx.save();
@@ -204,17 +194,17 @@ class PlayState extends State {
       );
       ctx.drawImage(
         vis.image,
-        (pos.vec.x - camera.pos.x),
-        (pos.vec.y - camera.pos.y),
-        size.vec.x,
-        size.vec.y
+        (vis.sn.pos.x - camera.pos.x),
+        (vis.sn.pos.y - camera.pos.y),
+        vis.sn.size.x,
+        vis.sn.size.y
       );
       ctx.beginPath();
       ctx.rect(
-        (pos.vec.x - camera.pos.x),
-        (pos.vec.y - camera.pos.y),
-        size.vec.x,
-        size.vec.y
+        (vis.sn.pos.x - camera.pos.x),
+        (vis.sn.pos.y - camera.pos.y),
+        vis.sn.size.x,
+        vis.sn.size.y
       );
       ctx.stroke();
       ctx.closePath();
@@ -223,8 +213,8 @@ class PlayState extends State {
       ctx.font = '' + (300 * camera.scale) + 'px Arial';
       ctx.fillText(
         hp.val,
-        pos.vec.x - camera.pos.x,
-        pos.vec.y - camera.pos.y
+        vis.sn.pos.x - camera.pos.x,
+        vis.sn.pos.y - camera.pos.y
       );
       ctx.closePath();
       ctx.restore();

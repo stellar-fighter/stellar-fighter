@@ -1,11 +1,13 @@
 import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
 import {Vec} from './vec';
+import {SceneNode} from './scenes';
 
 class Entity {
-  constructor({state, comps, name}) {
-    this.state = state;
-    if(this.state === undefined)
+  constructor({name, state, comps}) {
+    this.name = name;
+    if(state === undefined)
       throw new Error('RequiredParam');
+    this.state = state;
     this.comps = comps || {};
     this.name = name;
   }
@@ -55,9 +57,11 @@ class Fighter001 extends Entity {
     if(this.comps['mov'] === undefined)
       this.addComp(new MovComp({}));
     if(this.comps['size'] === undefined)
-      this.addComp(new SizeComp({vec: new Vec(300, 400)}));
-    if(this.comps['vis'] === undefined)
-      this.addComp(new VisComp({image: this.state.game.assets.stellarFighter}));
+      this.addComp(new SizeComp({vec: new Vec(600, 800)}));
+    if(this.comps['vis'] === undefined) {
+      const sn = new SceneNode({ctx: this.state.ctx, pos: this.comps['pos'].vec, size: this.comps['size'].vec});
+      this.addComp(new VisComp({image: this.state.game.assets.stellarFighter, sn}));
+    }
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
     if(this.comps['coll'] === undefined)
@@ -69,7 +73,7 @@ class Fighter001 extends Entity {
   }
 }
 
-class Boss001 extends Entity { //보스는 큰 피통과, 크기를 가지고있습니다
+class Boss001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: "Boss"});
     this.direction = 1;
@@ -81,7 +85,7 @@ class Boss001 extends Entity { //보스는 큰 피통과, 크기를 가지고있
     if(this.comps['size'] === undefined)
       this.addComp(new SizeComp({vec: new Vec(500, 400)}));
     if(this.comps['vis'] === undefined)
-      this.addComp(new VisComp({image: this.state.game.assets.boss}));
+      this.addComp(new VisComp({image: this.state.game.assets.fighter001}));
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
     if(this.comps['coll'] === undefined)
@@ -89,12 +93,11 @@ class Boss001 extends Entity { //보스는 큰 피통과, 크기를 가지고있
     if(this.comps['hp'] === undefined)
       this.addComp(new HpComp({val: 80}));
     if(this.comps['team'] === undefined)
-      this.addComp(new TeamComp({value: 'PLAYER'}));
+      this.addComp(new TeamComp({value: 'ENEMY'}));
   }
 }
 
-class Alien001 extends Entity { //alien 즉 지금은행성으로되어있어 부딪히면 피가 사라지고 객체가 사라집니다
-
+class Alien001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: "Alien"});
     if(this.comps['pos'] === undefined)
@@ -104,7 +107,7 @@ class Alien001 extends Entity { //alien 즉 지금은행성으로되어있어 �
     if(this.comps['size'] === undefined)
       this.addComp(new SizeComp({vec: new Vec(300, 400)}));
     if(this.comps['vis'] === undefined)
-      this.addComp(new VisComp({image: this.state.game.assets.alien001}));
+      this.addComp(new VisComp({image: this.state.game.assets.fighter001}));
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
     if(this.comps['coll'] === undefined)
@@ -112,11 +115,11 @@ class Alien001 extends Entity { //alien 즉 지금은행성으로되어있어 �
     if(this.comps['hp'] === undefined)
       this.addComp(new HpComp({value: 1}));
     if(this.comps['team'] === undefined)
-      this.addComp(new TeamComp({value: 'PLAYER'}));
+      this.addComp(new TeamComp({value: 'ENEMY'}));
   }
 }
 
-class Hpitem extends Entity { //포션의 경우 먹을때 없어지고, hp 가 차오릅니다
+class HpItem extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: "Potion"});
     this.direction = 1;
@@ -127,7 +130,7 @@ class Hpitem extends Entity { //포션의 경우 먹을때 없어지고, hp 가 
     if(this.comps['size'] === undefined)
       this.addComp(new SizeComp({vec: new Vec(300, 400)}));
     if(this.comps['vis'] === undefined)
-      this.addComp(new VisComp({image: this.state.game.assets.potion}));
+      this.addComp(new VisComp({image: this.state.game.assets.fighter001}));
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
     if(this.comps['coll'] === undefined)
@@ -135,7 +138,7 @@ class Hpitem extends Entity { //포션의 경우 먹을때 없어지고, hp 가 
     if(this.comps['hp'] === undefined)
       this.addComp(new HpComp({value: 1}));
     if(this.comps['team'] === undefined)
-      this.addComp(new TeamComp({value: 'PLAYER'}));
+      this.addComp(new TeamComp({value: 'ENEMY'}));
   }
 }
 
@@ -148,8 +151,10 @@ class Bullet001 extends Entity {
       this.addComp(new MovComp({vel: new Vec(0, -60)}));
     if(this.comps['size'] === undefined)
       this.addComp(new SizeComp({vec: new Vec(100, 100)}));
-    if(this.comps['vis'] === undefined)
-      this.addComp(new VisComp({image: this.state.game.assets.fire}));
+    if(this.comps['vis'] === undefined) {
+      const sn = new SceneNode({ctx: this.state.ctx, pos: this.comps['pos'].vec, size: this.comps['size'].vec});
+      this.addComp(new VisComp({image: this.state.game.assets.bullet001, sn}));
+    }
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
     if(this.comps['coll'] === undefined)
