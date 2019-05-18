@@ -7,11 +7,11 @@ class Game {
     this.assets.fire = new Image();
     this.assets.fire.src = './asset/fire.png';
     this.assets.alien001 = new Image();
-    this.assets.alien001.src = './asset/enemy001.png';
+    this.assets.alien001.src = './asset/fighter.png';
     this.assets.boss = new Image();
-    this.assets.boss.src = './asset/enemy_boss.png';
+    this.assets.boss.src = './asset/fighter.png';
     this.assets.potion = new Image();
-    this.assets.potion.src = './asset/potion.png';
+    this.assets.potion.src = './asset/fighter.png';
 
 
   }

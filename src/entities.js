@@ -91,10 +91,6 @@ class Boss001 extends Entity { //보스는 큰 피통과, 크기를 가지고있
   }
 }
 
-
-
-
-
 class Alien001 extends Entity { //alien 즉 지금은행성으로되어있어 부딪히면 피가 사라지고 객체가 사라집니다
 
   constructor({state, comps}) {
@@ -118,7 +114,7 @@ class Alien001 extends Entity { //alien 즉 지금은행성으로되어있어 �
   }
 }
 
-class Hp_item extends Entity { //포션의 경우 먹을때 없어지고, hp 가 차오릅니다
+class Hpitem extends Entity { //포션의 경우 먹을때 없어지고, hp 가 차오릅니다
   constructor({state, comps}) {
     super({state, comps, name: "Potion"});
     this.direction = 1;
@@ -140,9 +136,6 @@ class Hp_item extends Entity { //포션의 경우 먹을때 없어지고, hp 가
       this.addComp(new TeamComp({value: 'PLAYER'}));
   }
 }
-
-
-
 
 class Bullet001 extends Entity {
   constructor({state, comps}) {
@@ -166,4 +159,4 @@ class Bullet001 extends Entity {
   }
 }
 
-export {Entity, EntityMan, Fighter001, Alien001, Bullet001, Boss001, Hp_item};
+export {Entity, EntityMan, Fighter001, Alien001, Bullet001, Boss001, Hpitem};

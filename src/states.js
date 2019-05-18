@@ -1,5 +1,5 @@
 import {Camera} from './camera';
-import {EntityMan, Fighter001, Alien001, Bullet001, Hp_item, Boss001} from './entities';
+import {EntityMan, Fighter001, Alien001, Bullet001, Hpitem, Boss001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem} from './systems';
 import {Vec} from './vec';
@@ -109,7 +109,7 @@ class PlayState extends State {
 
     if(Math.random() > 0.997) {
       this.entityMan.add(
-        new Hp_item({
+        new Hpitem({
           state: this,
           comps: {
             // pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x), y: this.camera.y}),
