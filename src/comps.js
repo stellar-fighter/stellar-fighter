@@ -1,9 +1,10 @@
 import {Vec} from './vec';
+
 class Comp {
   constructor({name}) {
-    this.name = name;
-    if(this.name === undefined)
+    if(name === undefined)
       throw new Error('requiredParam');
+    this.name = name;
   }
 }
 
@@ -33,11 +34,13 @@ class SizeComp extends Comp {
 }
 
 class VisComp extends Comp {
-  constructor({image, visible, size}) {
+  constructor({sn, image, visible}) {
     super({name: 'vis'});
     this.image = image;
     this.visible = visible || true;
-    this.size = size || new Vec();
+    if(sn === undefined)
+      throw new Error('RequiredParam');
+    this.sn = sn;
   }
 }
 
@@ -88,9 +91,9 @@ class TeamComp extends Comp {
 class ShootingComp extends Comp {
   constructor({enabled, coolTime, dir, timer}) {
     super({name: 'shooting'});
-    this.timer = timer;
-    if(this.timer === undefined)
+    if(timer === undefined)
       throw new Error('RequiredParam');
+    this.timer = timer;
     this.prevShoot = 0;
     this._enabled = enabled || false;
     this.coolTime = coolTime || 150;
