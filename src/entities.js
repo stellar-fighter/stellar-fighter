@@ -59,7 +59,15 @@ class Fighter001 extends Entity {
     if(this.comps['size'] === undefined)
       this.addComp(new SizeComp({vec: new Vec(600, 800)}));
     if(this.comps['vis'] === undefined) {
-      const sn = new SceneNode({ctx: this.state.ctx, pos: this.comps['pos'].vec, size: this.comps['size'].vec});
+      const sn = new SceneNode({
+        canvas: this.state.canvas,
+        ctx: this.state.ctx,
+        camera: this.state.camera,
+        draw: () => { console.log('draw'); },
+        pos: this.comps['pos'].vec,
+        size: this.comps['size'].vec,
+        layer: 1,
+      });
       this.addComp(new VisComp({image: this.state.game.assets.stellarFighter, sn}));
     }
     if(this.comps['camOut'] === undefined)
@@ -152,8 +160,16 @@ class Bullet001 extends Entity {
     if(this.comps['size'] === undefined)
       this.addComp(new SizeComp({vec: new Vec(100, 100)}));
     if(this.comps['vis'] === undefined) {
-      const sn = new SceneNode({ctx: this.state.ctx, pos: this.comps['pos'].vec, size: this.comps['size'].vec});
-      this.addComp(new VisComp({image: this.state.game.assets.bullet001, sn}));
+      const sn = new SceneNode({
+        canvas: this.state.canvas,
+        ctx: this.state.ctx,
+        camera: this.state.camera,
+        layer: 0,
+        draw: () => { console.log('draw'); },
+        pos: this.comps['pos'].vec,
+        size: this.comps['size'].vec
+      });
+      this.addComp(new VisComp({image: this.state.game.assets.fire, sn}));
     }
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
