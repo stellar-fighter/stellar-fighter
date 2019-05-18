@@ -1,5 +1,5 @@
 import {Camera} from './camera';
-import {EntityMan, Fighter001, Alien001, Bullet001} from './entities';
+import {EntityMan, Fighter001, Alien001, Bullet001, Hp_item, Boss001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem} from './systems';
 import {Vec} from './vec';
@@ -89,9 +89,9 @@ class PlayState extends State {
       entityData = this.level[++this.levelEntityIndex];
     }
     */
-    if(Math.random() > 0.99) {
+    if(Math.random() > 0.98) {
       this.entityMan.add(
-        new Fighter001({
+        new Alien001({
           state: this,
           comps: {
             pos: new PosComp({
@@ -101,12 +101,54 @@ class PlayState extends State {
               )
             }),
             team: new TeamComp({val: 'ENEMY'}),
-            shooting: new ShootingComp({enabled: true, coolTime: 3000, timer: this.timer})
+            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
           },
         })
       );
     }
+
+    if(Math.random() > 0.997) {
+      this.entityMan.add(
+        new Hp_item({
+          state: this,
+          comps: {
+            // pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x), y: this.camera.y}),
+            pos: new PosComp({
+              vec: new Vec(
+
+                Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
+                this.camera.pos.y
+              )
+            }),
+            team: new TeamComp({val: 'ENEMY'}),
+            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
+          },
+        })
+      );
+    }
+
+    if(Math.random() > 0.997) {
+      this.entityMan.add(
+        new Boss001({
+          state: this,
+          comps: {
+            pos: new PosComp({
+              vec: new Vec(
+                Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
+                this.camera.pos.y
+              )
+            }),
+            team: new TeamComp({val: 'ENEMY'}),
+            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
+          },
+        })
+      );
+    }
+
+
+
   }
+
 
   update() {
     if(this.running == false)

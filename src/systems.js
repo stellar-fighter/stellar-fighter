@@ -80,6 +80,50 @@ class CamOutSystem extends System {
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
       if(this.filter(entity) == true) {
+
+        /////Boss 의 움직임입니당//
+        if(entity.name == "Boss") {
+
+          const pivot = 15 * entity.direction; //보스 움직임의 x 담당
+          const pivot2 = 30 * entity.directionY; //보스움직임의 y 담당
+          pos.vec.y += pivot2;
+          pos.vec.x += pivot;
+          if((pos.vec.y + size.vec.y - camera.pos.y) * camera.scale < 10) {
+            entity.directionY = 1;
+          }
+          if( (pos.vec.y - camera.pos.y) * camera.scale > canvas.height - 50) {
+            entity.directionY = -2;
+          }
+
+
+          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 10) {
+            entity.direction *= -1;
+
+          }
+
+          if((pos.vec.x - camera.pos.x) * camera.scale > canvas.width - 10) {
+            entity.direction *= -1;
+
+          }
+        }
+        /////////////////potion 의 움직임입니다
+        if(entity.name == "Potion") {
+          pos.vec.y -= 10 + 10 * Math.sin(Date.now());
+          const pivot = 15 * entity.direction;
+          pos.vec.x += pivot;
+
+          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 10) {
+            entity.direction *= -1;
+
+          }
+
+          if((pos.vec.x - camera.pos.x) * camera.scale > canvas.width - 10) {
+            entity.direction *= -1;
+
+          }
+        }
+        ////////////////////
+
         if(camOut.type == CamOutComp.DESTROY) {
           if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 0 ||
              (pos.vec.x - camera.pos.x) * camera.scale > canvas.width ||
