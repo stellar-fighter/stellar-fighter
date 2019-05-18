@@ -26,21 +26,9 @@ class SceneNode {
     this.render = render || ((self) => {});
     this.alive = true;
   }
-  get alive() {
-    if(this._alive === undefined)
-      return true;
-    return this._alive;
-  }
-  set alive(alive) {
-    if(this._alive === undefined || this._alive == true)
-      this._alive = alive;
-  }
   addChild(child) {
     child.ctx = this.ctx;
     this.children.push(child);
-  }
-  delChild(name) {
-    delete this.children[name];
   }
   renderChildren() {
     this.render(this);
