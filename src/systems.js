@@ -119,18 +119,21 @@ class ShootingSystem extends System {
     super({state, compNames: ['shooting', 'pos', 'team']});
   }
   process() {
+    const fighterImg = new Image();
+    fighterImg.src = '../asset/fighter.png';
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
       const pos = entity.comps['pos'];
       const shooting = entity.comps['shooting'];
       const team = entity.comps['team'];
       if(this.filter(entity) && shooting.enabled) {
+        const bullet_x = pos.vec.x + fighterImg.width;
         this.state.entityMan.add(
           new Bullet001({
             state: this.state,
             comps: {
               pos: new PosComp({
-                vec: new Vec(pos.vec.x, pos.vec.y)
+                vec: new Vec(bullet_x, pos.vec.y)
               }),
               team: new TeamComp({val: team.val})
             }
@@ -147,15 +150,17 @@ class PlayerSystem extends System {
   }
   process() {
     const player = this.state.entityMan.get(this.state.playerId);
-    const pos = player.comps['pos'];
-    if(this.state.event.ArrowUp)
-      pos.vec.y -= 30;
-    if(this.state.event.ArrowDown)
-      pos.vec.y += 30;
-    if(this.state.event.ArrowLeft)
-      pos.vec.x -= 30;
-    if(this.state.event.ArrowRight)
-      pos.vec.x += 30;
+    if (player) {
+      const pos = player.comps['pos'];
+      if(this.state.event.ArrowUp)
+        pos.vec.y -= 30;
+      if(this.state.event.ArrowDown)
+        pos.vec.y += 30;
+      if(this.state.event.ArrowLeft)
+        pos.vec.x -= 30;
+      if(this.state.event.ArrowRight)
+        pos.vec.x += 30;
+    }
   }
 }
 
