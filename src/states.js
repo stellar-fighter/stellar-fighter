@@ -1,5 +1,5 @@
 import {Camera} from './camera';
-import {EntityMan, Fighter001, Alien001, Bullet001} from './entities';
+import {EntityMan, Fighter001, Alien001, Bullet001, Boss001, Hpitem} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
@@ -69,9 +69,30 @@ class PlayState extends State {
     this.entityMan.entities = entities;
   }
   genEntity() {
-    if(Math.random() > 0.99) {
+    /*
+    let entityData = this.level[this.levelEntityIndex];
+    while(entityData && this.camera.pos.y <= entityData.y) {
+      switch(entityData.type) {
+      case 'a-001':
+        //this.entityMan.add(new Alien001({state: this}));
+        break;
+      case 's-fighter':
+        this.entityMan.add(
+          new Fighter001({
+            state: this,
+            comps: {
+              pos: new PosComp({x: entityData.x, y: entityData.y}),
+            }
+          })
+        );
+        break;
+      }
+      entityData = this.level[++this.levelEntityIndex];
+    }
+    */
+    if(Math.random() > 0.98) {
       this.entityMan.add(
-        new Fighter001({
+        new Alien001({
           state: this,
           comps: {
             pos: new PosComp({
@@ -81,11 +102,52 @@ class PlayState extends State {
               )
             }),
             team: new TeamComp({val: 'ENEMY'}),
-            shooting: new ShootingComp({enabled: true, coolTime: 3000, timer: this.timer})
+            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
           },
         })
       );
     }
+
+    if(Math.random() > 0.997) {
+      this.entityMan.add(
+        new Hpitem({
+          state: this,
+
+          comps: {
+            // pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x), y: this.camera.y}),
+            pos: new PosComp({
+              vec: new Vec(
+
+                Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
+                this.camera.pos.y
+              )
+            }),
+            team: new TeamComp({val: 'ENEMY'}),
+            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
+          },
+        })
+      );
+    }
+
+    if(Math.random() > 0.997) {
+      this.entityMan.add(
+        new Boss001({
+          state: this,
+          comps: {
+            pos: new PosComp({
+              vec: new Vec(
+                Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
+                this.camera.pos.y
+              )
+            }),
+            team: new TeamComp({val: 'ENEMY'}),
+            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
+          },
+        })
+      );
+    }
+
+
   }
 
   update() {
