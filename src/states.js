@@ -1,7 +1,7 @@
 import {Camera} from './camera';
 import {EntityMan, Fighter001, Alien001, Bullet001, Boss001, Hpitem} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
-import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem} from './systems';
+import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
 import {Timer} from './timer';
 
@@ -35,6 +35,7 @@ class PlayState extends State {
     this.systems.push(new CamOutSystem({state: this}));
     this.systems.push(new CollSystem({state: this}));
     this.systems.push(new ShootingSystem({state: this}));
+    this.systems.push(new PlayerSystem({state: this}));
     this.playerId = this.entityMan.add(
       new Fighter001({
         state: this,
@@ -157,16 +158,7 @@ class PlayState extends State {
       this.game.switchState(new GameOverState({game: this.game, running: true, canvas: this.canvas, camera: this.camera}));
       return;
     }
-    const pos = player.comps['pos'];
     const shooting = player.comps['shooting'];
-    if(this.event.ArrowUp)
-      pos.vec.y -= 30;
-    if(this.event.ArrowDown)
-      pos.vec.y += 30;
-    if(this.event.ArrowLeft)
-      pos.vec.x -= 30;
-    if(this.event.ArrowRight)
-      pos.vec.x += 30;
     if(this.event.Space)
       shooting.enabled = true;
     else
