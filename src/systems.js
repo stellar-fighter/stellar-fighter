@@ -141,4 +141,22 @@ class ShootingSystem extends System {
   }
 }
 
-export {System, MovSystem, CollSystem, CamOutSystem, HpSystem, ShootingSystem};
+class PlayerSystem extends System {
+  constructor({state, compNames}) {
+    super({state});
+  }
+  process() {
+    const player = this.state.entityMan.get(this.state.playerId);
+    const pos = player.comps['pos'];
+    if(this.state.event.ArrowUp)
+      pos.vec.y -= 30;
+    if(this.state.event.ArrowDown)
+      pos.vec.y += 30;
+    if(this.state.event.ArrowLeft)
+      pos.vec.x -= 30;
+    if(this.state.event.ArrowRight)
+      pos.vec.x += 30;
+  }
+}
+
+export {System, MovSystem, CollSystem, CamOutSystem, HpSystem, ShootingSystem, PlayerSystem};
