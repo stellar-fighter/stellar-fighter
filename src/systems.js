@@ -133,7 +133,7 @@ class ShootingSystem extends System {
             state: this.state,
             comps: {
               pos: new PosComp({
-                vec: new Vec(bullet_x, pos.vec.y)
+                vec: new Vec(pos.vec.x + 250, pos.vec.y)
               }),
               team: new TeamComp({val: team.val})
             }
