@@ -119,15 +119,12 @@ class ShootingSystem extends System {
     super({state, compNames: ['shooting', 'pos', 'team']});
   }
   process() {
-    const fighterImg = new Image();
-    fighterImg.src = '../asset/fighter.png';
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
       const pos = entity.comps['pos'];
       const shooting = entity.comps['shooting'];
       const team = entity.comps['team'];
       if(this.filter(entity) && shooting.enabled) {
-        const bullet_x = pos.vec.x + fighterImg.width;
         this.state.entityMan.add(
           new Bullet001({
             state: this.state,
