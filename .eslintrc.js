@@ -22,6 +22,7 @@ module.exports = {
         "no-multi-spaces": "error",
         "comma-spacing": "error",
         "no-trailing-spaces": "error",
-        "space-infix-ops": "error"
+        "space-infix-ops": "error",
+        "no-multiple-empty-lines": "error"
     }
 };
