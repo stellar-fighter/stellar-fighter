@@ -4,7 +4,7 @@ import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamC
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
 import {Timer} from './timer';
-import {SceneNode} from './scene_nodes';
+import {SceneNode, Sprite, Background} from './scene_nodes';
 
 class State {
   constructor({game, running, systems, entityMan}) {
@@ -43,12 +43,14 @@ class PlayState extends State {
     });
     this.scene.addChild(new SceneNode({}));
     this.scene.addChild(new SceneNode({}));
+    this.scene.addChild(new SceneNode({}));
     this.systems.push(new MovSystem({state: this}));
     this.systems.push(new HpSystem({state: this}));
     this.systems.push(new CamOutSystem({state: this}));
     this.systems.push(new CollSystem({state: this}));
     this.systems.push(new ShootingSystem({state: this}));
     this.systems.push(new PlayerSystem({state: this}));
+    this.scene.children[0].addChild(new Background({texture: this.game.assets.stars}));
     const player = new Fighter001({
       state: this,
       comps: {
@@ -58,7 +60,7 @@ class PlayState extends State {
         shooting: new ShootingComp({coolTime: 100, timer: this.timer}),
       }
     });
-    this.scene.children[1].addChild(player.comps['vis'].sn);
+    this.scene.children[2].addChild(player.comps['vis'].sn);
     this.playerId = this.entityMan.add(player);
     const that = this;
     this.handleKeyDown = (event) => {
@@ -118,7 +120,7 @@ class PlayState extends State {
         },
       });
       this.entityMan.add(enemy);
-      this.scene.children[0].addChild(enemy.comps['vis'].sn);
+      this.scene.children[1].addChild(enemy.comps['vis'].sn);
     }
 
     if(Math.random() > 0.997) {
@@ -136,7 +138,7 @@ class PlayState extends State {
         },
       });
       this.entityMan.add(item001);
-      this.scene.children[0].addChild(item001.comps['vis'].sn);
+      this.scene.children[1].addChild(item001.comps['vis'].sn);
     }
 
     if(Math.random() > 0.997) {
@@ -154,7 +156,7 @@ class PlayState extends State {
         },
       });
       this.entityMan.add(boss001);
-      this.scene.children[0].addChild(boss001.comps['vis'].sn);
+      this.scene.children[1].addChild(boss001.comps['vis'].sn);
     }
   }
   update() {
@@ -171,15 +173,18 @@ class PlayState extends State {
     else
       shooting.enabled = false;
     this.genEntity();
-    for(let system of this.systems) {
+    for(let system of this.systems)
       system.process();
-    }
     this.camera.pos.y -= 15;
   }
 
   render() {
     const {canvas, ctx, camera, scene} = this;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    /*
+    ctx.drawImage(this.game.assets.stars, 0, (Math.floor(Math.abs(camera.pos.y) / 4000) * -4000 - camera.pos.y) * camera.scale, 3000 * camera.scale, 4000 * camera.scale);
+    ctx.drawImage(this.game.assets.stars, 0, ((Math.floor(Math.abs(camera.pos.y) / 4000) + 1) * -4000 - camera.pos.y) * camera.scale, 3000 * camera.scale, 4000 * camera.scale);
+    */
     scene.renderAll({canvas, ctx, camera});
   }
 
