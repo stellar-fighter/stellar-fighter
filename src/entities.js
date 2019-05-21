@@ -196,18 +196,16 @@ class Item001 extends Entity {
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
     }
-
   }
 }
 
 class Bullet001 extends Entity {
-  constructor({state, comps}) {
+  constructor({state, comps, speed}) {
     super({state, comps});
-    const {pos, mov, size, camOut, coll, team, hp, vis} = this.comps;
+    const {pos, size, camOut, coll, team, hp, vis} = this.comps;
+    this.addComp(new MovComp({vel: new Vec(1, 1).setMag(10)}));
     if(pos === undefined)
       this.addComp(new PosComp({}));
-    if(mov === undefined)
-      this.addComp(new MovComp({vel: new Vec(0, -60)}));
     if(size === undefined)
       this.addComp(new SizeComp({vec: new Vec(100, 100)}));
     if(camOut === undefined)
