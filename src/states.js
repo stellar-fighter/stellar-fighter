@@ -1,5 +1,5 @@
 import {Camera} from './camera';
-import {EntityMan, Fighter001, Alien001, Bullet001, Boss001, Hpitem} from './entities';
+import {EntityMan, Fighter001, Alien001, Bullet001, Boss001, Item001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
@@ -122,47 +122,41 @@ class PlayState extends State {
     }
 
     if(Math.random() > 0.997) {
-      this.entityMan.add(
-        new Hpitem({
-          state: this,
-
-          comps: {
-            // pos: new PosComp({x: Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.x), y: this.camera.y}),
-            pos: new PosComp({
-              vec: new Vec(
-
-                Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-                this.camera.pos.y
-              )
-            }),
-            team: new TeamComp({val: 'ENEMY'}),
-            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
-          },
-        })
-      );
+      const item001 = new Item001({
+        state: this,
+        comps: {
+          pos: new PosComp({
+            vec: new Vec(
+              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
+              this.camera.pos.y
+            )
+          }),
+          team: new TeamComp({val: 'ENEMY'}),
+          shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
+        },
+      });
+      this.entityMan.add(item001);
+      this.scene.children[0].addChild(item001.comps['vis'].sn);
     }
 
     if(Math.random() > 0.997) {
-      this.entityMan.add(
-        new Boss001({
-          state: this,
-          comps: {
-            pos: new PosComp({
-              vec: new Vec(
-                Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-                this.camera.pos.y
-              )
-            }),
-            team: new TeamComp({val: 'ENEMY'}),
-            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
-          },
-        })
-      );
+      const boss001 = new Boss001({
+        state: this,
+        comps: {
+          pos: new PosComp({
+            vec: new Vec(
+              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
+              this.camera.pos.y
+            )
+          }),
+          team: new TeamComp({val: 'ENEMY'}),
+          shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
+        },
+      });
+      this.entityMan.add(boss001);
+      this.scene.children[0].addChild(boss001.comps['vis'].sn);
     }
-
-
   }
-
   update() {
     if(this.running == false)
       return;
