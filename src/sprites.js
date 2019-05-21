@@ -1,17 +1,17 @@
 import {SceneNode} from './scene_nodes';
 
 class Sprite extends SceneNode {
-  constructor({pos, size, children, render, image}) {
+  constructor({pos, size, children, render, texture}) {
     super({
       pos, size, children,
       render: (render || Sprite.defaultRender)
     });
-    if(image === undefined)
+    if(texture === undefined)
       throw new Error('RequiredParam');
-    this.image = image;
+    this.texture = texture;
   }
   static defaultRender({self, canvas, ctx, camera}) {
-    const {pos, size, image} = self;
+    const {pos, size, texture} = self;
     if(!(ctx && camera && pos && size))
       return;
     ctx.save();
@@ -21,7 +21,7 @@ class Sprite extends SceneNode {
       0, 0
     );
     ctx.drawImage(
-      image,
+      texture,
       (pos.x - camera.pos.x),
       (pos.y - camera.pos.y),
       size.x,
