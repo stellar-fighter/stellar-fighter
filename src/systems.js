@@ -66,8 +66,10 @@ class CollSystem extends System {
            this.filter(entity2) &&
            entity1.comps['team'].val != entity2.comps['team'].val &&
            CollSystem.checkColl(entity1, entity2)) {
-          entity1.comps['hp'].val -= entity2.comps['coll'].damage;
-          entity2.comps['hp'].val -= entity1.comps['coll'].damage;
+          if(entity1.comps['coll'].enabled)
+            entity2.comps['hp'].val -= entity1.comps['coll'].damage;
+          if(entity2.comps['coll'].enabled)
+            entity1.comps['hp'].val -= entity2.comps['coll'].damage;
         }
       }
     }

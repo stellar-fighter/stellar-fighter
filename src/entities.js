@@ -5,9 +5,9 @@ import {Sprite, HpDisplay} from './scene_nodes';
 class Entity {
   constructor({name, state, comps}) {
     this.name = name;
-    if(state === undefined)
-      throw new Error('RequiredParam');
     this.state = state;
+    if(this.state === undefined)
+      throw new Error('RequiredParam');
     this.comps = comps || {};
     this.alive = true;
   }
@@ -73,7 +73,7 @@ class Fighter001 extends Entity {
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
-      this.addComp(new CollComp({damage: 1}));
+      this.addComp(new CollComp({damage: 1, timer: this.state.timer}));
     if(hp === undefined)
       this.addComp(new HpComp({val: 100}));
     if(team === undefined)
@@ -109,7 +109,7 @@ class Boss001 extends Entity {
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
-      this.addComp(new CollComp({damage: 1}));
+      this.addComp(new CollComp({damage: 1, timer: this.state.timer}));
     if(hp === undefined)
       this.addComp(new HpComp({val: 80}));
     if(team === undefined)
@@ -143,7 +143,7 @@ class Alien001 extends Entity {
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
-      this.addComp(new CollComp({damage: 20}));
+      this.addComp(new CollComp({damage: 20, timer: this.state.timer}));
     if(hp === undefined)
       this.addComp(new HpComp({value: 1}));
     if(team === undefined)
@@ -178,7 +178,7 @@ class Item001 extends Entity {
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
-      this.addComp(new CollComp({damage: -20}));
+      this.addComp(new CollComp({damage: -20, timer: this.state.timer}));
     if(hp === undefined)
       this.addComp(new HpComp({value: 1}));
     if(team === undefined)
@@ -213,7 +213,7 @@ class Bullet001 extends Entity {
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
-      this.addComp(new CollComp({damage: 10}));
+      this.addComp(new CollComp({damage: 10, timer: this.state.timer}));
     if(hp === undefined)
       this.addComp(new HpComp({val: 1}));
     if(team === undefined)

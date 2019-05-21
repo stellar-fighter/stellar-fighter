@@ -44,10 +44,25 @@ class VisComp extends Comp {
 }
 
 class CollComp extends Comp {
-  constructor({damage, coolTime}) {
+  constructor({damage, timer, coolTime, enabled}) {
     super({name: 'coll'});
     this.damage = damage || 0;
-    this.coolTime = coolTime || 0;
+    this.timer = timer;
+    if(this.timer === undefined)
+      throw new Error('RequiredParam');
+    this.coolTime = coolTime || 150;
+    this._enabled = enabled || true;
+  }
+  set enabled(enabled) {
+    this._enabled = enabled;
+  }
+  get enabled() {
+    if(!this._enabled || this.timer.current - this.prevTime <= this.coolTime)
+      return false;
+    else {
+      this.prevTime = this.timer.current;
+      return true;
+    }
   }
 }
 
@@ -88,24 +103,24 @@ class TeamComp extends Comp {
 }
 
 class ShootingComp extends Comp {
-  constructor({enabled, coolTime, dir, timer}) {
+  constructor({enabled, timer, coolTime, dir}) {
     super({name: 'shooting'});
-    if(timer === undefined)
-      throw new Error('RequiredParam');
     this.timer = timer;
-    this.prevShoot = 0;
-    this._enabled = enabled || false;
+    if(this.timer === undefined)
+      throw new Error('RequiredParam');
     this.coolTime = coolTime || 150;
+    this.prevTime = 0;
+    this._enabled = enabled || false;
     this.dir = dir;
   }
   set enabled(enabled) {
     this._enabled = enabled;
   }
   get enabled() {
-    if(!this._enabled || this.timer.current - this.prevShoot <= this.coolTime)
+    if(!this._enabled || this.timer.current - this.prevTime <= this.coolTime)
       return false;
     else {
-      this.prevShoot = this.timer.current;
+      this.prevTime = this.timer.current;
       return true;
     }
   }
