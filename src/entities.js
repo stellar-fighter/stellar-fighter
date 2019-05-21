@@ -87,7 +87,7 @@ class Fighter001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        image: this.state.game.assets.fighter001
+        texture: this.state.game.assets.fighter001
       });
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
@@ -123,7 +123,7 @@ class Boss001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        image: this.state.game.assets.fighter001
+        texture: this.state.game.assets.fighter001
       });
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
@@ -157,7 +157,7 @@ class Alien001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        image: this.state.game.assets.fighter001
+        texture: this.state.game.assets.fighter001
       });
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
@@ -192,7 +192,7 @@ class Item001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        image: this.state.game.assets.fighter001
+        texture: this.state.game.assets.fighter001
       });
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
@@ -227,7 +227,7 @@ class Bullet001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        image: this.state.game.assets.bullet001
+        texture: this.state.game.assets.bullet001
       });
       this.addComp(new VisComp({sn}));
     }
