@@ -1,6 +1,7 @@
 import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
 import {Vec} from './vec';
-import {SceneNode} from './scenes';
+import {Sprite} from './sprites';
+import {HpDisplay} from './scene_nodes';
 
 class Entity {
   constructor({name, state, comps}) {
@@ -9,13 +10,22 @@ class Entity {
       throw new Error('RequiredParam');
     this.state = state;
     this.comps = comps || {};
-    this.name = name;
+    this.alive = true;
   }
   addComp(comp) {
     this.comps[comp.name] = comp;
   }
   delComp(name) {
     delete this.comps[name];
+  }
+  get alive() {
+    if(this._alive === undefined)
+      return true;
+    return this._alive;
+  }
+  set alive(alive) {
+    if(this._alive === undefined || this._alive == true)
+      this._alive = alive;
   }
 }
 
@@ -41,6 +51,8 @@ class EntityMan {
   }
   del(id) {
     const entity = this.entities[id];
+    entity.alive = false;
+    entity.comps['vis'].sn.alive = false;
     delete this.entities[id];
     return entity;
   }
@@ -52,32 +64,34 @@ class EntityMan {
 class Fighter001 extends Entity {
   constructor({state, comps}) {
     super({state, comps});
-    if(this.comps['pos'] === undefined)
+    const {pos, mov, size, camOut, coll, hp, team, vis} = this.comps;
+    if(pos === undefined)
       this.addComp(new PosComp({}));
-    if(this.comps['mov'] === undefined)
+    if(mov === undefined)
       this.addComp(new MovComp({}));
-    if(this.comps['size'] === undefined)
+    if(size === undefined)
       this.addComp(new SizeComp({vec: new Vec(600, 800)}));
-    if(this.comps['vis'] === undefined) {
-      const sn = new SceneNode({
+    if(camOut === undefined)
+      this.addComp(new CamOutComp({}));
+    if(coll === undefined)
+      this.addComp(new CollComp({damage: 1}));
+    if(hp === undefined)
+      this.addComp(new HpComp({val: 100}));
+    if(team === undefined)
+      this.addComp(new TeamComp({val: 'PLAYER'}));
+    if(vis === undefined) {
+      const {pos, size, hp} = this.comps;
+      const sn = new Sprite({
         canvas: this.state.canvas,
         ctx: this.state.ctx,
         camera: this.state.camera,
-        draw: () => { console.log('draw'); },
-        pos: this.comps['pos'].vec,
-        size: this.comps['size'].vec,
-        layer: 1,
+        pos: pos.vec,
+        size: size.vec,
+        image: this.state.game.assets.fighter001
       });
-      this.addComp(new VisComp({image: this.state.game.assets.stellarFighter, sn}));
+      sn.addChild(new HpDisplay({hp, pos, size}));
+      this.addComp(new VisComp({sn}));
     }
-    if(this.comps['camOut'] === undefined)
-      this.addComp(new CamOutComp({}));
-    if(this.comps['coll'] === undefined)
-      this.addComp(new CollComp({damage: 1}));
-    if(this.comps['hp'] === undefined)
-      this.addComp(new HpComp({val: 100}));
-    if(this.comps['team'] === undefined)
-      this.addComp(new TeamComp({val: 'PLAYER'}));
   }
 }
 
@@ -153,24 +167,13 @@ class HpItem extends Entity {
 class Bullet001 extends Entity {
   constructor({state, comps}) {
     super({state, comps});
+    const {pos, mov, size, camOut, coll, team, hp, vis} = this.comps;
     if(this.comps['pos'] === undefined)
       this.addComp(new PosComp({}));
     if(this.comps['mov'] === undefined)
       this.addComp(new MovComp({vel: new Vec(0, -60)}));
     if(this.comps['size'] === undefined)
       this.addComp(new SizeComp({vec: new Vec(100, 100)}));
-    if(this.comps['vis'] === undefined) {
-      const sn = new SceneNode({
-        canvas: this.state.canvas,
-        ctx: this.state.ctx,
-        camera: this.state.camera,
-        layer: 0,
-        draw: () => { console.log('draw'); },
-        pos: this.comps['pos'].vec,
-        size: this.comps['size'].vec
-      });
-      this.addComp(new VisComp({image: this.state.game.assets.fire, sn}));
-    }
     if(this.comps['camOut'] === undefined)
       this.addComp(new CamOutComp({}));
     if(this.comps['coll'] === undefined)
@@ -179,6 +182,18 @@ class Bullet001 extends Entity {
       this.addComp(new HpComp({val: 1}));
     if(this.comps['team'] === undefined)
       this.addComp(new TeamComp({val: 'PLAYER'}));
+    if(this.comps['vis'] === undefined) {
+      const {pos, size, hp} = this.comps;
+      const sn = new Sprite({
+        canvas: this.state.canvas,
+        ctx: this.state.ctx,
+        camera: this.state.camera,
+        pos: pos.vec,
+        size: size.vec,
+        image: this.state.game.assets.bullet001
+      });
+      this.addComp(new VisComp({sn}));
+    }
   }
 }
 

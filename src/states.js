@@ -4,7 +4,7 @@ import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamC
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
 import {Timer} from './timer';
-import {SceneNode} from './scenes';
+import {SceneNode} from './scene_nodes';
 
 class State {
   constructor({game, running, systems, entityMan}) {
@@ -36,6 +36,13 @@ class PlayState extends State {
     this.ctx = canvas.getContext('2d');
     this.level = level;
     this.levelEntityIndex = 0;
+    this.scene = new SceneNode({
+      canvas: this.canvas,
+      ctx: this.ctx,
+      camera: this.camera
+    });
+    this.scene.addChild(new SceneNode({}));
+    this.scene.addChild(new SceneNode({}));
     this.systems.push(new MovSystem({state: this}));
     this.systems.push(new HpSystem({state: this}));
     this.systems.push(new CamOutSystem({state: this}));
@@ -51,6 +58,7 @@ class PlayState extends State {
         shooting: new ShootingComp({coolTime: 100, timer: this.timer}),
       }
     });
+    this.scene.children[1].addChild(player.comps['vis'].sn);
     this.playerId = this.entityMan.add(player);
     const that = this;
     this.handleKeyDown = (event) => {
@@ -95,22 +103,22 @@ class PlayState extends State {
       entityData = this.level[++this.levelEntityIndex];
     }
     */
-    if(Math.random() > 0.98) {
-      this.entityMan.add(
-        new Alien001({
-          state: this,
-          comps: {
-            pos: new PosComp({
-              vec: new Vec(
-                Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-                this.camera.pos.y
-              )
-            }),
-            team: new TeamComp({val: 'ENEMY'}),
-            shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
-          },
-        })
-      );
+    if(Math.random() > 0.99) {
+      const enemy = new Fighter001({
+        state: this,
+        comps: {
+          pos: new PosComp({
+            vec: new Vec(
+              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
+              this.camera.pos.y
+            )
+          }),
+          team: new TeamComp({val: 'ENEMY'}),
+          shooting: new ShootingComp({enabled: true, coolTime: 3000, timer: this.timer})
+        },
+      });
+      this.entityMan.add(enemy);
+      this.scene.children[0].addChild(enemy.comps['vis'].sn);
     }
 
     if(Math.random() > 0.997) {
@@ -176,82 +184,11 @@ class PlayState extends State {
   }
 
   render() {
-    const ctx = this.ctx;
-    const camera = this.camera;
-    const canvas = this.canvas;
-    const scene = [];
+    const {canvas, ctx, camera, scene} = this;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let index in this.entities) {
-      const entity = this.entities[index];
-      const vis = entity.comps['vis'];
-      if(vis === undefined)
-        continue;
-      const layer = vis.sn.layer;
-      if(scene[layer] === undefined)
-        scene[layer] = [];
-      scene[layer].push(vis.sn);
-    }
-    console.log(scene);
-    for(let layer in scene) {
-      for(let sn of scene[layer]) {
-        ctx.save();
-        ctx.setTransform(
-          camera.scale, 0,
-          0, camera.scale,
-          0, 0
-        );
-        if(layer == 0)
-          ctx.fillStyle = '#00FF00';
-        if(layer == 1)
-          ctx.fillStyle = '#FF0000';
-
-        ctx.beginPath();
-        ctx.rect(
-          (sn.pos.x - camera.pos.x),
-          (sn.pos.y - camera.pos.y),
-          sn.size.x,
-          sn.size.y
-        );
-        ctx.fill();
-        ctx.closePath();
-        ctx.restore();
-      }
-      /*
-      ctx.save();
-      ctx.setTransform(
-        camera.scale, 0,
-        0, camera.scale,
-        0, 0
-      );
-      ctx.drawImage(
-        vis.image,
-        (vis.sn.pos.x - camera.pos.x),
-        (vis.sn.pos.y - camera.pos.y),
-        vis.sn.size.x,
-        vis.sn.size.y
-      );
-      ctx.beginPath();
-      ctx.rect(
-        (vis.sn.pos.x - camera.pos.x),
-        (vis.sn.pos.y - camera.pos.y),
-        vis.sn.size.x,
-        vis.sn.size.y
-      );
-      ctx.stroke();
-      ctx.closePath();
-      ctx.beginPath();
-      ctx.fillStyle = '#00FF00';
-      ctx.font = '' + (300 * camera.scale) + 'px Arial';
-      ctx.fillText(
-        hp.val,
-        vis.sn.pos.x - camera.pos.x,
-        vis.sn.pos.y - camera.pos.y
-      );
-      ctx.closePath();
-      ctx.restore();
-      */
-    }
+    scene.renderAll({canvas, ctx, camera});
   }
+
   destroy() {
     removeEventListener('keydown', this.handleKeyDown);
     removeEventListener('keyup', this.handleKeyUp);

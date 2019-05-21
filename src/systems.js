@@ -87,11 +87,9 @@ class CamOutSystem extends System {
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
       if(this.filter(entity) == true) {
-        /////Boss 의 움직임입니당//
         if(entity.name == "Boss") {
-
-          const pivot = 15 * entity.direction; //보스 움직임의 x 담당
-          const pivot2 = 30 * entity.directionY; //보스움직임의 y 담당
+          const pivot = 15 * entity.direction;
+          const pivot2 = 30 * entity.directionY;
           pos.vec.y += pivot2;
           pos.vec.x += pivot;
           if((pos.vec.y + size.vec.y - camera.pos.y) * camera.scale < 10) {
@@ -100,35 +98,24 @@ class CamOutSystem extends System {
           if( (pos.vec.y - camera.pos.y) * camera.scale > canvas.height - 50) {
             entity.directionY = -2;
           }
-
-
           if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 10) {
             entity.direction *= -1;
-
           }
-
           if((pos.vec.x - camera.pos.x) * camera.scale > canvas.width - 10) {
             entity.direction *= -1;
-
           }
         }
-        /////////////////potion 의 움직임입니다
         if(entity.name == "Potion") {
           pos.vec.y -= 10 + 10 * Math.sin(Date.now());
           const pivot = 15 * entity.direction;
           pos.vec.x += pivot;
-
           if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 10) {
             entity.direction *= -1;
-
           }
-
           if((pos.vec.x - camera.pos.x) * camera.scale > canvas.width - 10) {
             entity.direction *= -1;
-
           }
         }
-        ////////////////////
         if(camOut.type == CamOutComp.DESTROY) {
           if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 0 ||
              (pos.vec.x - camera.pos.x) * camera.scale > canvas.width ||
@@ -171,21 +158,20 @@ class ShootingSystem extends System {
   process() {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
-      const pos = entity.comps['pos'];
-      const shooting = entity.comps['shooting'];
-      const team = entity.comps['team'];
+      const {pos, shooting, team} = entity.comps;
       if(this.filter(entity) && shooting.enabled) {
-        this.state.entityMan.add(
-          new Bullet001({
-            state: this.state,
-            comps: {
-              pos: new PosComp({
-                vec: new Vec(pos.vec.x + 250, pos.vec.y)
-              }),
-              team: new TeamComp({val: team.val})
-            }
-          })
-        );
+        const bullet = new Bullet001({
+          state: this.state,
+          comps: {
+            pos: new PosComp({
+              vec: new Vec(pos.vec.x, pos.vec.y)
+            }),
+            team: new TeamComp({val: team.val})
+          }
+        });
+        const {vis} = bullet.comps;
+        this.state.scene.children[0].addChild(vis.sn);
+        this.state.entityMan.add(bullet);
       }
     }
   }

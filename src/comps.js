@@ -34,9 +34,8 @@ class SizeComp extends Comp {
 }
 
 class VisComp extends Comp {
-  constructor({sn, image, visible}) {
+  constructor({sn, visible}) {
     super({name: 'vis'});
-    this.image = image;
     this.visible = visible || true;
     if(sn === undefined)
       throw new Error('RequiredParam');

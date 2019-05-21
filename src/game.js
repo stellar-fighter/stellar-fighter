@@ -2,16 +2,10 @@ class Game {
   constructor() {
     this.states = [];
     this.assets = {};
-    this.assets.stellarFighter = new Image();
-    this.assets.stellarFighter.src = './asset/fighter.png';
-    this.assets.fire = new Image();
-    this.assets.fire.src = './asset/fire.png';
-    this.assets.alien001 = new Image();
-    this.assets.alien001.src = './asset/fighter.png';
-    this.assets.boss = new Image();
-    this.assets.boss.src = './asset/fighter.png';
-    this.assets.potion = new Image();
-    this.assets.potion.src = './asset/fighter.png';
+    this.assets.fighter001 = new Image();
+    this.assets.fighter001.src = './asset/fighter.png';
+    this.assets.bullet001 = new Image();
+    this.assets.bullet001.src = './asset/bullet001.png';
   }
   pushState(state) {
     this.states.push(state);
