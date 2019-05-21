@@ -3,9 +3,11 @@ class Game {
     this.states = [];
     this.assets = {};
     this.assets.fighter001 = new Image();
-    this.assets.fighter001.src = './asset/fighter.png';
+    this.assets.fighter001.src = './asset/fighter001.png';
     this.assets.bullet001 = new Image();
     this.assets.bullet001.src = './asset/bullet001.png';
+    this.assets.stars = new Image();
+    this.assets.stars.src = './asset/nebula10.png';
   }
   pushState(state) {
     this.states.push(state);

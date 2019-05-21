@@ -1,7 +1,6 @@
 import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
 import {Vec} from './vec';
-import {Sprite} from './sprites';
-import {HpDisplay} from './scene_nodes';
+import {Sprite, HpDisplay} from './scene_nodes';
 
 class Entity {
   constructor({name, state, comps}) {
