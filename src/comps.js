@@ -50,6 +50,7 @@ class CollComp extends Comp {
     this.timer = timer;
     if(this.timer === undefined)
       throw new Error('RequiredParam');
+    this.prevTime = 0;
     this.coolTime = coolTime || 150;
     this._enabled = enabled || true;
   }
@@ -103,15 +104,15 @@ class TeamComp extends Comp {
 }
 
 class ShootingComp extends Comp {
-  constructor({enabled, timer, coolTime, dir}) {
+  constructor({enabled, timer, coolTime, power}) {
     super({name: 'shooting'});
     this.timer = timer;
     if(this.timer === undefined)
       throw new Error('RequiredParam');
-    this.coolTime = coolTime || 150;
     this.prevTime = 0;
+    this.coolTime = coolTime || 150;
     this._enabled = enabled || false;
-    this.dir = dir;
+    this.power = power || new Vec(0, 0);
   }
   set enabled(enabled) {
     this._enabled = enabled;

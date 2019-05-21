@@ -57,7 +57,7 @@ class PlayState extends State {
         pos: new PosComp({vec: new Vec(1500, 2000)}),
         mov: new MovComp({vel: new Vec(0, -15)}),
         camOut: new CamOutComp({type: CamOutComp.BLOCK}),
-        shooting: new ShootingComp({coolTime: 100, timer: this.timer}),
+        shooting: new ShootingComp({coolTime: 100, timer: this.timer, power: new Vec(0, -15)}),
       }
     });
     this.scene.children[2].addChild(player.comps['vis'].sn);
@@ -116,7 +116,7 @@ class PlayState extends State {
             )
           }),
           team: new TeamComp({val: 'ENEMY'}),
-          shooting: new ShootingComp({enabled: true, coolTime: 3000, timer: this.timer})
+          shooting: new ShootingComp({enabled: true, coolTime: 3000, timer: this.timer, power: new Vec(0, 10)})
         },
       });
       this.entityMan.add(enemy);
@@ -152,7 +152,7 @@ class PlayState extends State {
             )
           }),
           team: new TeamComp({val: 'ENEMY'}),
-          shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
+          shooting: new ShootingComp({enabled: true, coolTime: 500, timer: this.timer})
         },
       });
       this.entityMan.add(boss001);

@@ -171,7 +171,8 @@ class ShootingSystem extends System {
             team: new TeamComp({val: team.val})
           }
         });
-        const {vis} = bullet.comps;
+        const {mov, vis} = bullet.comps;
+        mov.vel.setVec(Vec.fromVec(shooting.power).mult(mov.vel.mag));
         this.state.scene.children[0].addChild(vis.sn);
         this.state.entityMan.add(bullet);
       }
