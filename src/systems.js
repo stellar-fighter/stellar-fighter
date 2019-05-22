@@ -89,7 +89,7 @@ class CamOutSystem extends System {
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
       if(this.filter(entity) == true) {
-        if(entity.name == "Boss") {
+        if(entity.name == "alien002") {
           const pivot = 15 * entity.direction;
           const pivot2 = 30 * entity.directionY;
           pos.vec.y += pivot2;
@@ -97,7 +97,7 @@ class CamOutSystem extends System {
           if((pos.vec.y + size.vec.y - camera.pos.y) * camera.scale < 10) {
             entity.directionY = 1;
           }
-          if( (pos.vec.y - camera.pos.y) * camera.scale > canvas.height - 50) {
+          if((pos.vec.y - camera.pos.y) * camera.scale > canvas.height - 50) {
             entity.directionY = -2;
           }
           if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 10) {
@@ -107,7 +107,7 @@ class CamOutSystem extends System {
             entity.direction *= -1;
           }
         }
-        if(entity.name == "Potion") {
+        if(entity.name == "item001") {
           pos.vec.y -= 10 + 10 * Math.sin(Date.now());
           const pivot = 15 * entity.direction;
           pos.vec.x += pivot;
