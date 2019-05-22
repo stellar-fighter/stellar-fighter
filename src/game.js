@@ -7,7 +7,7 @@ class Game {
     this.assets.bullet001 = new Image();
     this.assets.bullet001.src = './asset/bullet001.png';
     this.assets.stars = new Image();
-    this.assets.stars.src = './asset/nebula10.png';
+    this.assets.stars.src = './asset/nebula/nebula10.png';
   }
   pushState(state) {
     this.states.push(state);
