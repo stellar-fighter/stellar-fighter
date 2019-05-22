@@ -109,9 +109,9 @@ class Alien001 extends Entity {
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
-      this.addComp(new CollComp({damage: 20, timer: this.state.timer}));
+      this.addComp(new CollComp({damage: 20, timer: this.state.timer, coolTime: 1000}));
     if(hp === undefined)
-      this.addComp(new HpComp({val: 100}));
+      this.addComp(new HpComp({val: 40}));
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
@@ -149,11 +149,11 @@ class Alien002 extends Entity {
     if(coll === undefined)
       this.addComp(new CollComp({damage: 1, timer: this.state.timer}));
     if(hp === undefined)
-      this.addComp(new HpComp({val: 80}));
+      this.addComp(new HpComp({val: 20}));
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer}));
+      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, -1)}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -184,9 +184,9 @@ class Item001 extends Entity {
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
-      this.addComp(new CollComp({damage: -20, timer: this.state.timer}));
+      this.addComp(new CollComp({damage: -5, timer: this.state.timer, coolTime: 800}));
     if(hp === undefined)
-      this.addComp(new HpComp({val: 1}));
+      this.addComp(new HpComp({val: Infinity}));
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(vis === undefined) {
