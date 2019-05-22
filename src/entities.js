@@ -96,9 +96,45 @@ class Fighter001 extends Entity {
   }
 }
 
+class Alien001 extends Entity {
+  constructor({state, comps}) {
+    super({state, comps, name: 'alien001'});
+    const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
+    if(pos === undefined)
+      this.addComp(new PosComp({}));
+    if(mov === undefined)
+      this.addComp(new MovComp({}));
+    if(size === undefined)
+      this.addComp(new SizeComp({vec: new Vec(300, 400)}));
+    if(camOut === undefined)
+      this.addComp(new CamOutComp({}));
+    if(coll === undefined)
+      this.addComp(new CollComp({damage: 20, timer: this.state.timer}));
+    if(hp === undefined)
+      this.addComp(new HpComp({val: 100}));
+    if(team === undefined)
+      this.addComp(new TeamComp({val: 'ENEMY'}));
+    if(shooting === undefined)
+      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 10)}));
+    if(vis === undefined) {
+      const {pos, size, hp} = this.comps;
+      const sn = new Sprite({
+        canvas: this.state.canvas,
+        ctx: this.state.ctx,
+        camera: this.state.camera,
+        pos: pos.vec,
+        size: size.vec,
+        texture: this.state.game.assets.fighter001
+      });
+      sn.addChild(new HpDisplay({hp, pos, size}));
+      this.addComp(new VisComp({sn}));
+    }
+  }
+}
+
 class Alien002 extends Entity {
   constructor({state, comps}) {
-    super({state, comps, name: "Boss"});
+    super({state, comps, name: 'alien002'});
     const {pos, mov, size, vis, camOut, coll, hp, team, shooting} = this.comps;
     this.direction = 1;
     this.directionY = 1;
@@ -134,45 +170,9 @@ class Alien002 extends Entity {
   }
 }
 
-class Alien001 extends Entity {
-  constructor({state, comps}) {
-    super({state, comps, name: "Alien"});
-    const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
-    if(pos === undefined)
-      this.addComp(new PosComp({}));
-    if(mov === undefined)
-      this.addComp(new MovComp({}));
-    if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(300, 400)}));
-    if(camOut === undefined)
-      this.addComp(new CamOutComp({}));
-    if(coll === undefined)
-      this.addComp(new CollComp({damage: 20, timer: this.state.timer}));
-    if(hp === undefined)
-      this.addComp(new HpComp({val: 100}));
-    if(team === undefined)
-      this.addComp(new TeamComp({val: 'ENEMY'}));
-    if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 10)}));
-    if(vis === undefined) {
-      const {pos, size, hp} = this.comps;
-      const sn = new Sprite({
-        canvas: this.state.canvas,
-        ctx: this.state.ctx,
-        camera: this.state.camera,
-        pos: pos.vec,
-        size: size.vec,
-        texture: this.state.game.assets.fighter001
-      });
-      sn.addChild(new HpDisplay({hp, pos, size}));
-      this.addComp(new VisComp({sn}));
-    }
-  }
-}
-
 class Item001 extends Entity {
   constructor({state, comps}) {
-    super({state, comps, name: "Potion"});
+    super({state, comps, name: "item001"});
     const {pos, mov, size, camOut, coll, hp, team, vis} = this.comps;
     this.direction = 1;
     if(pos === undefined)
