@@ -8,7 +8,7 @@
     "lint": "eslint \"./src/**/*.js\"",
     "lint-fix": "eslint \"./src/**/*.js\" --fix",
     "doc": "jsdoc src -c jsdoc.conf.json -d dist/doc",
-    "build": "eslint \"./src/**/*.js\" && && jsdoc src -c jsdoc.conf.json -d dist/doc && webpack --mode production",
+    "build": "eslint \"./src/**/*.js\" && jsdoc src -c jsdoc.conf.json -d dist/doc && webpack --mode production",
     "start": "eslint \"./src/**/*.js\" && webpack-dev-server --hot --inline"
   },
   "repository": {
