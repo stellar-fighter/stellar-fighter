@@ -64,12 +64,13 @@ class Fighter001 extends Entity {
   constructor({state, comps}) {
     super({state, comps});
     const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
+    const texture = this.state.game.assets.fighter001;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
       this.addComp(new MovComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(600, 800)}));
+      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(50)}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({type: CamOutComp.BLOCK}));
     if(coll === undefined)
@@ -88,7 +89,7 @@ class Fighter001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        texture: this.state.game.assets.fighter001
+        texture
       });
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
@@ -100,12 +101,13 @@ class Alien001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: 'alien001'});
     const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
+    const texture = this.state.game.assets.alien001;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
       this.addComp(new MovComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(300, 400)}));
+      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(50)}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
@@ -124,7 +126,7 @@ class Alien001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        texture: this.state.game.assets.fighter001
+        texture
       });
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
@@ -136,14 +138,15 @@ class Alien002 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: 'alien002'});
     const {pos, mov, size, vis, camOut, coll, hp, team, shooting} = this.comps;
-    this.direction = 1;
+    const texture = this.state.game.assets.alien002;
+    this.direction = 1; // this hardcoded part should be removed
     this.directionY = 1;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
       this.addComp(new MovComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(500, 400)}));
+      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(50)}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
@@ -162,7 +165,7 @@ class Alien002 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        texture: this.state.game.assets.fighter001
+        texture
       });
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
@@ -174,13 +177,14 @@ class Item001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: "item001"});
     const {pos, mov, size, camOut, coll, hp, team, vis} = this.comps;
+    const texture = this.state.game.assets.item001;
     this.direction = 1;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
       this.addComp(new MovComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(300, 400)}));
+      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(50)}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
@@ -197,7 +201,7 @@ class Item001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        texture: this.state.game.assets.fighter001
+        texture
       });
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
