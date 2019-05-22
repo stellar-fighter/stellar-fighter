@@ -130,7 +130,6 @@ class PlayState extends State {
             )
           }),
           team: new TeamComp({val: 'ENEMY'}),
-          shooting: new ShootingComp({enabled: true, coolTime: 5000, timer: this.timer})
         },
       });
       this.entityMan.add(item001);
