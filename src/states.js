@@ -119,7 +119,7 @@ class PlayState extends State {
       this.scene.children[1].addChild(alien001.comps['vis'].sn);
     }
 
-    if(Math.random() > 0.997) {
+    if(Math.random() > 0.999) {
       const item001 = new Item001({
         state: this,
         comps: {
