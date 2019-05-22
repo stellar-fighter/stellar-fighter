@@ -2,6 +2,9 @@ import {CamOutComp, ShootingComp, PosComp, TeamComp} from './comps';
 import {Bullet001} from './entities';
 import {Vec} from './vec';
 
+/**
+ * A class that handles entities and components
+ */
 class System {
   constructor({state, compNames}) {
     if(state === undefined)
@@ -9,6 +12,9 @@ class System {
     this.state = state;
     this.compNames = compNames || [];
   }
+  /**
+   * Filters entities by their components
+   */
   filter(entity) {
     for(let compName of this.compNames) {
       if(entity.comps[compName] === undefined)
@@ -21,6 +27,9 @@ class System {
   }
 }
 
+/**
+ * A class that handles movements
+ */
 class MovSystem extends System {
   constructor({state, compNames}) {
     super({state, compNames: ['pos', 'mov']});
@@ -42,6 +51,9 @@ class MovSystem extends System {
   }
 }
 
+/**
+ * A class that handles collisions
+ */
 class CollSystem extends System {
   static checkColl(entity1, entity2) {
     const pos1 = entity1.comps['pos'];
