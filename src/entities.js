@@ -1,4 +1,4 @@
-import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp} from './comps';
+import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {Vec} from './vec';
 import {Sprite, HpDisplay} from './scene_nodes';
 
@@ -56,14 +56,14 @@ class EntityMan {
     return entity;
   }
   forEach(callback) {
-    Object.values().forEach(callback);
+    Object.vals().forEach(callback);
   }
 }
 
 class Fighter001 extends Entity {
   constructor({state, comps}) {
     super({state, comps});
-    const {pos, mov, size, camOut, coll, hp, team, vis} = this.comps;
+    const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
@@ -71,13 +71,15 @@ class Fighter001 extends Entity {
     if(size === undefined)
       this.addComp(new SizeComp({vec: new Vec(600, 800)}));
     if(camOut === undefined)
-      this.addComp(new CamOutComp({}));
+      this.addComp(new CamOutComp({type: CamOutComp.BLOCK}));
     if(coll === undefined)
       this.addComp(new CollComp({damage: 1, timer: this.state.timer}));
     if(hp === undefined)
       this.addComp(new HpComp({val: 100}));
     if(team === undefined)
       this.addComp(new TeamComp({val: 'PLAYER'}));
+    if(shooting === undefined)
+      this.addComp(new ShootingComp({coolTime: 100, timer: this.state.timer, power: new Vec(0, -15)}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -94,10 +96,10 @@ class Fighter001 extends Entity {
   }
 }
 
-class Boss001 extends Entity {
+class Alien002 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: "Boss"});
-    const {pos, mov, size, vis, camOut, coll, hp, team} = this.comps;
+    const {pos, mov, size, vis, camOut, coll, hp, team, shooting} = this.comps;
     this.direction = 1;
     this.directionY = 1;
     if(pos === undefined)
@@ -113,7 +115,9 @@ class Boss001 extends Entity {
     if(hp === undefined)
       this.addComp(new HpComp({val: 80}));
     if(team === undefined)
-      this.addComp(new TeamComp({value: 'ENEMY'}));
+      this.addComp(new TeamComp({val: 'ENEMY'}));
+    if(shooting === undefined)
+      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -133,7 +137,7 @@ class Boss001 extends Entity {
 class Alien001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: "Alien"});
-    const {pos, mov, size, camOut, coll, hp, team, vis} = this.comps;
+    const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
@@ -145,9 +149,11 @@ class Alien001 extends Entity {
     if(coll === undefined)
       this.addComp(new CollComp({damage: 20, timer: this.state.timer}));
     if(hp === undefined)
-      this.addComp(new HpComp({value: 1}));
+      this.addComp(new HpComp({val: 100}));
     if(team === undefined)
-      this.addComp(new TeamComp({value: 'ENEMY'}));
+      this.addComp(new TeamComp({val: 'ENEMY'}));
+    if(shooting === undefined)
+      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 10)}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -180,9 +186,9 @@ class Item001 extends Entity {
     if(coll === undefined)
       this.addComp(new CollComp({damage: -20, timer: this.state.timer}));
     if(hp === undefined)
-      this.addComp(new HpComp({value: 1}));
+      this.addComp(new HpComp({val: 1}));
     if(team === undefined)
-      this.addComp(new TeamComp({value: 'ENEMY'}));
+      this.addComp(new TeamComp({val: 'ENEMY'}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -231,4 +237,4 @@ class Bullet001 extends Entity {
   }
 }
 
-export {Entity, EntityMan, Fighter001, Alien001, Bullet001, Boss001, Item001};
+export {Entity, EntityMan, Fighter001, Alien001, Bullet001, Alien002, Item001};

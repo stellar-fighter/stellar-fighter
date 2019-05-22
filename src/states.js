@@ -1,5 +1,5 @@
 import {Camera} from './camera';
-import {EntityMan, Fighter001, Alien001, Bullet001, Boss001, Item001} from './entities';
+import {EntityMan, Fighter001, Alien001, Bullet001, Alien002, Item001} from './entities';
 import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
@@ -56,8 +56,6 @@ class PlayState extends State {
       comps: {
         pos: new PosComp({vec: new Vec(1500, 2000)}),
         mov: new MovComp({vel: new Vec(0, -15)}),
-        camOut: new CamOutComp({type: CamOutComp.BLOCK}),
-        shooting: new ShootingComp({coolTime: 100, timer: this.timer, power: new Vec(0, -15)}),
       }
     });
     this.scene.children[2].addChild(player.comps['vis'].sn);
@@ -106,7 +104,7 @@ class PlayState extends State {
     }
     */
     if(Math.random() > 0.99) {
-      const enemy = new Fighter001({
+      const alien001 = new Alien001({
         state: this,
         comps: {
           pos: new PosComp({
@@ -115,12 +113,10 @@ class PlayState extends State {
               this.camera.pos.y
             )
           }),
-          team: new TeamComp({val: 'ENEMY'}),
-          shooting: new ShootingComp({enabled: true, coolTime: 3000, timer: this.timer, power: new Vec(0, 10)})
         },
       });
-      this.entityMan.add(enemy);
-      this.scene.children[1].addChild(enemy.comps['vis'].sn);
+      this.entityMan.add(alien001);
+      this.scene.children[1].addChild(alien001.comps['vis'].sn);
     }
 
     if(Math.random() > 0.997) {
@@ -142,7 +138,7 @@ class PlayState extends State {
     }
 
     if(Math.random() > 0.997) {
-      const boss001 = new Boss001({
+      const alien002 = new Alien002({
         state: this,
         comps: {
           pos: new PosComp({
@@ -151,12 +147,10 @@ class PlayState extends State {
               this.camera.pos.y
             )
           }),
-          team: new TeamComp({val: 'ENEMY'}),
-          shooting: new ShootingComp({enabled: true, coolTime: 500, timer: this.timer})
         },
       });
-      this.entityMan.add(boss001);
-      this.scene.children[1].addChild(boss001.comps['vis'].sn);
+      this.entityMan.add(alien002);
+      this.scene.children[1].addChild(alien002.comps['vis'].sn);
     }
   }
   update() {
