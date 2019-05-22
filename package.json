@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"./src/**/*.js\"",
     "lint-fix": "eslint \"./src/**/*.js\" --fix",
-    "build": "eslint \"./src/**/*.js\" && webpack --mode production",
+    "doc": "jsdoc src -c jsdoc.conf.json -d dist/doc",
+    "build": "eslint \"./src/**/*.js\" && && jsdoc src -c jsdoc.conf.json -d dist/doc && webpack --mode production",
     "start": "eslint \"./src/**/*.js\" && webpack-dev-server --hot --inline"
   },
   "repository": {
@@ -32,6 +33,7 @@
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.4.1",
+    "jsdoc": "^3.6.2",
     "jsrender": "^1.0.3",
     "mini-css-extract-plugin": "^0.5.0",
     "mocha": "^6.1.4",
