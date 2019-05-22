@@ -213,7 +213,7 @@ class Bullet001 extends Entity {
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(100, 100)}));
+      this.addComp(new SizeComp({vec: Bullet001.defaultSize}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
@@ -234,6 +234,9 @@ class Bullet001 extends Entity {
       });
       this.addComp(new VisComp({sn}));
     }
+  }
+  static get defaultSize() { // temporary fix for bullet positioning, at last, we have to use relative coordinates
+    return new Vec(100, 100);
   }
 }
 

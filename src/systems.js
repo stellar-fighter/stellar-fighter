@@ -155,20 +155,23 @@ class HpSystem extends System {
 
 class ShootingSystem extends System {
   constructor({state, compNames}) {
-    super({state, compNames: ['shooting', 'pos', 'team']});
+    super({state, compNames: ['shooting', 'pos', 'size', 'team']});
   }
   process() {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
-      const {pos, shooting, team} = entity.comps;
+      const {pos, size, shooting, team} = entity.comps;
       if(this.filter(entity) && shooting.enabled) {
         const bullet = new Bullet001({
           state: this.state,
           comps: {
-            pos: new PosComp({
-              vec: new Vec(pos.vec.x, pos.vec.y)
-            }),
-            team: new TeamComp({val: team.val})
+            team: new TeamComp({val: team.val}),
+            pos:new PosComp({
+              vec: new Vec(
+                pos.vec.x + size.vec.x / 2 - Bullet001.defaultSize.x / 2,
+                pos.vec.y + size.vec.y / 2 - Bullet001.defaultSize.y / 2
+              )
+            })
           }
         });
         const {mov, vis} = bullet.comps;
