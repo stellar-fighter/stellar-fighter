@@ -1,3 +1,4 @@
+/* global require */
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -20,36 +21,35 @@ module.exports = {
         include: path.join(__dirname),
         exclude: /node_modules/,
         loader: "eslint-loader"
-       },
-       
-       {
-         test: /\.js$/,
-         include: path.join(__dirname),
-         exclude: /(node_modules)|(dist)/,
-         use: {
-           loader: 'babel-loader',
-         }
-       },
-       {
-         test: /\.(jpg|jpeg|png|gif|svg)$/,
-         use: {
-           loader: "url-loader",
-           options: {
-             name: "[path][name].[hash].[ext]",
-             publicPath: "./",
-             limit: 8192
-           }
-         }
-       },
-       {
-         test: /\.scss$/,
-         use: [
-           MiniCssExtractPlugin.loader,
-           'css-loader',
-           'postcss-loader',
-           'sass-loader'
-         ]
-       }
+      },
+      {
+        test: /\.js$/,
+        include: path.join(__dirname),
+        exclude: /(node_modules)|(dist)/,
+        use: {
+          loader: 'babel-loader',
+        }
+      },
+      {
+        test: /\.(jpg|jpeg|png|gif|svg)$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            name: "[path][name].[hash].[ext]",
+            publicPath: "./",
+            limit: 8192
+          }
+        }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
+      }
     ]
   },
   plugins: [
@@ -76,10 +76,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',
       chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
-    })
+    }),
   ],
   devServer: {
-    contentBase: path.resolve(__dirname, 'src'),
+    contentBase: [path.resolve(__dirname, 'src')],
     watchContentBase: true,
     publicPath: '/'
   },
