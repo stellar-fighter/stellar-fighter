@@ -1,10 +1,9 @@
 /**
- * Class that records time
+ * A class that records time
  */
-
 class Timer {
   /**
-   * Returns a empty timer
+   * Returns an empty timer
    */
   constructor() {
     this.beginning = null;
@@ -12,6 +11,7 @@ class Timer {
     this.delta = null;
   }
   /**
+   * Records current time related data
    * @param {number} timeStamp - Current timestamp
    */
   record(timeStamp) {
