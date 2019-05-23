@@ -1,6 +1,7 @@
 import {CamOutComp, ShootingComp, PosComp, TeamComp} from './comps';
 import {Bullet001} from './entities';
 import {Vec} from './vec';
+import {Sound} from './sound';
 
 /**
  * A class that handles entities and components
@@ -171,6 +172,7 @@ class ShootingSystem extends System {
   }
   process() {
     for(let id in this.state.entities) {
+      const shootsound = new Sound({source: './asset/shoot.ogg', volume: 100, loop: true});
       const entity = this.state.entities[id];
       const {pos, size, shooting, team} = entity.comps;
       if(this.filter(entity) && shooting.enabled) {
@@ -190,6 +192,7 @@ class ShootingSystem extends System {
         mov.vel.setVec(Vec.fromVec(shooting.power).mult(mov.vel.mag));
         this.state.scene.children[0].addChild(vis.sn);
         this.state.entityMan.add(bullet);
+        shootsound.start();
       }
     }
   }
