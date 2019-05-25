@@ -1,19 +1,14 @@
+import {AssetMan} from './assets';
 class Game {
   constructor() {
     this.states = [];
-    this.assets = {};
-    this.assets.fighter001 = new Image();
-    this.assets.fighter001.src = './asset/space-shooter-redux/PNG/playerShip1_blue.png';
-    this.assets.alien001 = new Image();
-    this.assets.alien001.src = './asset/space-shooter-redux/PNG/Enemies/enemyRed1.png';
-    this.assets.alien002 = new Image();
-    this.assets.alien002.src = './asset/space-shooter-redux/PNG/Enemies/enemyRed2.png';
-    this.assets.bullet001 = new Image();
-    this.assets.bullet001.src = './asset/space-shooter-redux/PNG/Lasers/laserBlue11.png';
-    this.assets.item001 = new Image();
-    this.assets.item001.src = './asset/space-shooter-redux/PNG/ufoBlue.png';
-    this.assets.stars = new Image();
-    this.assets.stars.src = './asset/nebula/nebula10.png';
+    this.assetMan = new AssetMan();
+    this.assetMan.addImage('fighter001', './asset/space-shooter-redux/PNG/playerShip1_blue.png');
+    this.assetMan.addImage('alien001', './asset/space-shooter-redux/PNG/Enemies/enemyRed1.png');
+    this.assetMan.addImage('alien002', './asset/space-shooter-redux/PNG/Enemies/enemyRed2.png');
+    this.assetMan.addImage('bullet001', './asset/space-shooter-redux/PNG/Lasers/laserBlue11.png');
+    this.assetMan.addImage('item001', './asset/space-shooter-redux/PNG/ufoBlue.png');
+    this.assetMan.addImage('bg010', './asset/nebula/nebula10.png');
   }
   pushState(state) {
     this.states.push(state);
