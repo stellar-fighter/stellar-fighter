@@ -50,7 +50,7 @@ class PlayState extends State {
     this.systems.push(new CollSystem({state: this}));
     this.systems.push(new ShootingSystem({state: this}));
     this.systems.push(new PlayerSystem({state: this}));
-    this.scene.children[0].addChild(new Background({texture: this.game.assets.stars}));
+    this.scene.children[0].addChild(new Background({texture: this.game.assetMan.images.bg010}));
     const player = new Fighter001({
       state: this,
       comps: {
@@ -174,10 +174,6 @@ class PlayState extends State {
   render() {
     const {canvas, ctx, camera, scene} = this;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    /*
-    ctx.drawImage(this.game.assets.stars, 0, (Math.floor(Math.abs(camera.pos.y) / 4000) * -4000 - camera.pos.y) * camera.scale, 3000 * camera.scale, 4000 * camera.scale);
-    ctx.drawImage(this.game.assets.stars, 0, ((Math.floor(Math.abs(camera.pos.y) / 4000) + 1) * -4000 - camera.pos.y) * camera.scale, 3000 * camera.scale, 4000 * camera.scale);
-    */
     scene.renderAll({canvas, ctx, camera});
   }
 

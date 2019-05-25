@@ -64,7 +64,8 @@ class Fighter001 extends Entity {
   constructor({state, comps}) {
     super({state, comps});
     const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
-    const texture = this.state.game.assets.fighter001;
+    const assetMan = this.state.game.assetMan;
+    const texture = assetMan.images.fighter001;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
@@ -101,7 +102,8 @@ class Alien001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: 'alien001'});
     const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
-    const texture = this.state.game.assets.alien001;
+    const assetMan = this.state.game.assetMan;
+    const texture = assetMan.images.alien001;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
@@ -138,7 +140,8 @@ class Alien002 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: 'alien002'});
     const {pos, mov, size, vis, camOut, coll, hp, team, shooting} = this.comps;
-    const texture = this.state.game.assets.alien002;
+    const assetMan = this.state.game.assetMan;
+    const texture = assetMan.images.alien002;
     this.direction = 1; // this hardcoded part should be removed
     this.directionY = 1;
     if(pos === undefined)
@@ -177,7 +180,8 @@ class Item001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: "item001"});
     const {pos, mov, size, camOut, coll, hp, team, vis} = this.comps;
-    const texture = this.state.game.assets.item001;
+    const assetMan = this.state.game.assetMan;
+    const texture = assetMan.images.item001;
     this.direction = 1;
     if(pos === undefined)
       this.addComp(new PosComp({}));
@@ -213,6 +217,7 @@ class Bullet001 extends Entity {
   constructor({state, comps, speed}) {
     super({state, comps});
     const {pos, size, camOut, coll, team, hp, vis} = this.comps;
+    const assetMan = this.state.game.assetMan;
     this.addComp(new MovComp({vel: new Vec(1, 1).setMag(10)}));
     if(pos === undefined)
       this.addComp(new PosComp({}));
@@ -234,7 +239,7 @@ class Bullet001 extends Entity {
         camera: this.state.camera,
         pos: pos.vec,
         size: size.vec,
-        texture: this.state.game.assets.bullet001
+        texture: assetMan.images.bullet001
       });
       this.addComp(new VisComp({sn}));
     }
