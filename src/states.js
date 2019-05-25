@@ -56,6 +56,7 @@ class PlayState extends State {
       comps: {
         pos: new PosComp({vec: new Vec(1500, 2000)}),
         mov: new MovComp({vel: new Vec(0, -15)}),
+        shooting: new ShootingComp({coolTime: 100, timer: this.timer, power: new Vec(0, -15), sound: this.game.assetMan.audios.shoot001})
       }
     });
     this.scene.children[2].addChild(player.comps['vis'].sn);
