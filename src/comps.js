@@ -104,7 +104,7 @@ class TeamComp extends Comp {
 }
 
 class ShootingComp extends Comp {
-  constructor({enabled, timer, coolTime, power}) {
+  constructor({enabled, timer, coolTime, power, sound}) {
     super({name: 'shooting'});
     this.timer = timer;
     if(this.timer === undefined)
@@ -113,6 +113,7 @@ class ShootingComp extends Comp {
     this.coolTime = coolTime || 150;
     this._enabled = enabled || false;
     this.power = power || new Vec(0, 0);
+    this.sound = sound || null;
   }
   set enabled(enabled) {
     this._enabled = enabled;

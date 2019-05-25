@@ -9,6 +9,8 @@ class Game {
     this.assetMan.addImage('bullet001', './asset/space-shooter-redux/PNG/Lasers/laserBlue11.png');
     this.assetMan.addImage('item001', './asset/space-shooter-redux/PNG/ufoBlue.png');
     this.assetMan.addImage('bg010', './asset/nebula/nebula10.png');
+    this.assetMan.addAudio('shoot001', './asset/space-shooter-redux/Bonus/sfx_laser1.ogg');
+    this.assetMan.addAudio('shoot002', './asset/space-shooter-redux/Bonus/sfx_laser2.ogg');
   }
   pushState(state) {
     this.states.push(state);

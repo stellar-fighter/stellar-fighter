@@ -186,6 +186,11 @@ class ShootingSystem extends System {
             })
           }
         });
+        if(shooting.sound) {
+          if(shooting.sound.paused)
+            shooting.sound.play();
+          shooting.sound.currentTime = 0;
+        }
         const {mov, vis} = bullet.comps;
         mov.vel.setVec(Vec.fromVec(shooting.power).mult(mov.vel.mag));
         this.state.scene.children[0].addChild(vis.sn);
@@ -197,7 +202,7 @@ class ShootingSystem extends System {
 
 class PlayerSystem extends System {
   constructor({state, compNames}) {
-    super({state});
+    super({state, compNames: ['player']});
   }
   process() {
     const player = this.state.entityMan.get(this.state.playerId);
