@@ -9,7 +9,7 @@ class AssetMan {
     this.images[name] = image;
   }
   addAudio(name, src) {
-    this.audio[name] = new Audio(src);
+    this.audios[name] = new Audio(src);
   }
 }
 
