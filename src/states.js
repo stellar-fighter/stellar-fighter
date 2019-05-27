@@ -190,6 +190,18 @@ class GameOverState extends State {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.camera = new Camera({canvas, pos: new Vec(0, 0)});
+    const score = 22; //example score
+    var ranking = JSON.parse(localStorage.getItem("rankings"));
+    if (ranking == null) {
+      ranking = [];
+    }
+    console.log(ranking);
+    ranking.push(score);
+    ranking.sort(function(a, b) {
+      return b - a;
+    });
+    localStorage.setItem("rankings", JSON.stringify(ranking));
+    console.log(ranking);
   }
   update() {
     if(this.running == false)
@@ -199,6 +211,7 @@ class GameOverState extends State {
     const ctx = this.ctx;
     const canvas = this.canvas;
     const camera = this.camera;
+    var ranking = JSON.parse(localStorage.getItem("rankings"));
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.beginPath();
