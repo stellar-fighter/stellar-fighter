@@ -39,10 +39,10 @@ function main() {
     }
     const $canvas = $(canvas);
     const $controls = $(controls);
-    $controls.css('top', $canvas.height());
+    $controls.css('top', canvas.height);
     $controls.css('height', canvas.height * 0.05);
     $controls.css('left', $canvas.offset().left);
-    $controls.css('width', $canvas.width());
+    $controls.css('width', canvas.width);
 
     if(started == false) {
       started = true;
