@@ -2,6 +2,9 @@ import './main.scss';
 import {Game} from './game';
 import {State, PlayState} from './states';
 import $ from 'jquery';
+import 'jquery-modal/jquery.modal';
+import jqery_modal_css from 'jquery-modal/jquery.modal.css';
+
 
 function main() {
   let started = false;
@@ -26,7 +29,7 @@ function main() {
     canvas.width = 3;
     canvas.height = 4;
     if(canvas.height / canvas.width >= window.innerHeight / window.innerWidth) {
-      const newHeight = window.innerHeight;
+      const newHeight = window.innerHeight * 0.95;
       canvas.width = newHeight * canvas.width / canvas.height;
       canvas.height = newHeight;
     } else {
@@ -36,18 +39,37 @@ function main() {
     }
     const $canvas = $(canvas);
     const $controls = $(controls);
-    $controls.css('bottom', window.innerHeight - canvas.height);
+    $controls.css('top', $canvas.height());
+    $controls.css('height', canvas.height * 0.05);
     $controls.css('left', $canvas.offset().left);
     $controls.css('width', $canvas.width());
-    $controls.children().css('font-size', (canvas.width / 40) + 'px');
+
     if(started == false) {
       started = true;
       game.pushState(new PlayState({game, running: true, canvas, level}));
       requestAnimationFrame(step);
     }
   }
+
+  function init() {
+    $.get('./menu.html', function(html) {
+      $(html).appendTo('body');
+    });
+
+    $('#menu-button').click((event) => {
+      event.preventDefault();
+      this.blur();
+      $('#menu').modal({
+        escapeClose: false,
+        clickClose: false,
+        showClose: false
+      });
+    });
+    resizeCanvas();
+  }
+
   addEventListener('resize', resizeCanvas);
-  addEventListener('load', resizeCanvas);
+  addEventListener('load', init);
   addEventListener('focus', (event) => document.activeElement.blur());
 }
 
