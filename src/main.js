@@ -2,6 +2,9 @@ import './main.scss';
 import {Game} from './game';
 import {State, PlayState} from './states';
 import $ from 'jquery';
+import 'jquery-modal/jquery.modal';
+import jqery_modal_css from 'jquery-modal/jquery.modal.css';
+
 
 function main() {
   let started = false;
@@ -47,8 +50,26 @@ function main() {
       requestAnimationFrame(step);
     }
   }
+
+  function init() {
+    $.get('./menu.html', function(html) {
+      $(html).appendTo('body');
+    });
+
+    $('#menu-button').click((event) => {
+      event.preventDefault();
+      this.blur();
+      $('#menu').modal({
+        escapeClose: false,
+        clickClose: false,
+        showClose: false
+      });
+    });
+    resizeCanvas();
+  }
+
   addEventListener('resize', resizeCanvas);
-  addEventListener('load', resizeCanvas);
+  addEventListener('load', init);
   addEventListener('focus', (event) => document.activeElement.blur());
 }
 
