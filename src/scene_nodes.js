@@ -68,8 +68,8 @@ class Sprite extends SceneNode {
       texture,
       camera.toRealX(pos.x),
       camera.toRealY(pos.y),
-      camera.toRealMag(size.x),
-      camera.toRealMag(size.y)
+      camera.toRealW(size.x),
+      camera.toRealH(size.y)
     );
     ctx.beginPath();
     /*ctx.rect(
@@ -99,8 +99,8 @@ class Background extends SceneNode {
     if(!(ctx && camera))
       return;
     ctx.save();
-    ctx.drawImage(this.texture, 0, camera.toRealY(Math.floor(Math.abs(camera.pos.y) / camera.absHeight) * -camera.absHeight), camera.realWidth, camera.realHeight); // TODO: remove hardcoded numbers
-    ctx.drawImage(this.texture, 0, camera.toRealY((Math.floor(Math.abs(camera.pos.y) / camera.absHeight) + 1) * -camera.absHeight), camera.realWidth, camera.realHeight);
+    ctx.drawImage(this.texture, 0, camera.toRealY(Math.floor(Math.abs(camera.pos.y) / camera.absH) * -camera.absH), camera.realW, camera.realH); // TODO: remove hardcoded numbers
+    ctx.drawImage(this.texture, 0, camera.toRealY((Math.floor(Math.abs(camera.pos.y) / camera.absH) + 1) * -camera.absH), camera.realW, camera.realH);
     ctx.restore();
   }
 }
@@ -140,7 +140,7 @@ class HpDisplay extends SceneNode {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = '#00FF00';
-    ctx.font = camera.toRealMag(100) + 'px Arial';
+    ctx.font = camera.toRealW(100) + 'px Arial';
     ctx.fillText(
       hp.val,
       camera.toRealX(pos.vec.x),

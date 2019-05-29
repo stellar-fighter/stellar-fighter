@@ -7,35 +7,47 @@ class Camera {
     this.pos = pos || new Vec();
     this.absSize = absSize || new Vec(3000, 4000);
   }
-  get scale() {
+  get xScale() {
     return this.canvas.width / this.absSize.x;
   }
-  get absWidth() {
+  get yScale() {
+    return this.canvas.height / this.absSize.y;
+  }
+  get absW() {
     return this.absSize.x;
   }
-  get absHeight() {
+  get absH() {
     return this.absSize.y;
   }
-  get realWidth() {
-    return this.absSize.x * this.scale;
+  get realW() {
+    return this.absSize.x * this.xScale;
   }
-  get realHeight() {
-    return this.absSize.y * this.scale;
+  get realH() {
+    return this.absSize.y * this.yScale;
   }
   toRealX(absX) {
-    return (absX - this.pos.x) * this.scale;
+    return (absX - this.pos.x) * this.xScale;
   }
   toRealY(absY) {
-    return (absY - this.pos.y) * this.scale;
-  }
-  toRealMag(absMag) {
-    return absMag * this.scale;
+    return (absY - this.pos.y) * this.yScale;
   }
   toAbsX(realX) {
-    return (realX / this.scale) + this.pos.x;
+    return (realX / this.xScale) + this.pos.x;
   }
   toAbsY(realY) {
-    return (realY / this.scale) + this.pos.y;
+    return (realY / this.yScale) + this.pos.y;
+  }
+  toRealW(absW) {
+    return absW * this.xScale;
+  }
+  toRealH(absH) {
+    return absH * this.yScale;
+  }
+  toAbsW(realW) {
+    return realW / this.xScale;
+  }
+  toAbsH(realH) {
+    return realH / this.yScale;
   }
 }
 

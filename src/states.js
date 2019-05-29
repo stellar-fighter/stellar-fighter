@@ -59,7 +59,8 @@ class PlayState extends State {
       comps: {
         pos: new PosComp({vec: new Vec(1500, 2000)}),
         mov: new MovComp({vel: new Vec(0, -15)}),
-        shooting: new ShootingComp({coolTime: 100, timer: this.timer, power: new Vec(0, -15), sound: this.game.assetMan.audios.shoot001})
+        shooting: new ShootingComp({coolTime: 100, timer: this.timer, power: new Vec(0, -1).setMag(10), sound: this.game.assetMan.audios.shoot001}),
+        hp: new HpComp({val: Infinity})
       }
     });
     this.scene.children[2].addChild(player.comps['vis'].sn);
@@ -113,7 +114,7 @@ class PlayState extends State {
         comps: {
           pos: new PosComp({
             vec: new Vec(
-              Math.random() * this.camera.absWidth,
+              Math.random() * this.camera.absW,
               this.camera.toAbsY(0)
             )
           }),
@@ -129,8 +130,8 @@ class PlayState extends State {
         comps: {
           pos: new PosComp({
             vec: new Vec(
-              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-              this.camera.pos.y
+              Math.random() * this.camera.absW,
+              this.camera.toAbsY(0)
             )
           }),
           team: new TeamComp({val: 'ENEMY'}),
@@ -140,14 +141,14 @@ class PlayState extends State {
       this.scene.children[1].addChild(item001.comps['vis'].sn);
     }
 
-    if(Math.random() > 0.997) {
+    if(Math.random() > 0.990) {
       const alien002 = new Alien002({
         state: this,
         comps: {
           pos: new PosComp({
             vec: new Vec(
-              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-              this.camera.pos.y
+              Math.random() * this.camera.absW,
+              this.camera.toAbsY(0)
             )
           }),
         },
@@ -230,8 +231,8 @@ class GameOverState extends State {
     ctx.font = '' + (200 * camera.scale) + 'px Arial';
     ctx.fillText(
       'RANKING',
-      1000 * camera.scale,
-      300 * camera.scale
+      1000 * camera.xScale,
+      300 * camera.yScale
     );
     for (let i = 0;i < 10;i++) {
       ctx.fillStyle = '#000000';
