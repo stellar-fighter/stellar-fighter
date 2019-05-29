@@ -225,7 +225,7 @@ class GameOverState extends State {
     const ctx = this.ctx;
     const canvas = this.canvas;
     const camera = this.camera;
-    var ranking = JSON.parse(localStorage.getItem("records"));
+    let ranking = JSON.parse(localStorage.getItem("records"));
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.beginPath();
