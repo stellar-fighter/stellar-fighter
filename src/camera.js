@@ -5,7 +5,8 @@ class Camera {
       throw new Error('RequiredParam');
     this.canvas = canvas;
     this.pos = pos || new Vec();
-    this.absSize = absSize || new Vec(3000, 4000);
+    const defaultW = 3000;
+    this.absSize = absSize || new Vec(defaultW, defaultW * canvas.height / canvas.width);
   }
   get xScale() {
     return this.canvas.width / this.absSize.x;
