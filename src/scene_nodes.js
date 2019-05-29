@@ -36,15 +36,10 @@ class SceneNode {
       return;
     ctx.save();
     ctx.lineWidth = 10;
-    ctx.setTransform(
-      camera.scale, 0,
-      0, camera.scale,
-      0, 0
-    );
     ctx.beginPath();
     ctx.rect(
-      (pos.x - camera.pos.x),
-      (pos.y - camera.pos.y),
+      camera.toRealX(pos.x),
+      camera.toRealY(pos.y),
       size.x,
       size.y
     );
@@ -69,17 +64,12 @@ class Sprite extends SceneNode {
     if(!(ctx && camera && pos && size))
       return;
     ctx.save();
-    ctx.setTransform(
-      camera.scale, 0,
-      0, camera.scale,
-      0, 0
-    );
     ctx.drawImage(
       texture,
-      (pos.x - camera.pos.x),
-      (pos.y - camera.pos.y),
-      size.x,
-      size.y
+      camera.toRealX(pos.x),
+      camera.toRealY(pos.y),
+      camera.toRealMag(size.x),
+      camera.toRealMag(size.y)
     );
     ctx.beginPath();
     /*ctx.rect(
@@ -109,15 +99,8 @@ class Background extends SceneNode {
     if(!(ctx && camera))
       return;
     ctx.save();
-    /*
-    ctx.setTransform(
-      camera.scale, 0,
-      0, camera.scale,
-      0, 0
-    );
-    */
-    ctx.drawImage(this.texture, 0, (Math.floor(Math.abs(camera.pos.y) / 4000) * -4000 - camera.pos.y) * camera.scale, 3000 * camera.scale, 4000 * camera.scale); // TODO: remove hardcoded numbers
-    ctx.drawImage(this.texture, 0, ((Math.floor(Math.abs(camera.pos.y) / 4000) + 1) * -4000 - camera.pos.y) * camera.scale, 3000 * camera.scale, 4000 * camera.scale);
+    ctx.drawImage(this.texture, 0, camera.toRealY(Math.floor(Math.abs(camera.pos.y) / camera.absHeight) * -camera.absHeight), camera.realWidth, camera.realHeight); // TODO: remove hardcoded numbers
+    ctx.drawImage(this.texture, 0, camera.toRealY((Math.floor(Math.abs(camera.pos.y) / camera.absHeight) + 1) * -camera.absHeight), camera.realWidth, camera.realHeight);
     ctx.restore();
   }
 }
@@ -155,18 +138,13 @@ class HpDisplay extends SceneNode {
     if(!(canvas && ctx && camera && pos && size && hp))
       return;
     ctx.save();
-    ctx.setTransform(
-      camera.scale, 0,
-      0, camera.scale,
-      0, 0
-    );
     ctx.beginPath();
     ctx.fillStyle = '#00FF00';
-    ctx.font = '' + (300 * camera.scale) + 'px Arial';
+    ctx.font = camera.toRealMag(100) + 'px Arial';
     ctx.fillText(
       hp.val,
-      pos.vec.x - camera.pos.x,
-      pos.vec.y - camera.pos.y
+      camera.toRealX(pos.vec.x),
+      camera.toRealY(pos.vec.y)
     );
     ctx.closePath();
     ctx.restore();

@@ -113,8 +113,8 @@ class PlayState extends State {
         comps: {
           pos: new PosComp({
             vec: new Vec(
-              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-              this.camera.pos.y
+              Math.random() * this.camera.absWidth,
+              this.camera.toAbsY(0)
             )
           }),
         },

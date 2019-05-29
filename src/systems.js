@@ -131,21 +131,21 @@ class CamOutSystem extends System {
           }
         }
         if(camOut.type == CamOutComp.DESTROY) {
-          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 0 ||
-             (pos.vec.x - camera.pos.x) * camera.scale > canvas.width ||
-             (pos.vec.y + size.vec.y - camera.pos.y) * camera.scale < 0 ||
-             (pos.vec.y - camera.pos.y) * camera.scale > canvas.height) {
+          if(camera.toRealX(pos.vec.x + size.vec.x) < 0 ||
+             camera.toRealX(pos.vec.x) > canvas.width ||
+             camera.toRealY(pos.vec.y + size.vec.y) < 0 ||
+             camera.toRealY(pos.vec.y) > canvas.height) {
             this.state.entityMan.del(entity.id);
           }
         } else if(camOut.type == CamOutComp.BLOCK) {
-          if((pos.vec.x - camera.pos.x) * camera.scale < 0)
+          if(camera.toRealX(pos.vec.x) < 0)
             pos.vec.x = camera.pos.x;
-          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale > canvas.width)
-            pos.vec.x = (canvas.width / camera.scale) - size.vec.x + camera.pos.x;
-          if((pos.vec.y - camera.pos.y) * camera.scale < 0)
+          if(camera.toRealX(pos.vec.x + size.vec.x) > canvas.width)
+            pos.vec.x = camera.toAbsX(canvas.width) - size.vec.x;
+          if(camera.toRealY(pos.vec.y) < 0)
             pos.vec.y = camera.pos.y;
-          if((pos.vec.y + size.vec.y - camera.pos.y) * camera.scale > canvas.height)
-            pos.vec.y = (canvas.height / camera.scale) - size.vec.y + camera.pos.y;
+          if(camera.toRealY(pos.vec.y + size.vec.y) > canvas.height)
+            pos.vec.y = camera.toAbsY(canvas.height) - size.vec.y;
         }
       }
     }
