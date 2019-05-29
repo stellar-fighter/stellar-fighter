@@ -95,7 +95,7 @@ class Sprite extends SceneNode {
 }
 
 class Background extends SceneNode {
-  constructor({children, texture, state}) {
+  constructor({children, texture}) {
     super({
       children,
       render: (Background.defaultRender)
@@ -103,7 +103,6 @@ class Background extends SceneNode {
     if(texture === undefined)
       throw new Error('RequiredParam');
     this.texture = texture;
-    this.state = state;
   }
   static defaultRender({self, canvas, ctx, camera}) {
     const {texture} = self;
@@ -120,6 +119,21 @@ class Background extends SceneNode {
     ctx.drawImage(this.texture, 0, (Math.floor(Math.abs(camera.pos.y) / 4000) * -4000 - camera.pos.y) * camera.scale, 3000 * camera.scale, 4000 * camera.scale); // TODO: remove hardcoded numbers
     ctx.drawImage(this.texture, 0, ((Math.floor(Math.abs(camera.pos.y) / 4000) + 1) * -4000 - camera.pos.y) * camera.scale, 3000 * camera.scale, 4000 * camera.scale);
     ctx.restore();
+  }
+}
+
+class ScoreDisplay extends SceneNode {
+  constructor({children, state}) {
+    super({
+      children,
+      render: (ScoreDisplay.defaultRender)
+    });
+    this.state = state;
+  }
+  static defaultRender({self, canvas, ctx, camera}) {
+    const {texture} = self;
+    if(!ctx)
+      return;
     ctx.fillStyle = '#FFFFFF';
     ctx.font = '' + (150 * camera.scale) + 'px Arial';
     ctx.fillText(this.state.score, 100 * camera.scale, 200 * camera.scale);
@@ -159,4 +173,4 @@ class HpDisplay extends SceneNode {
   }
 }
 
-export {SceneNode, Sprite, Background, HpDisplay};
+export {SceneNode, Sprite, Background, HpDisplay, ScoreDisplay};

@@ -4,7 +4,7 @@ import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamC
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
 import {Timer} from './timer';
-import {SceneNode, Sprite, Background} from './scene_nodes';
+import {SceneNode, Sprite, Background, ScoreDisplay} from './scene_nodes';
 
 class State {
   constructor({game, running, systems, entityMan}) {
@@ -52,7 +52,8 @@ class PlayState extends State {
     this.systems.push(new CollSystem({state: this}));
     this.systems.push(new ShootingSystem({state: this}));
     this.systems.push(new PlayerSystem({state: this}));
-    this.scene.children[0].addChild(new Background({texture: this.game.assetMan.images.bg010, state:this}));
+    this.scene.children[0].addChild(new Background({texture: this.game.assetMan.images.bg010}));
+    this.scene.children[1].addChild(new ScoreDisplay({state: this}));
     const player = new Fighter001({
       state: this,
       comps: {
@@ -204,7 +205,7 @@ class GameOverState extends State {
       score: score,
       name: "player",
     };
-    var record = JSON.parse(localStorage.getItem("record"));
+    var record = JSON.parse(localStorage.getItem("records"));
     if (record == null) {
       record = [];
     }
@@ -213,7 +214,7 @@ class GameOverState extends State {
     record.sort(function(a, b) {
       return b.score - a.score;
     });
-    localStorage.setItem("record", JSON.stringify(record));
+    localStorage.setItem("records", JSON.stringify(record));
     console.log(record);
   }
   update() {
@@ -224,7 +225,7 @@ class GameOverState extends State {
     const ctx = this.ctx;
     const canvas = this.canvas;
     const camera = this.camera;
-    var ranking = JSON.parse(localStorage.getItem("record"));
+    var ranking = JSON.parse(localStorage.getItem("records"));
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.beginPath();
@@ -235,24 +236,15 @@ class GameOverState extends State {
       1000 * camera.scale,
       300 * camera.scale
     );
-    for (var i = 0;i < 10;i++) {
+    for (let i = 0;i < 10;i++) {
       ctx.fillStyle = '#000000';
       if (i < 3)
         ctx.fillStyle = '#FFFF00';
-      ctx.fillText(
-        String( i + 1 ),
-        600 * camera.scale,
-        ((i + 2) * (300 * camera.scale))
-      );
+      ctx.fillText(String(i + 1), 600 * camera.scale, ((i + 2) * (300 * camera.scale)));
       var ranks = '';
-      if (ranking[i] != null) {
+      if (ranking[i] != null)
         ranks = ranking[i].name + "    " + ranking[i].score;
-      }
-      ctx.fillText(
-        ranks,
-        1200 * camera.scale,
-        ((i + 2) * (300 * camera.scale))
-      );
+      ctx.fillText(ranks, 1200 * camera.scale, ((i + 2) * (300 * camera.scale)));
     }
     ctx.closePath();
     ctx.restore();
