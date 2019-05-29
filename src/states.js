@@ -161,8 +161,6 @@ class PlayState extends State {
       return;
     const player = this.entityMan.get(this.playerId);
     if(!player) {
-      console.log("*************");
-      console.log(this.score);
       this.game.switchState(new GameOverState({game: this.game, running: true, canvas: this.canvas, camera: this.camera, score: this.score}));
       return;
     }
@@ -209,7 +207,6 @@ class GameOverState extends State {
     if (record == null) {
       record = [];
     }
-    console.log(record);
     record.push(this.rank);
     record.sort(function(a, b) {
       return b.score - a.score;

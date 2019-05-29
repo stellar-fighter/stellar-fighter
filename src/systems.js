@@ -161,7 +161,7 @@ class HpSystem extends System {
       const entity = this.state.entities[id];
       if(entity.comps['hp'].val <= 0) {
         if (entity.comps['team'].val == 'ENEMY')
-          this.state.score += 100;
+          this.state.score += entity.comps['score'].score;
         this.state.entityMan.del(entity.id);
 
       }

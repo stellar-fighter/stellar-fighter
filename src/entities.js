@@ -1,4 +1,4 @@
-import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
+import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp, ScoreComp} from './comps';
 import {Vec} from './vec';
 import {Sprite, HpDisplay} from './scene_nodes';
 
@@ -63,7 +63,7 @@ class EntityMan {
 class Fighter001 extends Entity {
   constructor({state, comps}) {
     super({state, comps});
-    const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
+    const {pos, mov, size, camOut, coll, hp, team, shooting, vis, score} = this.comps;
     const assetMan = this.state.game.assetMan;
     const texture = assetMan.images.fighter001;
     if(pos === undefined)
@@ -95,13 +95,15 @@ class Fighter001 extends Entity {
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
     }
+    if(score === undefined)
+      this.addComp(new ScoreComp({score: 100}));
   }
 }
 
 class Alien001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: 'alien001'});
-    const {pos, mov, size, camOut, coll, hp, team, shooting, vis} = this.comps;
+    const {pos, mov, size, camOut, coll, hp, team, shooting, vis, score} = this.comps;
     const assetMan = this.state.game.assetMan;
     const texture = assetMan.images.alien001;
     if(pos === undefined)
@@ -133,13 +135,15 @@ class Alien001 extends Entity {
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
     }
+    if(score === undefined)
+      this.addComp(new ScoreComp({score: 100}));
   }
 }
 
 class Alien002 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: 'alien002'});
-    const {pos, mov, size, vis, camOut, coll, hp, team, shooting} = this.comps;
+    const {pos, mov, size, vis, camOut, coll, hp, team, shooting, score} = this.comps;
     const assetMan = this.state.game.assetMan;
     const texture = assetMan.images.alien002;
     this.direction = 1; // this hardcoded part should be removed
@@ -173,13 +177,15 @@ class Alien002 extends Entity {
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
     }
+    if(score === undefined)
+      this.addComp(new ScoreComp({score: 100}));
   }
 }
 
 class Item001 extends Entity {
   constructor({state, comps}) {
     super({state, comps, name: "item001"});
-    const {pos, mov, size, camOut, coll, hp, team, vis} = this.comps;
+    const {pos, mov, size, camOut, coll, hp, team, vis, score} = this.comps;
     const assetMan = this.state.game.assetMan;
     const texture = assetMan.images.item001;
     this.direction = 1;
@@ -210,13 +216,15 @@ class Item001 extends Entity {
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
     }
+    if(score === undefined)
+      this.addComp(new ScoreComp({score: 100}));
   }
 }
 
 class Bullet001 extends Entity {
   constructor({state, comps, speed}) {
     super({state, comps});
-    const {pos, size, camOut, coll, team, hp, vis} = this.comps;
+    const {pos, size, camOut, coll, team, hp, vis, score} = this.comps;
     const assetMan = this.state.game.assetMan;
     this.addComp(new MovComp({vel: new Vec(1, 1).setMag(10)}));
     if(pos === undefined)
@@ -243,6 +251,8 @@ class Bullet001 extends Entity {
       });
       this.addComp(new VisComp({sn}));
     }
+    if(score === undefined)
+      this.addComp(new ScoreComp({score: 0}));
   }
   static get defaultSize() { // temporary fix for bullet positioning, at last, we have to use relative coordinates
     return new Vec(100, 100);
