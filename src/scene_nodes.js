@@ -118,8 +118,8 @@ class ScoreDisplay extends SceneNode {
     if(!ctx)
       return;
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = '' + (150 * camera.scale) + 'px Arial';
-    ctx.fillText(this.state.score, 100 * camera.scale, 200 * camera.scale);
+    ctx.font = '' + (150 * camera.xScale) + 'px Arial';
+    ctx.fillText(this.state.score, 100 * camera.xScale, 200 * camera.yScale);
   }
 }
 

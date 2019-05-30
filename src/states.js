@@ -227,21 +227,21 @@ class GameOverState extends State {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = '#000000';
-    ctx.font = '' + (200 * camera.scale) + 'px Arial';
+    ctx.font = '' + (200 * camera.xScale) + 'px Arial';
     ctx.fillText(
       'RANKING',
       1000 * camera.xScale,
       300 * camera.yScale
     );
-    for (let i = 0;i < 10;i++) {
+    for(let i = 0; i < 10; i++) {
       ctx.fillStyle = '#000000';
       if (i < 3)
         ctx.fillStyle = '#FFFF00';
-      ctx.fillText(String(i + 1), 600 * camera.scale, ((i + 2) * (300 * camera.scale)));
-      var ranks = '';
+      ctx.fillText(String(i + 1), 600 * camera.xScale, ((i + 2) * (300 * camera.yScale)));
+      let ranks = '';
       if (ranking[i] != null)
-        ranks = ranking[i].name + "    " + ranking[i].score;
-      ctx.fillText(ranks, 1200 * camera.scale, ((i + 2) * (300 * camera.scale)));
+        ranks = ranking[i].name + '    ' + ranking[i].score;
+      ctx.fillText(ranks, 1200 * camera.xScale, ((i + 2) * (300 * camera.yScale)));
     }
     ctx.closePath();
     ctx.restore();
