@@ -52,7 +52,7 @@ function main() {
   }
 
   function init() {
-    $.get('./menu.html', function(html) {
+    $.get('./partial/menu.html', function(html) {
       $(html).appendTo('body');
     });
 
