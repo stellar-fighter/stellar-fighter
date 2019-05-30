@@ -96,7 +96,7 @@ class Fighter001 extends Entity {
       this.addComp(new VisComp({sn}));
     }
     if(score === undefined)
-      this.addComp(new ScoreComp({score: 100}));
+      this.addComp(new ScoreComp({score: 10}));
   }
 }
 
@@ -136,7 +136,7 @@ class Alien001 extends Entity {
       this.addComp(new VisComp({sn}));
     }
     if(score === undefined)
-      this.addComp(new ScoreComp({score: 100}));
+      this.addComp(new ScoreComp({score: 10}));
   }
 }
 
@@ -176,7 +176,7 @@ class Alien002 extends Entity {
       this.addComp(new VisComp({sn}));
     }
     if(score === undefined)
-      this.addComp(new ScoreComp({score: 100}));
+      this.addComp(new ScoreComp({score: 10}));
   }
 }
 
@@ -213,8 +213,6 @@ class Item001 extends Entity {
       sn.addChild(new HpDisplay({hp, pos, size}));
       this.addComp(new VisComp({sn}));
     }
-    if(score === undefined)
-      this.addComp(new ScoreComp({score: 100}));
   }
 }
 
@@ -248,8 +246,6 @@ class Bullet001 extends Entity {
       });
       this.addComp(new VisComp({sn}));
     }
-    if(score === undefined)
-      this.addComp(new ScoreComp({score: 0}));
   }
   static get defaultSize() { // temporary fix for bullet positioning, at last, we have to use relative coordinates
     return new Vec(100, 100);

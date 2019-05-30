@@ -66,7 +66,6 @@ class PlayState extends State {
     this.playerId = this.entityMan.add(player);
     const that = this;
     this.handleKeyDown = (event) => {
-      console.log(event.code);
       if(event.code == 'KeyP') {
         that.running = !that.running;
         return;
@@ -175,7 +174,6 @@ class PlayState extends State {
     if (this.previousTime + 1000 < new Date().getTime()) {
       this.previousTime = new Date().getTime();
       this.score += 1;
-      console.log(this.score);
     }
     this.camera.pos.y -= 15;
   }
