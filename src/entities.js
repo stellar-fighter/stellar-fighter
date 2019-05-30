@@ -71,7 +71,7 @@ class Fighter001 extends Entity {
     if(mov === undefined)
       this.addComp(new MovComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(50)}));
+      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(500)}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({type: CamOutComp.BLOCK}));
     if(coll === undefined)
@@ -81,7 +81,7 @@ class Fighter001 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'PLAYER'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({coolTime: 100, timer: this.state.timer, power: new Vec(0, -15)}));
+      this.addComp(new ShootingComp({coolTime: 100, timer: this.state.timer, power: new Vec(0, -1).setMag(5)}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -111,7 +111,7 @@ class Alien001 extends Entity {
     if(mov === undefined)
       this.addComp(new MovComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(50)}));
+      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(500)}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
@@ -121,7 +121,7 @@ class Alien001 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 10)}));
+      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 1).setMag(5)}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -146,14 +146,12 @@ class Alien002 extends Entity {
     const {pos, mov, size, vis, camOut, coll, hp, team, shooting, score} = this.comps;
     const assetMan = this.state.game.assetMan;
     const texture = assetMan.images.alien002;
-    this.direction = 1; // this hardcoded part should be removed
-    this.directionY = 1;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
       this.addComp(new MovComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(50)}));
+      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(500)}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
@@ -163,7 +161,7 @@ class Alien002 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, -1)}));
+      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, -1).setMag(5)}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -188,13 +186,12 @@ class Item001 extends Entity {
     const {pos, mov, size, camOut, coll, hp, team, vis, score} = this.comps;
     const assetMan = this.state.game.assetMan;
     const texture = assetMan.images.item001;
-    this.direction = 1;
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
       this.addComp(new MovComp({}));
     if(size === undefined)
-      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(50)}));
+      this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(500)}));
     if(camOut === undefined)
       this.addComp(new CamOutComp({}));
     if(coll === undefined)
@@ -226,7 +223,7 @@ class Bullet001 extends Entity {
     super({state, comps});
     const {pos, size, camOut, coll, team, hp, vis, score} = this.comps;
     const assetMan = this.state.game.assetMan;
-    this.addComp(new MovComp({vel: new Vec(1, 1).setMag(10)}));
+    this.addComp(new MovComp({vel: new Vec(1, 1).setMag(5)}));
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(size === undefined)

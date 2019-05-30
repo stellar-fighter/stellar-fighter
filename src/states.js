@@ -59,7 +59,7 @@ class PlayState extends State {
       comps: {
         pos: new PosComp({vec: new Vec(1500, 2000)}),
         mov: new MovComp({vel: new Vec(0, -15)}),
-        shooting: new ShootingComp({coolTime: 100, timer: this.timer, power: new Vec(0, -15), sound: this.game.assetMan.audios.shoot001})
+        shooting: new ShootingComp({coolTime: 100, timer: this.timer, power: new Vec(0, -1).setMag(10), sound: this.game.assetMan.audios.shoot001})
       }
     });
     this.scene.children[2].addChild(player.comps['vis'].sn);
@@ -113,8 +113,8 @@ class PlayState extends State {
         comps: {
           pos: new PosComp({
             vec: new Vec(
-              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-              this.camera.pos.y
+              Math.random() * this.camera.absW,
+              this.camera.toAbsY(0)
             )
           }),
         },
@@ -129,8 +129,8 @@ class PlayState extends State {
         comps: {
           pos: new PosComp({
             vec: new Vec(
-              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-              this.camera.pos.y
+              Math.random() * this.camera.absW,
+              this.camera.toAbsY(0)
             )
           }),
           team: new TeamComp({val: 'ENEMY'}),
@@ -140,14 +140,14 @@ class PlayState extends State {
       this.scene.children[1].addChild(item001.comps['vis'].sn);
     }
 
-    if(Math.random() > 0.997) {
+    if(Math.random() > 0.990) {
       const alien002 = new Alien002({
         state: this,
         comps: {
           pos: new PosComp({
             vec: new Vec(
-              Math.random() * ((this.canvas.width / this.camera.scale) + this.camera.pos.x),
-              this.camera.pos.y
+              Math.random() * this.camera.absW,
+              this.camera.toAbsY(0)
             )
           }),
         },
@@ -227,21 +227,21 @@ class GameOverState extends State {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = '#000000';
-    ctx.font = '' + (200 * camera.scale) + 'px Arial';
+    ctx.font = '' + (200 * camera.xScale) + 'px Arial';
     ctx.fillText(
       'RANKING',
-      1000 * camera.scale,
-      300 * camera.scale
+      1000 * camera.xScale,
+      300 * camera.yScale
     );
-    for (let i = 0;i < 10;i++) {
+    for(let i = 0; i < 10; i++) {
       ctx.fillStyle = '#000000';
       if (i < 3)
         ctx.fillStyle = '#FFFF00';
-      ctx.fillText(String(i + 1), 600 * camera.scale, ((i + 2) * (300 * camera.scale)));
-      var ranks = '';
+      ctx.fillText(String(i + 1), 600 * camera.xScale, ((i + 2) * (300 * camera.yScale)));
+      let ranks = '';
       if (ranking[i] != null)
-        ranks = ranking[i].name + "    " + ranking[i].score;
-      ctx.fillText(ranks, 1200 * camera.scale, ((i + 2) * (300 * camera.scale)));
+        ranks = ranking[i].name + '    ' + ranking[i].score;
+      ctx.fillText(ranks, 1200 * camera.xScale, ((i + 2) * (300 * camera.yScale)));
     }
     ctx.closePath();
     ctx.restore();

@@ -101,51 +101,22 @@ class CamOutSystem extends System {
       const pos = entity.comps['pos'];
       const size = entity.comps['size'];
       if(this.filter(entity) == true) {
-        if(entity.name == "alien002") {
-          const pivot = 15 * entity.direction;
-          const pivot2 = 30 * entity.directionY;
-          pos.vec.y += pivot2;
-          pos.vec.x += pivot;
-          if((pos.vec.y + size.vec.y - camera.pos.y) * camera.scale < 10) {
-            entity.directionY = 1;
-          }
-          if((pos.vec.y - camera.pos.y) * camera.scale > canvas.height - 50) {
-            entity.directionY = -2;
-          }
-          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 10) {
-            entity.direction *= -1;
-          }
-          if((pos.vec.x - camera.pos.x) * camera.scale > canvas.width - 10) {
-            entity.direction *= -1;
-          }
-        }
-        if(entity.name == "item001") {
-          pos.vec.y -= 10 + 10 * Math.sin(Date.now());
-          const pivot = 15 * entity.direction;
-          pos.vec.x += pivot;
-          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 10) {
-            entity.direction *= -1;
-          }
-          if((pos.vec.x - camera.pos.x) * camera.scale > canvas.width - 10) {
-            entity.direction *= -1;
-          }
-        }
         if(camOut.type == CamOutComp.DESTROY) {
-          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale < 0 ||
-             (pos.vec.x - camera.pos.x) * camera.scale > canvas.width ||
-             (pos.vec.y + size.vec.y - camera.pos.y) * camera.scale < 0 ||
-             (pos.vec.y - camera.pos.y) * camera.scale > canvas.height) {
+          if(camera.toRealX(pos.vec.x + size.vec.x) < 0 ||
+             camera.toRealX(pos.vec.x) > canvas.width ||
+             camera.toRealY(pos.vec.y + size.vec.y) < 0 ||
+             camera.toRealY(pos.vec.y) > canvas.height) {
             this.state.entityMan.del(entity.id);
           }
         } else if(camOut.type == CamOutComp.BLOCK) {
-          if((pos.vec.x - camera.pos.x) * camera.scale < 0)
+          if(camera.toRealX(pos.vec.x) < 0)
             pos.vec.x = camera.pos.x;
-          if((pos.vec.x + size.vec.x - camera.pos.x) * camera.scale > canvas.width)
-            pos.vec.x = (canvas.width / camera.scale) - size.vec.x + camera.pos.x;
-          if((pos.vec.y - camera.pos.y) * camera.scale < 0)
+          if(camera.toRealX(pos.vec.x + size.vec.x) > canvas.width)
+            pos.vec.x = camera.toAbsX(canvas.width) - size.vec.x;
+          if(camera.toRealY(pos.vec.y) < 0)
             pos.vec.y = camera.pos.y;
-          if((pos.vec.y + size.vec.y - camera.pos.y) * camera.scale > canvas.height)
-            pos.vec.y = (canvas.height / camera.scale) - size.vec.y + camera.pos.y;
+          if(camera.toRealY(pos.vec.y + size.vec.y) > canvas.height)
+            pos.vec.y = camera.toAbsY(canvas.height) - size.vec.y;
         }
       }
     }
