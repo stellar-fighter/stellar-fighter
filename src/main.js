@@ -27,7 +27,7 @@ function main() {
 
   function resizeCanvas() {
     canvas.width = 9;
-    canvas.height = 16;
+    canvas.height = 16 * 0.95;
     if(canvas.height / canvas.width >= window.innerHeight / window.innerWidth) {
       const newHeight = window.innerHeight * 0.95;
       canvas.width = newHeight * canvas.width / canvas.height;
@@ -40,7 +40,7 @@ function main() {
     const $canvas = $(canvas);
     const $controls = $(controls);
     $controls.css('top', canvas.height);
-    $controls.css('height', canvas.height * 0.05);
+    $controls.css('height', canvas.height * 0.05 / 0.95);
     $controls.css('left', $canvas.offset().left);
     $controls.css('width', canvas.width);
 
