@@ -208,11 +208,8 @@ class GameOverState extends State {
       record = [];
     }
     record.push(this.rank);
-    record.sort(function(a, b) {
-      return b.score - a.score;
-    });
+    record.sort((a, b) => b.score - a.score);
     localStorage.setItem("records", JSON.stringify(record));
-    console.log(record);
   }
   update() {
     if(this.running == false)
@@ -230,18 +227,18 @@ class GameOverState extends State {
     ctx.font = '' + (200 * camera.xScale) + 'px Arial';
     ctx.fillText(
       'RANKING',
-      1000 * camera.xScale,
-      300 * camera.yScale
+      camera.toRealW(3 / 10 * camera.absW),
+      camera.toRealH(1 / 10 * camera.absH)
     );
     for(let i = 0; i < 10; i++) {
       ctx.fillStyle = '#000000';
       if (i < 3)
         ctx.fillStyle = '#FFFF00';
-      ctx.fillText(String(i + 1), 600 * camera.xScale, ((i + 2) * (300 * camera.yScale)));
+      ctx.fillText(String(i + 1), camera.toRealW(1 / 10 * camera.absW), camera.toRealH((i + 4) / 20 * camera.absH));
       let ranks = '';
       if (ranking[i] != null)
         ranks = ranking[i].name + '    ' + ranking[i].score;
-      ctx.fillText(ranks, 1200 * camera.xScale, ((i + 2) * (300 * camera.yScale)));
+      ctx.fillText(ranks, camera.toRealW(3 / 10 * camera.absW), camera.toRealH((i + 4) / 20 * camera.absH));
     }
     ctx.closePath();
     ctx.restore();

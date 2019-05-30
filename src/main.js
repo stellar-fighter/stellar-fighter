@@ -26,8 +26,8 @@ function main() {
   }
 
   function resizeCanvas() {
-    canvas.width = 3;
-    canvas.height = 4;
+    canvas.width = 9;
+    canvas.height = 16;
     if(canvas.height / canvas.width >= window.innerHeight / window.innerWidth) {
       const newHeight = window.innerHeight * 0.95;
       canvas.width = newHeight * canvas.width / canvas.height;
