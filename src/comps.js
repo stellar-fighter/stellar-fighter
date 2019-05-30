@@ -128,4 +128,11 @@ class ShootingComp extends Comp {
   }
 }
 
-export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp, CollComp, TeamComp, ShootingComp};
+class ScoreComp extends Comp {
+  constructor({score}) {
+    super({name: 'score'});
+    this.score = score;
+  }
+}
+
+export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp, CollComp, TeamComp, ShootingComp, ScoreComp};

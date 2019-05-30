@@ -122,6 +122,24 @@ class Background extends SceneNode {
   }
 }
 
+class ScoreDisplay extends SceneNode {
+  constructor({children, state}) {
+    super({
+      children,
+      render: (ScoreDisplay.defaultRender)
+    });
+    this.state = state;
+  }
+  static defaultRender({self, canvas, ctx, camera}) {
+    const {texture} = self;
+    if(!ctx)
+      return;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '' + (150 * camera.scale) + 'px Arial';
+    ctx.fillText(this.state.score, 100 * camera.scale, 200 * camera.scale);
+  }
+}
+
 class HpDisplay extends SceneNode {
   constructor({pos, size, children, hp}) {
     super({
@@ -155,4 +173,4 @@ class HpDisplay extends SceneNode {
   }
 }
 
-export {SceneNode, Sprite, Background, HpDisplay};
+export {SceneNode, Sprite, Background, HpDisplay, ScoreDisplay};

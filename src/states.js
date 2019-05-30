@@ -4,7 +4,7 @@ import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamC
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
 import {Timer} from './timer';
-import {SceneNode, Sprite, Background} from './scene_nodes';
+import {SceneNode, Sprite, Background, ScoreDisplay} from './scene_nodes';
 
 class State {
   constructor({game, running, systems, entityMan}) {
@@ -41,6 +41,8 @@ class PlayState extends State {
       ctx: this.ctx,
       camera: this.camera
     });
+    this.previousTime = new Date().getTime();
+    this.score = 0; // implement score system
     this.scene.addChild(new SceneNode({}));
     this.scene.addChild(new SceneNode({}));
     this.scene.addChild(new SceneNode({}));
@@ -51,6 +53,7 @@ class PlayState extends State {
     this.systems.push(new ShootingSystem({state: this}));
     this.systems.push(new PlayerSystem({state: this}));
     this.scene.children[0].addChild(new Background({texture: this.game.assetMan.images.bg010}));
+    this.scene.children[1].addChild(new ScoreDisplay({state: this}));
     const player = new Fighter001({
       state: this,
       comps: {
@@ -158,7 +161,7 @@ class PlayState extends State {
       return;
     const player = this.entityMan.get(this.playerId);
     if(!player) {
-      this.game.switchState(new GameOverState({game: this.game, running: true, canvas: this.canvas, camera: this.camera}));
+      this.game.switchState(new GameOverState({game: this.game, running: true, canvas: this.canvas, camera: this.camera, score: this.score}));
       return;
     }
     const shooting = player.comps['shooting'];
@@ -169,6 +172,11 @@ class PlayState extends State {
     this.genEntity();
     for(let system of this.systems)
       system.process();
+    if (this.previousTime + 1000 < new Date().getTime()) {
+      this.previousTime = new Date().getTime();
+      this.score += 1;
+      console.log(this.score);
+    }
     this.camera.pos.y -= 15;
   }
 
@@ -185,11 +193,26 @@ class PlayState extends State {
 }
 
 class GameOverState extends State {
-  constructor({game, running, canvas, camera}) {
+  constructor({game, running, canvas, camera, score}) {
     super({game, running});
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.camera = new Camera({canvas, pos: new Vec(0, 0)});
+    this.rank = {
+      //time: 22,
+      score: score,
+      name: "player",
+    };
+    var record = JSON.parse(localStorage.getItem("records"));
+    if (record == null) {
+      record = [];
+    }
+    record.push(this.rank);
+    record.sort(function(a, b) {
+      return b.score - a.score;
+    });
+    localStorage.setItem("records", JSON.stringify(record));
+    console.log(record);
   }
   update() {
     if(this.running == false)
@@ -199,16 +222,27 @@ class GameOverState extends State {
     const ctx = this.ctx;
     const canvas = this.canvas;
     const camera = this.camera;
+    let ranking = JSON.parse(localStorage.getItem("records"));
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.beginPath();
-    ctx.fillStyle = '#00FF00';
-    ctx.font = '' + (300 * camera.scale) + 'px Arial';
+    ctx.fillStyle = '#000000';
+    ctx.font = '' + (200 * camera.scale) + 'px Arial';
     ctx.fillText(
-      'GAME OVER',
-      600 * camera.scale,
-      2000 * camera.scale
+      'RANKING',
+      1000 * camera.scale,
+      300 * camera.scale
     );
+    for (let i = 0;i < 10;i++) {
+      ctx.fillStyle = '#000000';
+      if (i < 3)
+        ctx.fillStyle = '#FFFF00';
+      ctx.fillText(String(i + 1), 600 * camera.scale, ((i + 2) * (300 * camera.scale)));
+      var ranks = '';
+      if (ranking[i] != null)
+        ranks = ranking[i].name + "    " + ranking[i].score;
+      ctx.fillText(ranks, 1200 * camera.scale, ((i + 2) * (300 * camera.scale)));
+    }
     ctx.closePath();
     ctx.restore();
   }

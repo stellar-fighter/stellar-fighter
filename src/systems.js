@@ -159,8 +159,12 @@ class HpSystem extends System {
   process() {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
-      if(entity.comps['hp'].val <= 0)
+      if(entity.comps['hp'].val <= 0) {
+        if (entity.comps['team'].val == 'ENEMY')
+          this.state.score += entity.comps['score'].score;
         this.state.entityMan.del(entity.id);
+
+      }
     }
   }
 }
