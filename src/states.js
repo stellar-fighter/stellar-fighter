@@ -65,18 +65,27 @@ class PlayState extends State {
     this.scene.children[2].addChild(player.comps['vis'].sn);
     this.playerId = this.entityMan.add(player);
     const that = this;
-    this.handleKeyDown = (event) => {
+    addEventListener('keydown', (event) => {
       if(event.code == 'KeyP') {
         that.running = !that.running;
         return;
       }
       that.event[event.code] = true;
-    };
-    this.handleKeyUp = (event) => {
+    });
+    addEventListener('keyup', (event) => {
       that.event[event.code] = false;
-    };
-    addEventListener('keydown', this.handleKeyDown);
-    addEventListener('keyup', this.handleKeyUp);
+    });
+    addEventListener('touchstart', (event) => {
+      that.event.touch = {};
+      that.event.touch.pos = new Vec(event.touches[0].clientX, event.touches[0].clientY);
+    });
+    addEventListener('touchmove', (event) => {
+      that.event.touch.delta = new Vec(event.touches[0].clientX - that.event.touch.pos.x, event.touches[0].clientY - that.event.touch.pos.y);
+      that.event.touch.pos = new Vec(event.touches[0].clientX, event.touches[0].clientY);
+    });
+    addEventListener('touchend', (event) => {
+      delete that.event['touch'];
+    });
   }
   get entities() {
     return this.entityMan.entities;
@@ -164,7 +173,7 @@ class PlayState extends State {
       return;
     }
     const shooting = player.comps['shooting'];
-    if(this.event.Space)
+    if(this.event.Space || this.event.touch)
       shooting.enabled = true;
     else
       shooting.enabled = false;

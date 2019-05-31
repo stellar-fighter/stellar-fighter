@@ -77,23 +77,23 @@ class Vec {
     return this;
   }
   addVec(vec) {
-    this.x + vec.x;
-    this.y + vec.y;
+    this.x += vec.x;
+    this.y += vec.y;
     return this;
   }
   sub(vec) {
-    this.x - vec.x;
-    this.y - vec.y;
+    this.x -= vec.x;
+    this.y -= vec.y;
     return this;
   }
   mult(scalar) {
-    this.x = scalar * this.x;
-    this.y = scalar * this.y;
+    this.x *= scalar;
+    this.y *= scalar;
     return this;
   }
   div(scalar) {
-    this.x = this.x / scalar;
-    this.y = this.y / scalar;
+    this.x /= scalar;
+    this.y /= scalar;
     return this;
   }
   dot(vec) {

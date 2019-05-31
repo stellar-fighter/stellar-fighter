@@ -182,6 +182,10 @@ class PlayerSystem extends System {
     const player = this.state.entityMan.get(this.state.playerId);
     if (player) {
       const pos = player.comps['pos'];
+      if(this.state.event.touch && this.state.event.touch.delta) {
+        pos.vec.addVec(this.state.event.touch.delta.setMag(30));
+        delete this.state.event.touch['delta'];
+      }
       if(this.state.event.ArrowUp)
         pos.vec.y -= 30;
       if(this.state.event.ArrowDown)
