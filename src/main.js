@@ -41,7 +41,6 @@ function main() {
     const $controls = $(controls);
     $controls.css('top', canvas.height);
     $controls.css('height', canvas.height * 0.05 / 0.95);
-    $controls.css('left', $canvas.offset().left);
     $controls.css('width', canvas.width);
 
     if(started == false) {
