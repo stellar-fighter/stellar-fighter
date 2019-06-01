@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"./src/**/*.js\"",
     "lint-fix": "eslint \"./src/**/*.js\" --fix",
+    "test": "mocha-webpack --webpack-config test/webpack.config-test.js test/**/*.js",
     "doc": "jsdoc src -c jsdoc.conf.json -d dist/doc",
     "build": "eslint \"./src/**/*.js\" && jsdoc src -c jsdoc.conf.json -d dist/doc && webpack --mode production",
     "start": "eslint \"./src/**/*.js\" && webpack-dev-server --hot --inline"

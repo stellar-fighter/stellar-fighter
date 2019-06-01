@@ -80,6 +80,7 @@ class PlayState extends State {
       that.event.touch.pos = new Vec(event.touches[0].clientX, event.touches[0].clientY);
     });
     addEventListener('touchmove', (event) => {
+      console.log(event.touches[0]);
       that.event.touch.delta = new Vec(event.touches[0].clientX - that.event.touch.pos.x, event.touches[0].clientY - that.event.touch.pos.y);
       that.event.touch.pos = new Vec(event.touches[0].clientX, event.touches[0].clientY);
     });
