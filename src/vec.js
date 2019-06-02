@@ -81,7 +81,20 @@ class Vec {
     this.y += vec.y;
     return this;
   }
-  sub(vec) {
+  subCo(x, y) {
+    if(x === undefined)
+      throw new Error('RequiredParam');
+    if(y === undefined)
+      throw new Error('RequiredParam');
+    this.x -= x;
+    this.y -= y;
+    return this;
+  }
+  sub(x, y) {
+    this.subCo(x, y);
+    return this;
+  }
+  subVec(vec) {
     this.x -= vec.x;
     this.y -= vec.y;
     return this;

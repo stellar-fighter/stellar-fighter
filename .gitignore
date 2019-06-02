@@ -88,3 +88,4 @@ typings/
 
 dist/
 *.code-workspace
+*.swp
