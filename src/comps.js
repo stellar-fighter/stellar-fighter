@@ -80,19 +80,25 @@ class HpComp extends Comp {
   }
 }
 
+/**
+ * A component related to camera out of entities
+ */
+
 class CamOutComp extends Comp {
-  constructor({type}) {
+  /**
+   * Returns a new CamOutComp
+   * @param {Object} actions - mappings of conditions and actions; keys: UP, DOWN, LEFT, RIGHT, values: NONE, DESTROY, BLOCK, BOUNCE
+   */
+  constructor({actions}) {
     super({name: 'camOut'});
-    this.type = type || CamOutComp.DESTROY;
-  }
-  static get NONE() {
-    return 0;
-  }
-  static get DESTROY() {
-    return 1;
-  }
-  static get BLOCK() {
-    return 2;
+    this.actions = {
+      UP: 'DESTROY',
+      DOWN: 'DESTROY',
+      LEFT: 'DESTROY',
+      RIGHT: 'DESTROY'
+    };
+    for(let cond in actions)
+      this.actions[cond] = actions[cond];
   }
 }
 

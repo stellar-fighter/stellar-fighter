@@ -73,7 +73,7 @@ class Fighter001 extends Entity {
     if(size === undefined)
       this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(500)}));
     if(camOut === undefined)
-      this.addComp(new CamOutComp({type: CamOutComp.BLOCK}));
+      this.addComp(new CamOutComp({actions: {UP: 'BLOCK', DOWN: 'BLOCK', LEFT: 'BLOCK', RIGHT: 'BLOCK'}}));
     if(coll === undefined)
       this.addComp(new CollComp({damage: 1, timer: this.state.timer}));
     if(hp === undefined)
@@ -149,11 +149,11 @@ class Alien002 extends Entity {
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
-      this.addComp(new MovComp({}));
+      this.addComp(new MovComp({vel: new Vec(1, 1).setAng(Math.random() * Math.PI * 2).setMag(15)}));
     if(size === undefined)
       this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(500)}));
     if(camOut === undefined)
-      this.addComp(new CamOutComp({}));
+      this.addComp(new CamOutComp({actions: {UP: 'NONE', DOWN: 'DESTROY', LEFT: 'BOUNCE', RIGHT: 'BOUNCE'}}));
     if(coll === undefined)
       this.addComp(new CollComp({damage: 1, timer: this.state.timer}));
     if(hp === undefined)
@@ -161,7 +161,7 @@ class Alien002 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, -1).setMag(5)}));
+      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, 0)}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -189,11 +189,11 @@ class Item001 extends Entity {
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
-      this.addComp(new MovComp({}));
+      this.addComp(new MovComp({vel: new Vec(1, 1).setAng(Math.random() * Math.PI * 2).setMag(15)}));
     if(size === undefined)
       this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(500)}));
     if(camOut === undefined)
-      this.addComp(new CamOutComp({}));
+      this.addComp(new CamOutComp({actions: {UP: 'NONE', DOWN: 'DESTROY', LEFT: 'BOUNCE', RIGHT: 'BOUNCE'}}));
     if(coll === undefined)
       this.addComp(new CollComp({damage: -5, timer: this.state.timer, coolTime: 800}));
     if(hp === undefined)
