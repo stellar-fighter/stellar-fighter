@@ -1,6 +1,6 @@
 import {Camera} from './camera';
 import {EntityMan, Fighter001, Alien001, Bullet001, Alien002, Item001} from './entities';
-import {PosComp, SizeComp, MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
+import {MovComp, VisComp, CamOutComp, CollComp, HpComp, TeamComp, ShootingComp} from './comps';
 import {MovSystem, CamOutSystem, CollSystem, HpSystem, ShootingSystem, PlayerSystem} from './systems';
 import {Vec} from './vec';
 import {Timer} from './timer';
@@ -56,8 +56,8 @@ class PlayState extends State {
     this.scene.children[1].addChild(new ScoreDisplay({state: this}));
     const player = new Fighter001({
       state: this,
+      pos: new Vec(1500, 2000),
       comps: {
-        pos: new PosComp({vec: new Vec(1500, 2000)}),
         mov: new MovComp({vel: new Vec(0, -15)}),
         shooting: new ShootingComp({coolTime: 100, timer: this.timer, power: new Vec(0, -1).setMag(10), sound: this.game.assetMan.audios.shoot001})
       }
@@ -119,14 +119,10 @@ class PlayState extends State {
     if(Math.random() > 0.99) {
       const alien001 = new Alien001({
         state: this,
-        comps: {
-          pos: new PosComp({
-            vec: new Vec(
-              Math.random() * this.camera.absW,
-              this.camera.toAbsY(0)
-            )
-          }),
-        },
+        pos: new Vec(
+          Math.random() * this.camera.absW,
+          this.camera.toAbsY(0)
+        )
       });
       this.entityMan.add(alien001);
       this.scene.children[1].addChild(alien001.comps['vis'].sn);
@@ -135,13 +131,11 @@ class PlayState extends State {
     if(Math.random() > 0.999) {
       const item001 = new Item001({
         state: this,
+        pos: new Vec(
+          Math.random() * this.camera.absW,
+          this.camera.toAbsY(0)
+        ),
         comps: {
-          pos: new PosComp({
-            vec: new Vec(
-              Math.random() * this.camera.absW,
-              this.camera.toAbsY(0)
-            )
-          }),
           team: new TeamComp({val: 'ENEMY'}),
         },
       });
@@ -152,14 +146,10 @@ class PlayState extends State {
     if(Math.random() > 0.990) {
       const alien002 = new Alien002({
         state: this,
-        comps: {
-          pos: new PosComp({
-            vec: new Vec(
-              Math.random() * this.camera.absW,
-              this.camera.toAbsY(0)
-            )
-          }),
-        },
+        pos: new Vec(
+          Math.random() * this.camera.absW,
+          this.camera.toAbsY(0)
+        )
       });
       this.entityMan.add(alien002);
       this.scene.children[1].addChild(alien002.comps['vis'].sn);

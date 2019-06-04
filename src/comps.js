@@ -8,28 +8,11 @@ class Comp {
   }
 }
 
-class PosComp extends Comp {
-  constructor({vec, abs}) {
-    super({name: 'pos'});
-    this.vec = vec || new Vec();
-    this.abs = abs;
-    if(this.abs === undefined)
-      this.abs = false;
-  }
-}
-
 class MovComp extends Comp {
   constructor({vel, acc}) {
     super({name: 'mov'});
     this.vel = vel || new Vec();
     this.acc = acc || new Vec();
-  }
-}
-
-class SizeComp extends Comp {
-  constructor({vec}) {
-    super({name: 'size'});
-    this.vec = vec || new Vec();
   }
 }
 
@@ -135,4 +118,4 @@ class ScoreComp extends Comp {
   }
 }
 
-export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp, CollComp, TeamComp, ShootingComp, ScoreComp};
+export {Comp, MovComp, VisComp, CtrlComp, HpComp, CamOutComp, CollComp, TeamComp, ShootingComp, ScoreComp};

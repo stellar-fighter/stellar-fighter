@@ -1,4 +1,4 @@
-import {CamOutComp, ShootingComp, PosComp, TeamComp} from './comps';
+import {CamOutComp, ShootingComp, TeamComp} from './comps';
 import {Bullet001} from './entities';
 import {Vec} from './vec';
 
@@ -32,14 +32,14 @@ class System {
  */
 class MovSystem extends System {
   constructor({state, compNames}) {
-    super({state, compNames: ['pos', 'mov']});
+    super({state, compNames: ['mov']});
   }
   process() {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
       if(this.filter(entity) == true) {
         const mov = entity.comps['mov'];
-        const pos = entity.comps['pos'];
+        const pos = entity.pos;
         mov.vel.x += mov.acc.x;
         mov.acc.x = 0;
         mov.vel.y += mov.acc.y;
@@ -56,17 +56,17 @@ class MovSystem extends System {
  */
 class CollSystem extends System {
   static checkColl(entity1, entity2) {
-    const pos1 = entity1.comps['pos'];
-    const size1 = entity1.comps['size'];
-    const pos2 = entity2.comps['pos'];
-    const size2 = entity2.comps['size'];
+    const pos1 = entity1.pos;
+    const size1 = entity1.size;
+    const pos2 = entity2.pos;
+    const size2 = entity2.size;
     return (pos1.vec.x + size1.vec.x > pos2.vec.x &&
             pos2.vec.x + size2.vec.x > pos1.vec.x &&
             pos1.vec.y + size1.vec.y > pos2.vec.y &&
             pos2.vec.y + size2.vec.y > pos1.vec.y);
   }
   constructor({state, compNames}) {
-    super({state, compNames: ['coll', 'team', 'pos', 'size']});
+    super({state, compNames: ['coll', 'team']});
   }
   process() {
     for(let id1 in this.state.entities) {
@@ -90,7 +90,7 @@ class CollSystem extends System {
 
 class CamOutSystem extends System {
   constructor({state, compNames}) {
-    super({state, compNames: ['camOut', 'pos', 'size']});
+    super({state, compNames: ['camOut']});
   }
   process() {
     const camera = this.state.camera;
@@ -98,8 +98,8 @@ class CamOutSystem extends System {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
       const camOut = entity.comps['camOut'];
-      const pos = entity.comps['pos'];
-      const size = entity.comps['size'];
+      const pos = entity.pos;
+      const size = entity.size;
       if(this.filter(entity) == true) {
         if(camOut.type == CamOutComp.DESTROY) {
           if(camera.toRealX(pos.vec.x + size.vec.x) < 0 ||
@@ -141,7 +141,7 @@ class HpSystem extends System {
 
 class ShootingSystem extends System {
   constructor({state, compNames}) {
-    super({state, compNames: ['shooting', 'pos', 'size', 'team']});
+    super({state, compNames: ['shooting', 'team']});
   }
   process() {
     for(let id in this.state.entities) {
@@ -150,14 +150,12 @@ class ShootingSystem extends System {
       if(this.filter(entity) && shooting.enabled) {
         const bullet = new Bullet001({
           state: this.state,
+          pos: new Vec(
+            pos.vec.x + size.vec.x / 2 - Bullet001.defaultSize.x / 2,
+            pos.vec.y + size.vec.y / 2 - Bullet001.defaultSize.y / 2
+          ),
           comps: {
             team: new TeamComp({val: team.val}),
-            pos: new PosComp({
-              vec: new Vec(
-                pos.vec.x + size.vec.x / 2 - Bullet001.defaultSize.x / 2,
-                pos.vec.y + size.vec.y / 2 - Bullet001.defaultSize.y / 2
-              )
-            })
           }
         });
         if(shooting.sound) {
@@ -176,12 +174,12 @@ class ShootingSystem extends System {
 
 class PlayerSystem extends System {
   constructor({state, compNames}) {
-    super({state, compNames: ['player']});
+    super({state, compNames: []});
   }
   process() {
     const player = this.state.entityMan.get(this.state.playerId);
     if (player) {
-      const pos = player.comps['pos'];
+      const pos = player.pos;
       if(this.state.event.touch && this.state.event.touch.delta) {
         pos.vec.addVec(this.state.event.touch.delta.setMag(30));
         delete this.state.event.touch['delta'];
