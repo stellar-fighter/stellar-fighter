@@ -92,7 +92,7 @@ class CamOutComp extends Comp {
   constructor({actions}) {
     super({name: 'camOut'});
     this.actions = {
-      UP: 'DESTROY',
+      UP: 'NONE',
       DOWN: 'DESTROY',
       LEFT: 'DESTROY',
       RIGHT: 'DESTROY'

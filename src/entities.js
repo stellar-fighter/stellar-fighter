@@ -157,7 +157,7 @@ class Alien002 extends Entity {
     if(coll === undefined)
       this.addComp(new CollComp({damage: 1, timer: this.state.timer}));
     if(hp === undefined)
-      this.addComp(new HpComp({val: 20}));
+      this.addComp(new HpComp({val: 30}));
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
@@ -227,7 +227,7 @@ class Bullet001 extends Entity {
     if(size === undefined)
       this.addComp(new SizeComp({vec: Bullet001.defaultSize}));
     if(camOut === undefined)
-      this.addComp(new CamOutComp({}));
+      this.addComp(new CamOutComp({actions: {UP: 'DESTROY', DOWN: 'DESTROY', LEFT: 'DESTROY', RIGHT: 'DESTROY'}}));
     if(coll === undefined)
       this.addComp(new CollComp({damage: 10, timer: this.state.timer}));
     if(hp === undefined)

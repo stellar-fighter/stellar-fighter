@@ -95,6 +95,7 @@ class PlayState extends State {
     this.entityMan.entities = entities;
   }
   genEntity() {
+    console.log(this.entityMan.entities);
     /*
     let entityData = this.level[this.levelEntityIndex];
     while(entityData && this.camera.pos.y <= entityData.y) {
@@ -123,7 +124,7 @@ class PlayState extends State {
           pos: new PosComp({
             vec: new Vec(
               Math.random() * this.camera.absW,
-              this.camera.toAbsY(0)
+              this.camera.toAbsY(-0.1 * this.camera.absH)
             )
           }),
         },
@@ -139,7 +140,7 @@ class PlayState extends State {
           pos: new PosComp({
             vec: new Vec(
               Math.random() * this.camera.absW,
-              this.camera.toAbsY(0)
+              this.camera.toAbsY(-0.1 * this.camera.absH)
             )
           }),
           team: new TeamComp({val: 'ENEMY'}),
@@ -149,14 +150,14 @@ class PlayState extends State {
       this.scene.children[1].addChild(item001.comps['vis'].sn);
     }
 
-    if(Math.random() > 0.990) {
+    if(Math.random() > 0.995) {
       const alien002 = new Alien002({
         state: this,
         comps: {
           pos: new PosComp({
             vec: new Vec(
               Math.random() * this.camera.absW,
-              this.camera.toAbsY(0)
+              this.camera.toAbsY(-0.1 * this.camera.absH)
             )
           }),
         },
