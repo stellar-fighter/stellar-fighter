@@ -142,9 +142,6 @@ class PlayState extends State {
               this.camera.toAbsY(0)
             )
           }),
-          camOut: new CamOutComp({
-            type: CamOutComp.BOUNCE
-          }),
           team: new TeamComp({val: 'ENEMY'}),
         },
       });

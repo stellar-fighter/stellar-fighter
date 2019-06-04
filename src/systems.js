@@ -99,6 +99,60 @@ class CamOutSystem extends System {
       const entity = this.state.entities[id];
       const {pos, size, mov, camOut} = entity.comps;
       if(this.filter(entity) == true) {
+        if(camera.toRealY(pos.vec.y) < 0) {
+          switch(camOut.actions.UP) {
+          case 'DESTROY':
+            this.state.entityMan.del(entity.id);
+            break;
+          case 'BLOCK':
+            pos.vec.y = camera.pos.y;
+            break;
+          case 'BOUNCE':
+            if(mov.vel.y < 0)
+              mov.vel.y *= -1;
+            break;
+          }
+        } else if(camera.toRealY(pos.vec.y + size.vec.y) > canvas.height) {
+          switch(camOut.actions.DOWN) {
+          case 'DESTROY':
+            this.state.entityMan.del(entity.id);
+            break;
+          case 'BLOCK':
+            pos.vec.y = camera.toAbsY(canvas.height) - size.vec.y;
+            break;
+          case 'BOUNCE':
+            if(mov.vel.y > 0)
+              mov.vel.y *= -1;
+            break;
+          }
+        } else if(camera.toRealX(pos.vec.x) < 0) {
+          switch(camOut.actions.LEFT) {
+          case 'DESTROY':
+            this.state.entityMan.del(entity.id);
+            break;
+          case 'BLOCK':
+            pos.vec.x = camera.pos.x;
+            break;
+          case 'BOUNCE':
+            if(mov.vel.x < 0)
+              mov.vel.x *= -1;
+            break;
+          }
+        } else if(camera.toRealX(pos.vec.x + size.vec.x) > canvas.width) {
+          switch(camOut.actions.RIGHT) {
+          case 'DESTROY':
+            this.state.entityMan.del(entity.id);
+            break;
+          case 'BLOCK':
+            pos.vec.x = camera.toAbsX(canvas.width) - size.vec.x;
+            break;
+          case 'BOUNCE':
+            if(mov.vel.x > 0)
+              mov.vel.x *= -1;
+            break;
+          }
+        }
+        /*
         if(camOut.type == CamOutComp.DESTROY) {
           if(camera.toRealX(pos.vec.x + size.vec.x) < 0 ||
              camera.toRealX(pos.vec.x) > canvas.width ||
@@ -124,7 +178,7 @@ class CamOutSystem extends System {
             mov.vel.y *= -1;
           if(camera.toRealY(pos.vec.y + size.vec.y) > canvas.height)
             mov.vel.y *= -1;
-        }
+        }*/
       }
     }
   }
