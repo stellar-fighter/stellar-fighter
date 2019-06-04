@@ -125,7 +125,8 @@ class CamOutSystem extends System {
               mov.vel.y *= -1;
             break;
           }
-        } else if(camera.toRealX(pos.vec.x) < 0) {
+        }
+        if(camera.toRealX(pos.vec.x) < 0) {
           switch(camOut.actions.LEFT) {
           case 'DESTROY':
             this.state.entityMan.del(entity.id);
