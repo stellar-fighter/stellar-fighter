@@ -189,7 +189,7 @@ class Item001 extends Entity {
     if(pos === undefined)
       this.addComp(new PosComp({}));
     if(mov === undefined)
-      this.addComp(new MovComp({}));
+      this.addComp(new MovComp({vel: new Vec(1, 0).setMag(10)}));
     if(size === undefined)
       this.addComp(new SizeComp({vec: new Vec(texture.width, texture.height).setMag(500)}));
     if(camOut === undefined)

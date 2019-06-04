@@ -97,9 +97,7 @@ class CamOutSystem extends System {
     const canvas = this.state.canvas;
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
-      const camOut = entity.comps['camOut'];
-      const pos = entity.comps['pos'];
-      const size = entity.comps['size'];
+      const {pos, size, mov, camOut} = entity.comps;
       if(this.filter(entity) == true) {
         if(camOut.type == CamOutComp.DESTROY) {
           if(camera.toRealX(pos.vec.x + size.vec.x) < 0 ||
@@ -117,6 +115,15 @@ class CamOutSystem extends System {
             pos.vec.y = camera.pos.y;
           if(camera.toRealY(pos.vec.y + size.vec.y) > canvas.height)
             pos.vec.y = camera.toAbsY(canvas.height) - size.vec.y;
+        } else if(camOut.type == CamOutComp.BOUNCE && mov) {
+          if(camera.toRealX(pos.vec.x) < 0)
+            mov.vel.x *= -1;
+          if(camera.toRealX(pos.vec.x + size.vec.x) > canvas.width)
+            mov.vel.x *= -1;
+          if(camera.toRealY(pos.vec.y) < 0)
+            mov.vel.y *= -1;
+          if(camera.toRealY(pos.vec.y + size.vec.y) > canvas.height)
+            mov.vel.y *= -1;
         }
       }
     }

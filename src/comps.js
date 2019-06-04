@@ -94,6 +94,9 @@ class CamOutComp extends Comp {
   static get BLOCK() {
     return 2;
   }
+  static get BOUNCE() {
+    return 3;
+  }
 }
 
 class TeamComp extends Comp {
