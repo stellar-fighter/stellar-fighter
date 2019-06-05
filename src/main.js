@@ -4,14 +4,13 @@ import {State, PlayState} from './states';
 import $ from 'jquery';
 import 'jquery-modal/jquery.modal';
 import jqery_modal_css from 'jquery-modal/jquery.modal.css';
-
+import page from 'page';
 
 function main() {
-  let started = false;
-  const controls = document.getElementById('controls');
-  const canvas = document.getElementById('main-canvas');
-
   const game = new Game();
+  let anim = null;
+  let canvas = null;
+  let controls = null;
 
   const level = [{x: 0, y: -1000, type: 's-fighter'}, {x: 1000, y: -2000, type: 's-fighter', player: true}];
   level.sort((a, b) => {
@@ -22,10 +21,19 @@ function main() {
     game.setTime(timeStamp);
     game.update();
     game.render();
-    requestAnimationFrame(step);
+    anim = requestAnimationFrame(step);
+  }
+
+  function play() {
+    if(anim === null) {
+      game.pushState(new PlayState({game, running: true, canvas, level}));
+      anim = requestAnimationFrame(step);
+    }
   }
 
   function resizeCanvas() {
+    canvas = document.getElementById('main-canvas');
+    controls = document.getElementById('controls');
     canvas.width = 9;
     canvas.height = 16 * 0.95;
     if(canvas.height / canvas.width >= window.innerHeight / window.innerWidth) {
@@ -42,34 +50,46 @@ function main() {
     $controls.css('top', canvas.height);
     $controls.css('height', canvas.height * 0.05 / 0.95);
     $controls.css('width', canvas.width);
-
-    if(started == false) {
-      started = true;
-      game.pushState(new PlayState({game, running: true, canvas, level}));
-      requestAnimationFrame(step);
-    }
+    play();
   }
 
   function init() {
-    $.get('./partial/menu.html', function(html) {
-      $(html).appendTo('body');
-    });
-
-    $('#menu-button').click((event) => {
-      event.preventDefault();
-      this.blur();
-      $('#menu').modal({
-        escapeClose: false,
-        clickClose: false,
-        showClose: false
+    page('/start', () => {
+      $('body').empty();
+      $.get('./page/start.html', (res) => {
+        $('body').html(res);
+        $('#play-button').on('click', (event) => page('/play'));
       });
     });
-    resizeCanvas();
-  }
+    page('/play', () => {
+      $('body').empty();
+      $.get('./page/play.html', (res) => {
+        $('body').html(res);
+        $('#menu-button').click((event) => {
+          event.preventDefault();
+          this.blur();
+          $('#menu').modal({
+            escapeClose: true,
+            clickClose: false,
+            showClose: false
+          });
+        });
+        addEventListener('resize', resizeCanvas);
+        addEventListener('focus', (event) => document.activeElement.blur());
+        resizeCanvas();
+      });
+    });
+    page.exit('/play', () => {
+      console.log('exit');
+      cancelAnimationFrame(anim);
+      anim = null;
+    });
+    page('*', () => console.log('middleware'));
+    page({hashbang: true});
+    page('/start');
 
-  addEventListener('resize', resizeCanvas);
+  }
   addEventListener('load', init);
-  addEventListener('focus', (event) => document.activeElement.blur());
 }
 
 main();
