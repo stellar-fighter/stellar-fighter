@@ -18,7 +18,6 @@ function main() {
   });
 
   function step(timeStamp) {
-    console.log('step');
     game.setTime(timeStamp);
     game.update();
     game.render();
