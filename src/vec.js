@@ -40,8 +40,13 @@ class Vec {
   }
   set mag(mag) {
     const oldMag = this.mag;
-    this.x = mag * this.x / oldMag;
-    this.y = mag * this.y / oldMag;
+    if(oldMag == 0) {
+      this.x = 0;
+      this.y = 0;
+    } else {
+      this.x = mag * this.x / oldMag;
+      this.y = mag * this.y / oldMag;
+    }
   }
   setMag(mag) {
     this.mag = mag;
