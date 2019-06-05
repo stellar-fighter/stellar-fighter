@@ -85,7 +85,7 @@ function main() {
     });
     page('*', () => console.log('middleware'));
     page({hashbang: true});
-    page('/play');
+    page('/start');
 
   }
   addEventListener('load', init);
