@@ -1,6 +1,7 @@
 $bgcolor: #FFFFFF;
 html {
   background-color: $bgcolor;
+  overscroll-behavior: contain;
   body {
     padding: 0px;
     margin: 0px;
