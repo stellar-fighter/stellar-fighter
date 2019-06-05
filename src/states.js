@@ -95,7 +95,6 @@ class PlayState extends State {
     this.entityMan.entities = entities;
   }
   genEntity() {
-    console.log(this.entityMan.entities);
     /*
     let entityData = this.level[this.levelEntityIndex];
     while(entityData && this.camera.pos.y <= entityData.y) {

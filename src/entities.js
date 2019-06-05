@@ -50,6 +50,8 @@ class EntityMan {
   }
   del(id) {
     const entity = this.entities[id];
+    if(entity === undefined)
+      return null;
     entity.alive = false;
     entity.comps['vis'].sn.alive = false; // temporary code
     delete this.entities[id];
