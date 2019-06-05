@@ -80,7 +80,6 @@ function main() {
       });
     });
     page.exit('/play', () => {
-      console.log('exit');
       cancelAnimationFrame(anim);
       anim = null;
     });

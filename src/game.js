@@ -1,16 +1,46 @@
 import {AssetMan} from './assets';
+import {Vec} from './vec';
 class Game {
   constructor() {
     this.states = [];
     this.assetMan = new AssetMan();
-    this.assetMan.addImage('fighter001', './asset/space-shooter-redux/PNG/playerShip1_blue.png');
-    this.assetMan.addImage('alien001', './asset/space-shooter-redux/PNG/Enemies/enemyRed1.png');
-    this.assetMan.addImage('alien002', './asset/space-shooter-redux/PNG/Enemies/enemyRed2.png');
-    this.assetMan.addImage('bullet001', './asset/space-shooter-redux/PNG/Lasers/laserBlue11.png');
-    this.assetMan.addImage('item001', './asset/space-shooter-redux/PNG/ufoBlue.png');
-    this.assetMan.addImage('bg010', './asset/nebula/nebula10.png');
     this.assetMan.addAudio('shoot001', './asset/space-shooter-redux/Bonus/sfx_laser1.ogg');
     this.assetMan.addAudio('shoot002', './asset/space-shooter-redux/Bonus/sfx_laser2.ogg');
+    this.assetMan.addImage('bg010', './asset/nebula/nebula10.png');
+    this.assetMan.addImage('sheet001', './asset/space-shooter-redux/Spritesheet/sheet.png');
+    const sheet001 = this.assetMan.images.sheet001;
+    sheet001.onload = () => {
+      this.assetMan.addCanvas(
+        'fighter001',
+        sheet001,
+        new Vec(211, 941),
+        new Vec(99, 75),
+      );
+      this.assetMan.addCanvas(
+        'alien001',
+        sheet001,
+        new Vec(425, 384),
+        new Vec(93, 84),
+      );
+      this.assetMan.addCanvas(
+        'alien002',
+        sheet001,
+        new Vec(120, 520),
+        new Vec(104, 84),
+      );
+      this.assetMan.addCanvas(
+        'bullet001',
+        sheet001,
+        new Vec(698, 795),
+        new Vec(38, 37),
+      );
+      this.assetMan.addCanvas(
+        'item001',
+        sheet001,
+        new Vec(444, 91),
+        new Vec(91, 91),
+      );
+    };
   }
   pushState(state) {
     this.states.push(state);
