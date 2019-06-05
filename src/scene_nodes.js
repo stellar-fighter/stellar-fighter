@@ -71,15 +71,13 @@ class Sprite extends SceneNode {
       camera.toRealW(size.x),
       camera.toRealH(size.y)
     );
-    ctx.beginPath();
-    /*ctx.rect(
-      (pos.x - camera.pos.x),
-      (pos.y - camera.pos.y),
-      size.x,
-      size.y
-    );*/
-    ctx.stroke();
-    ctx.closePath();
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(
+      camera.toRealX(pos.x),
+      camera.toRealY(pos.y),
+      camera.toRealW(size.x),
+      camera.toRealH(size.y)
+    );
     ctx.restore();
   }
 }

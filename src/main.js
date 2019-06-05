@@ -80,13 +80,12 @@ function main() {
       });
     });
     page.exit('/play', () => {
-      console.log('exit');
       cancelAnimationFrame(anim);
       anim = null;
     });
     page('*', () => console.log('middleware'));
     page({hashbang: true});
-    page('/start');
+    page('/play');
 
   }
   addEventListener('load', init);
