@@ -1,5 +1,6 @@
 html {
-  background-color: #FFFFFF; }
+  background-color: #FFFFFF;
+  overscroll-behavior: contain; }
   html body {
     padding: 0px;
     margin: 0px; }
