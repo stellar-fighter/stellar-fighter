@@ -245,7 +245,7 @@ class PlayerSystem extends System {
     if (player) {
       const pos = player.comps['pos'];
       if(this.state.event.touch && this.state.event.touch.delta) {
-        pos.vec.addVec(this.state.event.touch.delta.setMag(30));
+        pos.vec.addVec(this.state.event.touch.delta.setMag(40));
         delete this.state.event.touch['delta'];
       }
       if(this.state.event.ArrowUp)
