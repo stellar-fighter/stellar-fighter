@@ -30,7 +30,7 @@ class PlayState extends State {
     super({game, running});
     this.systems = systems || [];
     this.entityMan = entityMan || new EntityMan({});
-    this.event = {up: false, down: false, left: false, right: false};
+    this.event = {up: false, down: false, left: false, right: false, touch: {}};
     this.canvas = canvas;
     this.camera = new Camera({canvas, pos: new Vec(0, 0)});
     this.ctx = canvas.getContext('2d');
@@ -76,15 +76,17 @@ class PlayState extends State {
       that.event[event.code] = false;
     });
     addEventListener('touchstart', (event) => {
-      that.event.touch = {};
+      that.event.touch.active = true;
       that.event.touch.pos = new Vec(event.touches[0].clientX, event.touches[0].clientY);
     });
     addEventListener('touchmove', (event) => {
       that.event.touch.delta = new Vec(event.touches[0].clientX - that.event.touch.pos.x, event.touches[0].clientY - that.event.touch.pos.y);
       that.event.touch.pos = new Vec(event.touches[0].clientX, event.touches[0].clientY);
+
     });
     addEventListener('touchend', (event) => {
-      delete that.event['touch'];
+      that.event.touch.active = false;
+      delete that.event.touch['delta'];
     });
   }
   get entities() {
@@ -172,11 +174,6 @@ class PlayState extends State {
       this.game.switchState(new GameOverState({game: this.game, running: true, canvas: this.canvas, camera: this.camera, score: this.score}));
       return;
     }
-    const shooting = player.comps['shooting'];
-    if(this.event.Space || this.event.touch)
-      shooting.enabled = true;
-    else
-      shooting.enabled = false;
     this.genEntity();
     for(let system of this.systems)
       system.process();

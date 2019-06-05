@@ -243,10 +243,10 @@ class PlayerSystem extends System {
   process() {
     const player = this.state.entityMan.get(this.state.playerId);
     if (player) {
-      const pos = player.comps['pos'];
-      if(this.state.event.touch && this.state.event.touch.delta) {
+      const {pos, shooting} = player.comps;
+      if(this.state.event.touch.delta) {
         pos.vec.addVec(this.state.event.touch.delta.setMag(40));
-        delete this.state.event.touch['delta'];
+        this.state.event.touch.delta.setMag(0);
       }
       if(this.state.event.ArrowUp)
         pos.vec.y -= 30;
@@ -256,6 +256,10 @@ class PlayerSystem extends System {
         pos.vec.x -= 30;
       if(this.state.event.ArrowRight)
         pos.vec.x += 30;
+      if(this.state.event.Space || this.state.event.touch.active)
+        shooting.enabled = true;
+      else
+        shooting.enabled = false;
     }
   }
 }
