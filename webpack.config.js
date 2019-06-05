@@ -76,7 +76,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {from: 'asset', to: 'asset'},
-      {from: 'src/partial', to: 'partial'}
+      {from: 'src/page', to: 'page'}
     ]),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',
