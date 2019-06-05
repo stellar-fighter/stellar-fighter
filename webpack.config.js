@@ -61,7 +61,7 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html',
       meta: {
-        'viewport': 'width=device-width, initial-scale=1, shrink-to-fit=no',
+        'viewport': 'width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no',
         'theme-color': '#FF0000',
         'charset': 'UTF-8',
         'cache-control': {'http-equiv': 'cache-control', 'content': 'no-cache, no-store, must-revalidate'},
