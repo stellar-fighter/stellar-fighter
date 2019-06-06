@@ -4,12 +4,6 @@ html {
   html body {
     padding: 0px;
     margin: 0px; }
-  html .stellar-title {
-    opacity: 0.5;
-    color: black;
-    font-weight: bold;
-    font-size: 5vw;
-    color: black; }
   html .stellar-button {
     opacity: 0.5;
     color: black;
@@ -23,6 +17,7 @@ html {
     border: 0.5vw solid black;
     background-color: rgba(0, 0, 0, 0);
     color: black;
+    margin-left: 2vw;
     margin-bottom: 1vw; }
   html .stellar-button:hover {
     color: black;
