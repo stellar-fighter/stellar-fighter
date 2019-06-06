@@ -1,32 +1,38 @@
-<div id="btn_group" class="modal" style="height: 90%; opacity: 0.5">
-  <style>
-      #btn_group button{
-          width: 200px;
-          border-top-left-radius: 10px;
-          border-top-right-radius: 10px;
-          border-bottom-left-radius: 10px;    
-          border-bottom-right-radius: 10px;
-          border: 1px solid black;
-          background-color: rgba(0,0,0,0);
-          color: black;
-      }
-      #btn_group button:hover{
-          color:black;
-          background-color: #BDBDBD;
-      }
-  </style>
+<main style="width: 47vw; margin: 0 auto">
+<style>
+  .stellar-title {
+    opacity: 0.5;
+    color: black;
+    font-weight: bold;
+    font-size: 7vw;
+    color: black;
+  }
+  .stellar-button {
+    opacity: 0.5;
+    color: black;
+    font-weight: bold;
+    font-size: 3vw;
+    width: 20vw;
+    border-top-left-radius: 10vw;
+    border-top-right-radius: 10vw;
+    border-bottom-left-radius: 10vw;    
+    border-bottom-right-radius: 10vw;
+    border: 0.5vw solid black;
+    background-color: rgba(0,0,0,0);
+    color: black;
+  }
+  .stellar-button:hover {
+    color:black;
+    background-color: #BDBDBD;
+  }
+</style>
 
-<p style="font-size:100px;  font-weight:bold; padding-bottom : -10px ; color : #000000"> Stellar-Fighter</p>
-  
-<button >
-  <p style="font-size:20px; font-weight:bold; color : #000000"> Scores </p>
+<p class="stellar-title" style="margin-bottom: 5vw;">Stellar Fighter</p>
+<img src="/page/qr-code.svg" style="width: 30vw; display: block; margin-left: 7vw; margin-bottom: 5vw"/>
+<button class="stellar-button">
+  <p>Scores</p>
 </button>
-
-  <br><br>     
-  
-<button>  
-  <a href="#" rel="modal:close">
-   <p style = "font-size:20px; font-weight:bold; color : #000000"> Play</p>
-  </a>
- </button>
-</div>
+<button class="stellar-button" id="play-button">
+  <p>Play</p>
+</button>
+</main>
