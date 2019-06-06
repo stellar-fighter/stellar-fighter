@@ -18,7 +18,7 @@ class Vec {
   }
   /**
    * Returns a new Vec obtained by angle and magnitude
-   * @param {number} ang - The angle value 
+   * @param {number} ang - The angle value
    * @param {number} mag - The magnitude value
    * @return {Object} a new Vec object
    */
@@ -35,7 +35,7 @@ class Vec {
     return new Vec(x, y);
   }
   /**
-   * Returns a new Vec with the x-coordinate y-coordinate of the vectors entered into the input.
+   * Returns a new Vec with the x-coordinate y-coordinate of the vectors entered into the input
    * @param {Obect} vec - The vector object
    * @return {Object} a new Vec object
    */
@@ -72,7 +72,7 @@ class Vec {
   }
   /**
    * Sets the angle by the angle of the vector entered into the input and the magnitude of the vector
-   * @param {number} ang - The angle value 
+   * @param {number} ang - The angle value
    */
   set ang(ang) {
     this.x = this.mag * Math.cos(ang);
@@ -80,7 +80,7 @@ class Vec {
   }
   /**
    * Sets the angle of the vector with the angle entered by the input
-   * @param {number} ang - The angle value 
+   * @param {number} ang - The angle value
    * @return {Object} the changed Vec object
    */
   setAng(ang) {
@@ -88,7 +88,7 @@ class Vec {
     return this;
   }
   /**
-   * Sets the vector magnitude to the magnitude entered by the input.
+   * Sets the vector magnitude to the magnitude entered by the input
    * @param {number} mag - The magnitude value
    */
   set mag(mag) {
@@ -232,7 +232,7 @@ class Vec {
    * Returns a value by internal operation of the input vector and the vector
    * @param {Obect} vec - The vector object
    * @return {number} value from internal opration two vectors
-   */   
+   */
   dot(vec) {
     return this.x * vec.x + this.y * vec.y;
   }
