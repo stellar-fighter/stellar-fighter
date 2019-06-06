@@ -1,4 +1,15 @@
+/**
+ * A super SceneNode class that defines scene
+ */
 class SceneNode {
+  /**
+   * Create a new SceneNode object
+   * @param {Object} transform - not implemented yet
+   * @param {Object} pos - The Vector object for entity's pos
+   * @param {Object} size - The Vector object for entity's size
+   * @param {Object[]} children - The array of childeren SceneNode object
+   * @param {Object} render - The render method for this object
+   */
   constructor({transform, pos, size, children, render}) {
     this.transform = transform; // not implemented yet
     this.pos = pos || null;
@@ -19,6 +30,12 @@ class SceneNode {
   addChild(child) {
     this.children.push(child);
   }
+  /**
+  * Render all SceneNode object in children array
+   * @param {Object} canvas - The main canvas to show visual part in game
+   * @param {Object} ctx - The 2D context of main canvas
+   * @param {Object} camera - The Camera object of main canvas
+  */
   renderAll({canvas, ctx, camera}) {
     this.render({self: this, canvas, ctx, camera});
     const newChildren = [];
@@ -30,6 +47,13 @@ class SceneNode {
     }
     this.children = newChildren;
   }
+  /**
+  * Render as SceneNode class default rendering
+   * @param {Object} self - The SceneNode object itself
+   * @param {Object} canvas - The main canvas to show visual part in game
+   * @param {Object} ctx - The 2D context of main canvas
+   * @param {Object} camera - The Camera object of main canvas
+  */
   static defaultRender({self, canvas, ctx, camera}) {
     const {pos, size} = self;
     if(!(ctx && camera && pos && size))
@@ -49,7 +73,19 @@ class SceneNode {
   }
 }
 
+/**
+ * A SceneNode related to entity's visibility
+ * @extends SceneNode
+ */
 class Sprite extends SceneNode {
+  /**
+   * Create a new Sprite object
+   * @param {Object} pos - The Vector object for entity's pos
+   * @param {Object} size - The Vector object for entity's size
+   * @param {Object[]} children - The array of childeren SceneNode object
+   * @param {function} render - The render method for this object
+   * @param {Image} texture - The texture image of entity
+   */
   constructor({pos, size, children, render, texture}) {
     super({
       pos, size, children,
@@ -59,6 +95,13 @@ class Sprite extends SceneNode {
       throw new Error('RequiredParam');
     this.texture = texture;
   }
+  /**
+  * Render as Sprite class default rendering
+   * @param {Object} self - The Sprite object itself
+   * @param {Object} canvas - The main canvas to show visual part in game
+   * @param {Object} ctx - The 2D context of main canvas
+   * @param {Object} camera - The Camera object of main canvas
+  */
   static defaultRender({self, canvas, ctx, camera}) {
     const {pos, size, texture} = self;
     if(!(ctx && camera && pos && size))
@@ -82,7 +125,16 @@ class Sprite extends SceneNode {
   }
 }
 
+/**
+ * A SceneNode related to game's background
+ * @extends SceneNode
+ */
 class Background extends SceneNode {
+  /**
+   * Create a new Background object
+   * @param {Object[]} children - The array of childeren SceneNode object
+   * @param {Image} texture - The texture image of background
+   */
   constructor({children, texture}) {
     super({
       children,
@@ -92,6 +144,13 @@ class Background extends SceneNode {
       throw new Error('RequiredParam');
     this.texture = texture;
   }
+  /**
+  * Render as Background class default rendering
+   * @param {Object} self - The Background object itself
+   * @param {Object} canvas - The main canvas to show background in game
+   * @param {Object} ctx - The 2D context of main canvas
+   * @param {Object} camera - The Camera object of main canvas
+  */
   static defaultRender({self, canvas, ctx, camera}) {
     const {texture} = self;
     if(!(ctx && camera))
@@ -103,14 +162,28 @@ class Background extends SceneNode {
   }
 }
 
+/**
+ * A SceneNode related to displaying current score
+ * @extends SceneNode
+ */
 class ScoreDisplay extends SceneNode {
-  constructor({children, state}) {
+  /**
+   * Create a new Background object
+   * @param {Object} state - The state object related to current game
+   */
+  constructor({state}) {
     super({
-      children,
       render: (ScoreDisplay.defaultRender)
     });
     this.state = state;
   }
+  /**
+  * Render as ScoreDisplay class default rendering
+   * @param {Object} self - The ScoreDisplay object itself
+   * @param {Object} canvas - The main canvas to show score in game
+   * @param {Object} ctx - The 2D context of main canvas
+   * @param {Object} camera - The Camera object of main canvas
+  */
   static defaultRender({self, canvas, ctx, camera}) {
     const {texture} = self;
     if(!ctx)
@@ -121,7 +194,18 @@ class ScoreDisplay extends SceneNode {
   }
 }
 
+/**
+ * A SceneNode related to displaying current HP of entity
+ * @extends SceneNode
+ */
 class HpDisplay extends SceneNode {
+  /**
+   * Create a new Sprite object
+   * @param {Object} pos - The Vector object for entity's pos
+   * @param {Object} size - The Vector object for entity's size
+   * @param {Object[]} children - The array of childeren SceneNode object
+   * @param {int} hp - The hp of entity
+   */
   constructor({pos, size, children, hp}) {
     super({
       pos, size, children,
@@ -131,6 +215,13 @@ class HpDisplay extends SceneNode {
       throw new Error('RequiredParam');
     this.hp = hp;
   }
+  /**
+  * Render as HpDisplay class default rendering
+   * @param {Object} self - The HpDisplay object itself
+   * @param {Object} canvas - The main canvas to show HP in game
+   * @param {Object} ctx - The 2D context of main canvas
+   * @param {Object} camera - The Camera object of main canvas
+  */
   static defaultRender({self, canvas, ctx, camera}) {
     const {pos, size, hp} = self;
     if(!(canvas && ctx && camera && pos && size && hp))
