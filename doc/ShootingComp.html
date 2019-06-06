@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: CamOutComp</title>
+    <title>JSDoc: Class: ShootingComp</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: CamOutComp</h1>
+    <h1 class="page-title">Class: ShootingComp</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>CamOutComp<span class="signature">(actions)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>ShootingComp<span class="signature">(enabled, timer, coolTime, power, sound)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">A component related to camera out of entities</div>
+            <div class="class-description">A component related to entities' shooting action</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="CamOutComp"><span class="type-signature"></span>new CamOutComp<span class="signature">(actions)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="ShootingComp"><span class="type-signature"></span>new ShootingComp<span class="signature">(enabled, timer, coolTime, power, sound)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Create a new CamOutComp
+    Create a new ShootingComp
 </div>
 
 
@@ -89,7 +89,30 @@
 
         <tr>
             
-                <td class="name"><code>actions</code></td>
+                <td class="name"><code>enabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ability to shoot</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timer</code></td>
             
 
             <td class="type">
@@ -105,7 +128,76 @@
 
             
 
-            <td class="description last">The conditions and actions; keys: UP, DOWN, LEFT, RIGHT, values: NONE, DESTROY, BLOCK, BOUNCE</td>
+            <td class="description last">The timer object of entity</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>coolTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The interval between continuous shooting</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>power</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Vector object of moving shooted bullet</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sound</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The sound effect of shooting action</td>
         </tr>
 
     
@@ -146,7 +238,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="comps.js.html">comps.js</a>, <a href="comps.js.html#line159">line 159</a>
+        <a href="comps.js.html">comps.js</a>, <a href="comps.js.html#line200">line 200</a>
     </li></ul></dd>
     
 

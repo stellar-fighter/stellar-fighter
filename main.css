@@ -4,13 +4,36 @@ html {
   html body {
     padding: 0px;
     margin: 0px; }
+  html .stellar-title {
+    opacity: 0.5;
+    color: black;
+    font-weight: bold;
+    font-size: 6vw;
+    color: black; }
+  html .stellar-button {
+    opacity: 0.5;
+    color: black;
+    font-weight: bold;
+    font-size: 3vw;
+    width: 18vw;
+    border-top-left-radius: 10vw;
+    border-top-right-radius: 10vw;
+    border-bottom-left-radius: 10vw;
+    border-bottom-right-radius: 10vw;
+    border: 0.5vw solid black;
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+    margin-bottom: 1vw; }
+  html .stellar-button:hover {
+    color: black;
+    background-color: #BDBDBD; }
 
-#main-canvas {
+.stellar-canvas {
   display: block;
   background-color: grey;
   margin: auto; }
 
-#controls {
+.stellar-controls {
   background-color: black;
   display: block;
   padding: 0;
@@ -19,7 +42,11 @@ html {
   bottom: 0;
   left: 0;
   right: 0; }
-  #controls * {
+  .stellar-controls button {
+    background-color: black;
+    color: white;
+    border: 1px solid white; }
+  .stellar-controls * {
     height: 100%;
     font-size: 2vh; }
 
