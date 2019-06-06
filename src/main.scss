@@ -33,13 +33,13 @@ html {
   }
 }
 
-#main-canvas {
+.stellar-canvas {
   display: block;
   background-color: grey;
   margin: auto;
 }
 
-#controls {
+.stellar-controls {
   background-color: black;
   display: block;
   padding: 0;
@@ -48,6 +48,11 @@ html {
   bottom: 0;
   left: 0;
   right: 0;
+  button {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+  }
   * {
     height: 100%;
     font-size: 2vh;
