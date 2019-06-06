@@ -114,6 +114,7 @@ class Sprite extends SceneNode {
       camera.toRealW(size.x),
       camera.toRealH(size.y)
     );
+    /*
     ctx.strokeStyle = 'red';
     ctx.strokeRect(
       camera.toRealX(pos.x),
@@ -121,6 +122,7 @@ class Sprite extends SceneNode {
       camera.toRealW(size.x),
       camera.toRealH(size.y)
     );
+    */
     ctx.restore();
   }
 }
