@@ -83,7 +83,7 @@ function main() {
       cancelAnimationFrame(anim);
       anim = null;
     });
-    page('*', () => console.log('middleware'));
+    // page('*', () => console.log('middleware'));
     page({hashbang: true});
     page('/start');
 
