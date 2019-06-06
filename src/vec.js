@@ -7,7 +7,7 @@ class Vec {
    * Defines as 0 if x or y are not defined
    * @param {number} x - The x value
    * @param {number} y - The y value
-   */  
+   */
   constructor(x, y) {
     this.x = x;
     this.y = y;
