@@ -75,13 +75,18 @@ function main() {
       $.get('./page/play.html', (res) => {
         $('body').html(res);
         $('#button-menu').click((event) => {
+          game.state.running = false;
           event.preventDefault();
           this.blur();
           $('#menu').modal({
-            escapeClose: true,
+            escapeClose: false,
             clickClose: false,
             showClose: false
           });
+        });
+        $('#button-menu-close').click((event) => {
+          game.state.running = true;
+          $.modal.close();
         });
         $('#button-to-main').click((event) => {
           event.preventDefault();
