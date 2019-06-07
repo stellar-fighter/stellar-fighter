@@ -34,6 +34,7 @@
 class Comp {
   /**
    * Create a new Comp
+   * @constructor
    * @param {string} name - The component name parameter
    */
   constructor({name}) {
@@ -50,6 +51,7 @@ class Comp {
 class PosComp extends Comp {
   /**
    * Create a new PosComp
+   * @constructor
    * @param {Object} vec - The vector object
    * @param {boolean} abs - The abs boolean value
    */
@@ -69,6 +71,7 @@ class PosComp extends Comp {
 class MovComp extends Comp {
   /**
    * Create a new MovComp
+   * @constructor
    * @param {Object} vel - The velocity vector object
    * @param {Object} acc - The acceleration vector object
    */
@@ -86,6 +89,7 @@ class MovComp extends Comp {
 class SizeComp extends Comp {
   /**
    * Create a new SizeComp
+   * @constructor
    * @param {Object} vec - The vector object about entitiy's size
    */
   constructor({vec}) {
@@ -101,6 +105,7 @@ class SizeComp extends Comp {
 class VisComp extends Comp {
   /**
    * Create a new VisComp
+   * @constructor
    * @param {Object} sn - The Sprite object
    * @param {Object} visible - The visible boolean value
    */
@@ -120,6 +125,7 @@ class VisComp extends Comp {
 class CollComp extends Comp {
   /**
    * Create a new CollComp
+   * @constructor
    * @param {int} damage - The damage of entity collision
    * @param {Object} timer - The timer object for damage cooltime
    * @param {int} coolTime - The damage cooltime
@@ -154,6 +160,7 @@ class CollComp extends Comp {
 class CtrlComp extends Comp {
   /**
    * Create a new CtrlComp
+   * @constructor
    */
   constructor() {
     super({name: 'ctrl'});
@@ -167,6 +174,7 @@ class CtrlComp extends Comp {
 class HpComp extends Comp {
   /**
    * Create a new HpComp
+   * @constructor
    * @param {int} val - The HP of entity
    */
   constructor({val}) {
@@ -182,6 +190,7 @@ class HpComp extends Comp {
 class CamOutComp extends Comp {
   /**
    * Create a new CamOutComp
+   * @constructor
    * @param {Object} actions - The conditions and actions; keys: UP, DOWN, LEFT, RIGHT, values: NONE, DESTROY, BLOCK, BOUNCE
    */
   constructor({actions}) {
@@ -204,6 +213,7 @@ class CamOutComp extends Comp {
 class TeamComp extends Comp {
   /**
    * Create a new TeamComp
+   * @constructor
    * @param {string} val - The team of entity
    */
   constructor({val}) {
@@ -219,6 +229,7 @@ class TeamComp extends Comp {
 class ShootingComp extends Comp {
   /**
    * Create a new ShootingComp
+   * @constructor
    * @param {boolean} enabled - The ability to shoot
    * @param {Object} timer - The timer object of entity
    * @param {int} coolTime - The interval between continuous shooting
@@ -256,6 +267,7 @@ class ShootingComp extends Comp {
 class ScoreComp extends Comp {
   /**
    * Create a new ScoreComp
+   * @constructor
    * @param {int} score - The score of entity
    */
   constructor({score}) {
@@ -275,13 +287,13 @@ export {Comp, PosComp, MovComp, SizeComp, VisComp, CtrlComp, HpComp, CamOutComp,
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Background.html">Background</a></li><li><a href="CamOutComp.html">CamOutComp</a></li><li><a href="CollComp.html">CollComp</a></li><li><a href="CollSystem.html">CollSystem</a></li><li><a href="Comp.html">Comp</a></li><li><a href="CtrlComp.html">CtrlComp</a></li><li><a href="HpComp.html">HpComp</a></li><li><a href="HpDisplay.html">HpDisplay</a></li><li><a href="MovComp.html">MovComp</a></li><li><a href="MovSystem.html">MovSystem</a></li><li><a href="PosComp.html">PosComp</a></li><li><a href="SceneNode.html">SceneNode</a></li><li><a href="ScoreComp.html">ScoreComp</a></li><li><a href="ScoreDisplay.html">ScoreDisplay</a></li><li><a href="ShootingComp.html">ShootingComp</a></li><li><a href="SizeComp.html">SizeComp</a></li><li><a href="Sprite.html">Sprite</a></li><li><a href="System.html">System</a></li><li><a href="TeamComp.html">TeamComp</a></li><li><a href="Timer.html">Timer</a></li><li><a href="Vec.html">Vec</a></li><li><a href="VisComp.html">VisComp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Alien001.html">Alien001</a></li><li><a href="Alien002.html">Alien002</a></li><li><a href="Background.html">Background</a></li><li><a href="Bullet001.html">Bullet001</a></li><li><a href="CamOutComp.html">CamOutComp</a></li><li><a href="CamOutSystem.html">CamOutSystem</a></li><li><a href="CollComp.html">CollComp</a></li><li><a href="CollSystem.html">CollSystem</a></li><li><a href="Comp.html">Comp</a></li><li><a href="CtrlComp.html">CtrlComp</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityMan.html">EntityMan</a></li><li><a href="Fighter001.html">Fighter001</a></li><li><a href="GameOverState.html">GameOverState</a></li><li><a href="HpComp.html">HpComp</a></li><li><a href="HpDisplay.html">HpDisplay</a></li><li><a href="HpSystem.html">HpSystem</a></li><li><a href="Item001.html">Item001</a></li><li><a href="MovComp.html">MovComp</a></li><li><a href="MovSystem.html">MovSystem</a></li><li><a href="PlayerSystem.html">PlayerSystem</a></li><li><a href="PlayState.html">PlayState</a></li><li><a href="PosComp.html">PosComp</a></li><li><a href="SceneNode.html">SceneNode</a></li><li><a href="ScoreComp.html">ScoreComp</a></li><li><a href="ScoreDisplay.html">ScoreDisplay</a></li><li><a href="ShootingComp.html">ShootingComp</a></li><li><a href="ShootingSystem.html">ShootingSystem</a></li><li><a href="SizeComp.html">SizeComp</a></li><li><a href="Sprite.html">Sprite</a></li><li><a href="State.html">State</a></li><li><a href="System.html">System</a></li><li><a href="TeamComp.html">TeamComp</a></li><li><a href="Timer.html">Timer</a></li><li><a href="Vec.html">Vec</a></li><li><a href="VisComp.html">VisComp</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 04:54:34 GMT+0900 (KST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 20:27:44 GMT+0900 (KST)
 </footer>
 
 <script> prettyPrint(); </script>

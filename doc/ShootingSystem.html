@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: PosComp</title>
+    <title>JSDoc: Class: ShootingSystem</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: PosComp</h1>
+    <h1 class="page-title">Class: ShootingSystem</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>PosComp<span class="signature">(vec, abs)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>ShootingSystem<span class="signature">(state, compNames)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">A component related to vector and abs out of entities</div>
+            <div class="class-description">A ShootingSystem class that handles shooting action</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="PosComp"><span class="type-signature"></span>new PosComp<span class="signature">(vec, abs)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="ShootingSystem"><span class="type-signature"></span>new ShootingSystem<span class="signature">(state, compNames)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Create a new PosComp
+    Create a new CamOutSystem object with ShootingComp, PosComp, SizeComp, TeamComp objects
 </div>
 
 
@@ -89,7 +89,7 @@
 
         <tr>
             
-                <td class="name"><code>vec</code></td>
+                <td class="name"><code>state</code></td>
             
 
             <td class="type">
@@ -105,20 +105,20 @@
 
             
 
-            <td class="description last">The vector object</td>
+            <td class="description last">The current State object</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>abs</code></td>
+                <td class="name"><code>compNames</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">Array.&lt;string></span>
 
 
             
@@ -128,7 +128,7 @@
 
             
 
-            <td class="description last">The abs boolean value</td>
+            <td class="description last">The array of the names of Component objects</td>
         </tr>
 
     
@@ -169,7 +169,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="comps.js.html">comps.js</a>, <a href="comps.js.html#line30">line 30</a>
+        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line272">line 272</a>
     </li></ul></dd>
     
 
@@ -209,7 +209,7 @@
 
 
     <ul>
-        <li><a href="Comp.html">Comp</a></li>
+        <li><a href="System.html">System</a></li>
     </ul>
 
 
@@ -227,6 +227,262 @@
 
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(state)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Filters entities by their components
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The current State object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="System.html#filter">System#filter</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The boolean value to check the component is defined
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="process"><span class="type-signature"></span>process<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Process to create new bullet objects and sound effect
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line278">line 278</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
     

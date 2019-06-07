@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: PosComp</title>
+    <title>JSDoc: Class: Entity</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: PosComp</h1>
+    <h1 class="page-title">Class: Entity</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>PosComp<span class="signature">(vec, abs)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Entity<span class="signature">(name, state, comps)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">A component related to vector and abs out of entities</div>
+            <div class="class-description">A super Entity class that creates entity object</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="PosComp"><span class="type-signature"></span>new PosComp<span class="signature">(vec, abs)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Entity"><span class="type-signature"></span>new Entity<span class="signature">(name, state, comps)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Create a new PosComp
+    Create a new Entity object
 </div>
 
 
@@ -89,7 +89,30 @@
 
         <tr>
             
-                <td class="name"><code>vec</code></td>
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of entity object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
             
 
             <td class="type">
@@ -105,20 +128,20 @@
 
             
 
-            <td class="description last">The vector object</td>
+            <td class="description last">The State object for entity's current State</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>abs</code></td>
+                <td class="name"><code>comps</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
@@ -128,7 +151,7 @@
 
             
 
-            <td class="description last">The abs boolean value</td>
+            <td class="description last">The array of Comps object including entity's pos, mov, shooting, team and etc</td>
         </tr>
 
     
@@ -169,7 +192,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="comps.js.html">comps.js</a>, <a href="comps.js.html#line30">line 30</a>
+        <a href="entities.js.html">entities.js</a>, <a href="entities.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -201,17 +224,6 @@
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="Comp.html">Comp</a></li>
-    </ul>
-
 
     
 

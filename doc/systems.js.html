@@ -31,9 +31,15 @@ import {Bullet001} from './entities';
 import {Vec} from './vec';
 
 /**
- * A class that handles entities and components
+ * A super System class that handles entities and components
  */
 class System {
+  /**
+   * Create a new System object
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     if(state === undefined)
       throw new Error('RequiredParam');
@@ -42,6 +48,8 @@ class System {
   }
   /**
    * Filters entities by their components
+   * @param {Object} state - The current State object
+   * @return {boolean} The boolean value to check the component is defined
    */
   filter(entity) {
     for(let compName of this.compNames) {
@@ -56,10 +64,17 @@ class System {
 }
 
 /**
- * A class that handles movements
+ * A MovSystem class that handles movements
+ * @extends System
  */
 class MovSystem extends System {
   constructor({state, compNames}) {
+    /**
+     * Create a new MovSystem object with PosComp, MovComp objects
+     * @constructor
+     * @param {Object} state - The current State object
+     * @param {string[]} compNames - The array of the names of Component objects
+     */
     super({state, compNames: ['pos', 'mov']});
   }
   process() {
@@ -80,9 +95,16 @@ class MovSystem extends System {
 }
 
 /**
- * A class that handles collisions
+ * A CollSystem class that handles collisions
+ * @extends System
  */
 class CollSystem extends System {
+  /**
+   * Check the collision happens between two entities
+   * @param {Object} entity1 - The first entity object to check collision
+   * @param {Object} entity2 - The second entity object to check collision
+   * @return {boolean} The boolean value to check the collision happens
+   */
   static checkColl(entity1, entity2) {
     const pos1 = entity1.comps['pos'];
     const size1 = entity1.comps['size'];
@@ -93,9 +115,18 @@ class CollSystem extends System {
             pos1.vec.y + size1.vec.y > pos2.vec.y &amp;&amp;
             pos2.vec.y + size2.vec.y > pos1.vec.y);
   }
+  /**
+   * Create a new MovSystem object with CollComp, TeamComp, PosComp, SizeComp objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['coll', 'team', 'pos', 'size']});
   }
+  /**
+   * Process to update entities' HP based on collision action
+   */
   process() {
     for(let id1 in this.state.entities) {
       const entity1 = this.state.entities[id1];
@@ -116,10 +147,23 @@ class CollSystem extends System {
   }
 }
 
+/**
+ * A CamOutSystem class that handles camera
+ * @extends System
+ */
 class CamOutSystem extends System {
+  /**
+   * Create a new CamOutSystem object with CamOutComp, PosComp, SizeComp objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['camOut', 'pos', 'size']});
   }
+  /**
+   * Process to update entities' appropriate location
+   */
   process() {
     const camera = this.state.camera;
     const canvas = this.state.canvas;
@@ -213,10 +257,23 @@ class CamOutSystem extends System {
   }
 }
 
+/**
+ * A HpSystem class that handles entities' HP
+ * @extends System
+ */
 class HpSystem extends System {
+  /**
+   * Create a new CamOutSystem object with HpComp objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['hp']});
   }
+  /**
+   * Process to update entities' liveness based on their HP
+   */
   process() {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
@@ -229,10 +286,23 @@ class HpSystem extends System {
   }
 }
 
+/**
+ * A ShootingSystem class that handles shooting action
+ * @extends System
+ */
 class ShootingSystem extends System {
+  /**
+   * Create a new CamOutSystem object with ShootingComp, PosComp, SizeComp, TeamComp objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['shooting', 'pos', 'size', 'team']});
   }
+  /**
+   * Process to create new bullet objects and sound effect
+   */
   process() {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
@@ -264,10 +334,23 @@ class ShootingSystem extends System {
   }
 }
 
+/**
+ * A PlayerSystem class that handles player movement
+ * @extends System
+ */
 class PlayerSystem extends System {
+  /**
+   * Create a new PlayerSystem object with player's component objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['player']});
   }
+  /**
+   * Process to move player entity by keyboard control
+   */
   process() {
     const player = this.state.entityMan.get(this.state.playerId);
     if (player) {
@@ -303,13 +386,13 @@ export {System, MovSystem, CollSystem, CamOutSystem, HpSystem, ShootingSystem, P
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Background.html">Background</a></li><li><a href="CamOutComp.html">CamOutComp</a></li><li><a href="CollComp.html">CollComp</a></li><li><a href="CollSystem.html">CollSystem</a></li><li><a href="Comp.html">Comp</a></li><li><a href="CtrlComp.html">CtrlComp</a></li><li><a href="HpComp.html">HpComp</a></li><li><a href="HpDisplay.html">HpDisplay</a></li><li><a href="MovComp.html">MovComp</a></li><li><a href="MovSystem.html">MovSystem</a></li><li><a href="PosComp.html">PosComp</a></li><li><a href="SceneNode.html">SceneNode</a></li><li><a href="ScoreComp.html">ScoreComp</a></li><li><a href="ScoreDisplay.html">ScoreDisplay</a></li><li><a href="ShootingComp.html">ShootingComp</a></li><li><a href="SizeComp.html">SizeComp</a></li><li><a href="Sprite.html">Sprite</a></li><li><a href="System.html">System</a></li><li><a href="TeamComp.html">TeamComp</a></li><li><a href="Timer.html">Timer</a></li><li><a href="Vec.html">Vec</a></li><li><a href="VisComp.html">VisComp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Alien001.html">Alien001</a></li><li><a href="Alien002.html">Alien002</a></li><li><a href="Background.html">Background</a></li><li><a href="Bullet001.html">Bullet001</a></li><li><a href="CamOutComp.html">CamOutComp</a></li><li><a href="CamOutSystem.html">CamOutSystem</a></li><li><a href="CollComp.html">CollComp</a></li><li><a href="CollSystem.html">CollSystem</a></li><li><a href="Comp.html">Comp</a></li><li><a href="CtrlComp.html">CtrlComp</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityMan.html">EntityMan</a></li><li><a href="Fighter001.html">Fighter001</a></li><li><a href="GameOverState.html">GameOverState</a></li><li><a href="HpComp.html">HpComp</a></li><li><a href="HpDisplay.html">HpDisplay</a></li><li><a href="HpSystem.html">HpSystem</a></li><li><a href="Item001.html">Item001</a></li><li><a href="MovComp.html">MovComp</a></li><li><a href="MovSystem.html">MovSystem</a></li><li><a href="PlayerSystem.html">PlayerSystem</a></li><li><a href="PlayState.html">PlayState</a></li><li><a href="PosComp.html">PosComp</a></li><li><a href="SceneNode.html">SceneNode</a></li><li><a href="ScoreComp.html">ScoreComp</a></li><li><a href="ScoreDisplay.html">ScoreDisplay</a></li><li><a href="ShootingComp.html">ShootingComp</a></li><li><a href="ShootingSystem.html">ShootingSystem</a></li><li><a href="SizeComp.html">SizeComp</a></li><li><a href="Sprite.html">Sprite</a></li><li><a href="State.html">State</a></li><li><a href="System.html">System</a></li><li><a href="TeamComp.html">TeamComp</a></li><li><a href="Timer.html">Timer</a></li><li><a href="Vec.html">Vec</a></li><li><a href="VisComp.html">VisComp</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 04:54:34 GMT+0900 (KST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 20:27:44 GMT+0900 (KST)
 </footer>
 
 <script> prettyPrint(); </script>
