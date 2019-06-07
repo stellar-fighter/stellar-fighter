@@ -53,6 +53,12 @@ class Game {
     this.states[this.states.length - 1].destroy();
     this.states[this.states.length - 1] = state;
   }
+  flushStates() {
+    while(this.states.length - 1 >= 0) {
+      this.states[this.states.length - 1].destroy();
+      this.states.pop();
+    }
+  }
   get state() {
     return this.states[this.states.length - 1];
   }
