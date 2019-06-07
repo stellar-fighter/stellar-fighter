@@ -13,10 +13,11 @@ class State {
   /**
    * Create a new State object
    * @constructor
-   * @param {string} game - The Game object of check states of current game
-   * @param {boolean} running - The boolean value to figure out whether this state is running or not
-   * @param {Object[]} systems - The array of systems object to handle entities and components in current state
-   * @param {Object} entityMan - The EntityMan object that manages entities in current state
+   * @param {Object} params - The object for parameters
+   * @param {string} params.game - The Game object of check states of current game
+   * @param {boolean} params.running - The boolean value to figure out whether this state is running or not
+   * @param {Object[]} params.systems - The array of systems object to handle entities and components in current state
+   * @param {Object} params.entityMan - The EntityMan object that manages entities in current state
    */
   constructor({game, running, systems, entityMan}) {
     if(game === undefined)
@@ -44,12 +45,13 @@ class PlayState extends State {
   /**
    * Create a new PlayState object with SceneNode, System, entity objects
    * @constructor
-   * @param {string} game - The Game object of check states of current playing game
-   * @param {boolean} running - The boolean value to figure out whether this state is running or not
-   * @param {Object[]} systems - The array of systems object to handle entities and components in current state
-   * @param {Object} entityMan - The EntityMan object that manages entities in current state
-   * @param {Object} canvas - The main canvas object to show this state
-   * @param {Object[]} level - The array of level object that includes x, y, type, player
+   * @param {Object} params - The object for parameters
+   * @param {string} params.game - The Game object of check states of current playing game
+   * @param {boolean} params.running - The boolean value to figure out whether this state is running or not
+   * @param {Object[]} params.systems - The array of systems object to handle entities and components in current state
+   * @param {Object} params.entityMan - The EntityMan object that manages entities in current state
+   * @param {Object} params.canvas - The main canvas object to show this state
+   * @param {Object[]} params.level - The array of level object that includes x, y, type, player
    */
   constructor({game, running, systems, entityMan, canvas, level}) {
     super({game, running});
@@ -235,11 +237,12 @@ class GameOverState extends State {
   /**
    * Create a new GameOverState object and Save current score to localStorage
    * @constructor
-   * @param {string} game - The Game object of check states of current ending game
-   * @param {boolean} running - The boolean value to figure out whether this state is running or not
-   * @param {Object} canvas - The main canvas object to show this state
-   * @param {Object} camera - The Camera object of this state
-   * @param {int} score - The score value of this game
+   * @param {Object} params - The object for parameters
+   * @param {string} params.game - The Game object of check states of current ending game
+   * @param {boolean} params.running - The boolean value to figure out whether this state is running or not
+   * @param {Object} params.canvas - The main canvas object to show this state
+   * @param {Object} params.camera - The Camera object of this state
+   * @param {int} params.score - The score value of this game
    */
   constructor({game, running, canvas, camera, score}) {
     super({game, running});

@@ -9,8 +9,9 @@ class System {
   /**
    * Create a new System object
    * @constructor
-   * @param {Object} state - The current State object
-   * @param {string[]} compNames - The array of the names of Component objects
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The current State object
+   * @param {string[]} params.compNames - The array of the names of Component objects
    */
   constructor({state, compNames}) {
     if(state === undefined)
@@ -40,13 +41,14 @@ class System {
  * @extends System
  */
 class MovSystem extends System {
+  /**
+   * Create a new MovSystem object with PosComp, MovComp objects
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The current State object
+   * @param {string[]} params.compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
-    /**
-     * Create a new MovSystem object with PosComp, MovComp objects
-     * @constructor
-     * @param {Object} state - The current State object
-     * @param {string[]} compNames - The array of the names of Component objects
-     */
     super({state, compNames: ['pos', 'mov']});
   }
   process() {
@@ -90,8 +92,9 @@ class CollSystem extends System {
   /**
    * Create a new MovSystem object with CollComp, TeamComp, PosComp, SizeComp objects
    * @constructor
-   * @param {Object} state - The current State object
-   * @param {string[]} compNames - The array of the names of Component objects
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The current State object
+   * @param {string[]} params.compNames - The array of the names of Component objects
    */
   constructor({state, compNames}) {
     super({state, compNames: ['coll', 'team', 'pos', 'size']});
@@ -127,8 +130,9 @@ class CamOutSystem extends System {
   /**
    * Create a new CamOutSystem object with CamOutComp, PosComp, SizeComp objects
    * @constructor
-   * @param {Object} state - The current State object
-   * @param {string[]} compNames - The array of the names of Component objects
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The current State object
+   * @param {string[]} params.compNames - The array of the names of Component objects
    */
   constructor({state, compNames}) {
     super({state, compNames: ['camOut', 'pos', 'size']});
@@ -237,8 +241,9 @@ class HpSystem extends System {
   /**
    * Create a new CamOutSystem object with HpComp objects
    * @constructor
-   * @param {Object} state - The current State object
-   * @param {string[]} compNames - The array of the names of Component objects
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The current State object
+   * @param {string[]} params.compNames - The array of the names of Component objects
    */
   constructor({state, compNames}) {
     super({state, compNames: ['hp']});
@@ -266,8 +271,9 @@ class ShootingSystem extends System {
   /**
    * Create a new CamOutSystem object with ShootingComp, PosComp, SizeComp, TeamComp objects
    * @constructor
-   * @param {Object} state - The current State object
-   * @param {string[]} compNames - The array of the names of Component objects
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The current State object
+   * @param {string[]} params.compNames - The array of the names of Component objects
    */
   constructor({state, compNames}) {
     super({state, compNames: ['shooting', 'pos', 'size', 'team']});
@@ -314,8 +320,9 @@ class PlayerSystem extends System {
   /**
    * Create a new PlayerSystem object with player's component objects
    * @constructor
-   * @param {Object} state - The current State object
-   * @param {string[]} compNames - The array of the names of Component objects
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The current State object
+   * @param {string[]} params.compNames - The array of the names of Component objects
    */
   constructor({state, compNames}) {
     super({state, compNames: ['player']});

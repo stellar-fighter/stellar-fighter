@@ -7,7 +7,8 @@ class Comp {
   /**
    * Create a new Comp
    * @constructor
-   * @param {string} name - The component name parameter
+   * @param {Object} params - The object for parameters
+   * @param {string} params.name - The component name parameter
    */
   constructor({name}) {
     if(name === undefined)
@@ -24,8 +25,9 @@ class PosComp extends Comp {
   /**
    * Create a new PosComp
    * @constructor
-   * @param {Object} vec - The vector object
-   * @param {boolean} abs - The abs boolean value
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.vec - The vector object
+   * @param {boolean} params.abs - The abs boolean value
    */
   constructor({vec, abs}) {
     super({name: 'pos'});
@@ -44,8 +46,9 @@ class MovComp extends Comp {
   /**
    * Create a new MovComp
    * @constructor
-   * @param {Object} vel - The velocity vector object
-   * @param {Object} acc - The acceleration vector object
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.vel - The velocity vector object
+   * @param {Object} params.acc - The acceleration vector object
    */
   constructor({vel, acc}) {
     super({name: 'mov'});
@@ -62,7 +65,8 @@ class SizeComp extends Comp {
   /**
    * Create a new SizeComp
    * @constructor
-   * @param {Object} vec - The vector object about entitiy's size
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.vec - The vector object about entitiy's size
    */
   constructor({vec}) {
     super({name: 'size'});
@@ -78,8 +82,9 @@ class VisComp extends Comp {
   /**
    * Create a new VisComp
    * @constructor
-   * @param {Object} sn - The Sprite object
-   * @param {Object} visible - The visible boolean value
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.sn - The Sprite object
+   * @param {Object} params.visible - The visible boolean value
    */
   constructor({sn, visible}) {
     super({name: 'vis'});
@@ -98,10 +103,11 @@ class CollComp extends Comp {
   /**
    * Create a new CollComp
    * @constructor
-   * @param {int} damage - The damage of entity collision
-   * @param {Object} timer - The timer object for damage cooltime
-   * @param {int} coolTime - The damage cooltime
-   * @param {boolean} enabled - The ability for damage
+   * @param {Object} params - The object for parameters
+   * @param {int} params.damage - The damage of entity collision
+   * @param {Object} params.timer - The timer object for damage cooltime
+   * @param {int} params.coolTime - The damage cooltime
+   * @param {boolean} params.enabled - The ability for damage
    */
   constructor({damage, timer, coolTime, enabled}) {
     super({name: 'coll'});
@@ -147,7 +153,8 @@ class HpComp extends Comp {
   /**
    * Create a new HpComp
    * @constructor
-   * @param {int} val - The HP of entity
+   * @param {Object} params - The object for parameters
+   * @param {int} params.val - The HP of entity
    */
   constructor({val}) {
     super({name: 'hp'});
@@ -163,7 +170,8 @@ class CamOutComp extends Comp {
   /**
    * Create a new CamOutComp
    * @constructor
-   * @param {Object} actions - The conditions and actions; keys: UP, DOWN, LEFT, RIGHT, values: NONE, DESTROY, BLOCK, BOUNCE
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.actions - The conditions and actions; keys: UP, DOWN, LEFT, RIGHT, values: NONE, DESTROY, BLOCK, BOUNCE
    */
   constructor({actions}) {
     super({name: 'camOut'});
@@ -186,7 +194,8 @@ class TeamComp extends Comp {
   /**
    * Create a new TeamComp
    * @constructor
-   * @param {string} val - The team of entity
+   * @param {Object} params - The object for parameters
+   * @param {string} params.val - The team of entity
    */
   constructor({val}) {
     super({name: 'team'});
@@ -202,11 +211,12 @@ class ShootingComp extends Comp {
   /**
    * Create a new ShootingComp
    * @constructor
-   * @param {boolean} enabled - The ability to shoot
-   * @param {Object} timer - The timer object of entity
-   * @param {int} coolTime - The interval between continuous shooting
-   * @param {Object} power - The Vector object of moving shooted bullet
-   * @param {string} sound - The sound effect of shooting action
+   * @param {Object} params - The object for parameters
+   * @param {boolean} params.enabled - The ability to shoot
+   * @param {Object} params.timer - The timer object of entity
+   * @param {int} params.coolTime - The interval between continuous shooting
+   * @param {Object} params.power - The Vector object of moving shooted bullet
+   * @param {string} params.sound - The sound effect of shooting action
    */
   constructor({enabled, timer, coolTime, power, sound}) {
     super({name: 'shooting'});
@@ -240,7 +250,8 @@ class ScoreComp extends Comp {
   /**
    * Create a new ScoreComp
    * @constructor
-   * @param {int} score - The score of entity
+   * @param {Object} params - The object for parameters
+   * @param {int} params.score - The score of entity
    */
   constructor({score}) {
     super({name: 'score'});
