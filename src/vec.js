@@ -5,8 +5,10 @@ class Vec {
   /**
    * Create a new Vec with coordinates x,y
    * Defines as 0 if x or y are not defined
-   * @param {number} x - The x value
-   * @param {number} y - The y value
+   * @constructor
+   * @param {Obect} params The object for parameters
+   * @param {number} params.x - The x value
+   * @param {number} params.y - The y value
    */
   constructor(x, y) {
     this.x = x;
