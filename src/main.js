@@ -8,9 +8,10 @@ import page from 'page';
 
 function main() {
   const game = new Game();
-  let anim = null;
+  let animId = null;
   let canvas = null;
   let controls = null;
+  let normalStart = false;
   /*
   const level = [{x: 0, y: -1000, type: 's-fighter'}, {x: 1000, y: -2000, type: 's-fighter', player: true}];
   level.sort((a, b) => {
@@ -19,16 +20,18 @@ function main() {
   */
 
   function step(timeStamp) {
-    game.setTime(timeStamp);
-    game.update();
-    game.render();
-    anim = requestAnimationFrame(step);
+    if(animId) {
+      game.setTime(timeStamp);
+      game.update();
+      game.render();
+      animId = requestAnimationFrame(step);
+    }
   }
 
   function play() {
-    if(anim === null) {
+    if(animId === null) {
       game.pushState(new PlayState({game, running: true, canvas}));
-      anim = requestAnimationFrame(step);
+      animId = requestAnimationFrame(step);
     }
   }
 
@@ -58,14 +61,16 @@ function main() {
   }
 
   function init() {
-    page('/start', () => {
+    page('/main', (ctx, next) => {
       $('body').empty();
-      $.get('./page/start.html', (res) => {
+      $.get('./page/main.html', (res) => {
         $('body').html(res);
-        $('#play-button').on('click', (event) => page('/play'));
+        $('#play-button').click((event) => page('/play'));
       });
+      normalStart = true;
     });
-    page('/play', () => {
+    page('/play', (ctx, next) => {
+      if(!normalStart) return;
       $('body').empty();
       $.get('./page/play.html', (res) => {
         $('body').html(res);
@@ -78,19 +83,26 @@ function main() {
             showClose: false
           });
         });
+        $('#button-to-main').click((event) => {
+          event.preventDefault();
+          this.blur();
+          page("/main");
+        });
         addEventListener('resize', resizeCanvas);
         addEventListener('focus', unfocusElement);
         resizeCanvas();
         play();
       });
     });
-    page.exit('/play', () => {
-      cancelAnimationFrame(anim);
-      anim = null;
+    page.exit('/play', (ctx, next) => {
+      cancelAnimationFrame(animId);
+      animId = null;
+      next();
     });
     // page('*', () => console.log('middleware'));
     page({hashbang: true});
-    page('/start');
+    page.stop();
+    page('/main');
 
   }
   addEventListener('load', init);
