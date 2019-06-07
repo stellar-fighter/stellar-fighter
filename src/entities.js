@@ -143,8 +143,9 @@ class Alien001 extends Entity {
   /**
    * Create a new Alien001 object
    * @constructor
-   * @param {Object} state - The State object for current State
-   * @param {Object[]} comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for current State
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
    */
   constructor({state, comps}) {
     super({state, comps, name: 'alien001'});
@@ -289,9 +290,10 @@ class Bullet001 extends Entity {
   /**
    * Create a new Bullet001 object
    * @constructor
-   * @param {Object} state - The State object for current State
-   * @param {Object[]} comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
-   * @param {int} speed - The speed of bullet movement
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for current State
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   * @param {int} params.speed - The speed of bullet movement
    */
   constructor({state, comps, speed}) {
     super({state, comps});
