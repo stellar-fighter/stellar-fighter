@@ -5,7 +5,9 @@ import $ from 'jquery';
 import 'jquery-modal/jquery.modal';
 import jqery_modal_css from 'jquery-modal/jquery.modal.css';
 import page from 'page';
-
+/**
+ * Set new game with new Game object
+ */
 function main() {
   const game = new Game();
   let anim = null;
@@ -24,6 +26,9 @@ function main() {
     anim = requestAnimationFrame(step);
   }
 
+  /**
+   * Push new PlayState object to Game object
+   */
   function play() {
     if(anim === null) {
       game.pushState(new PlayState({game, running: true, canvas, level}));
@@ -31,6 +36,9 @@ function main() {
     }
   }
 
+  /**
+   * Resize canvas funcion that will be called when resize event happens
+   */
   function resizeCanvas() {
     canvas = document.getElementById('main-canvas');
     controls = document.getElementById('controls');
@@ -53,6 +61,9 @@ function main() {
     play();
   }
 
+  /**
+   * Initialize by mapping source code to appropriate page
+   */
   function init() {
     page('/start', () => {
       $('body').empty();
