@@ -5,11 +5,12 @@ class SceneNode {
   /**
    * Create a new SceneNode object
    * @constructor
-   * @param {Object} transform - not implemented yet
-   * @param {Object} pos - The Vector object for entity's pos
-   * @param {Object} size - The Vector object for entity's size
-   * @param {Object[]} children - The array of childeren SceneNode object
-   * @param {Object} render - The render method for this object
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.transform - not implemented yet
+   * @param {Object} params.pos - The Vector object for entity's pos
+   * @param {Object} params.size - The Vector object for entity's size
+   * @param {Object[]} params.children - The array of childeren SceneNode object
+   * @param {Object} params.render - The render method for this object
    */
   constructor({transform, pos, size, children, render}) {
     this.transform = transform; // not implemented yet
@@ -81,11 +82,13 @@ class SceneNode {
 class Sprite extends SceneNode {
   /**
    * Create a new Sprite object
-   * @param {Object} pos - The Vector object for entity's pos
-   * @param {Object} size - The Vector object for entity's size
-   * @param {Object[]} children - The array of childeren SceneNode object
-   * @param {function} render - The render method for this object
-   * @param {Image} texture - The texture image of entity
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.pos - The Vector object for entity's pos
+   * @param {Object} params.size - The Vector object for entity's size
+   * @param {Object[]} params.children - The array of childeren SceneNode object
+   * @param {function} params.render - The render method for this object
+   * @param {Image} params.texture - The texture image of entity
    */
   constructor({pos, size, children, render, texture}) {
     super({
@@ -135,8 +138,10 @@ class Sprite extends SceneNode {
 class Background extends SceneNode {
   /**
    * Create a new Background object
-   * @param {Object[]} children - The array of childeren SceneNode object
-   * @param {Image} texture - The texture image of background
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object[]} params.children - The array of childeren SceneNode object
+   * @param {Image} params.texture - The texture image of background
    */
   constructor({children, texture}) {
     super({
@@ -172,7 +177,9 @@ class Background extends SceneNode {
 class ScoreDisplay extends SceneNode {
   /**
    * Create a new Background object
-   * @param {Object} state - The state object related to current game
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The state object related to current game
    */
   constructor({state}) {
     super({
@@ -204,10 +211,12 @@ class ScoreDisplay extends SceneNode {
 class HpDisplay extends SceneNode {
   /**
    * Create a new Sprite object
-   * @param {Object} pos - The Vector object for entity's pos
-   * @param {Object} size - The Vector object for entity's size
-   * @param {Object[]} children - The array of childeren SceneNode object
-   * @param {int} hp - The hp of entity
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.pos - The Vector object for entity's pos
+   * @param {Object} params.size - The Vector object for entity's size
+   * @param {Object[]} params.children - The array of childeren SceneNode object
+   * @param {int} params.hp - The hp of entity
    */
   constructor({pos, size, children, hp}) {
     super({

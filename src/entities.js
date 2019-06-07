@@ -9,9 +9,10 @@ class Entity {
   /**
    * Create a new Entity object
    * @constructor
-   * @param {string} name - The name of entity object
-   * @param {Object} state - The State object for entity's current State
-   * @param {Object[]} comps - The array of Comps object including entity's pos, mov, shooting, team and etc
+   * @param {Object} params - The object for parameters
+   * @param {string} params.name - The name of entity object
+   * @param {Object} params.state - The State object for entity's current State
+   * @param {Object[]} params.comps - The array of Comps object including entity's pos, mov, shooting, team and etc
    */
   constructor({name, state, comps}) {
     this.name = name;
@@ -45,7 +46,8 @@ class EntityMan {
   /**
    * Create a new EntityMan object
    * @constructor
-   * @param {Object[]} entities - The array of entity objects
+   * @param {Object} params - The object for parameters
+   * @param {Object[]} params.entities - The array of entity objects
    */
   constructor({entities}) {
     this.entities = entities || {};
@@ -93,8 +95,9 @@ class Fighter001 extends Entity {
   /**
    * Create a new Fighter001 object
    * @constructor
-   * @param {Object} state - The State object for player's current State
-   * @param {Object[]} comps - The array of Comps object including player's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for player's current State
+   * @param {Object[]} params.comps - The array of Comps object including player's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
    */
   constructor({state, comps}) {
     super({state, comps});
@@ -194,8 +197,9 @@ class Alien002 extends Entity {
   /**
    * Create a new Alien002 object
    * @constructor
-   * @param {Object} state - The State object for current State
-   * @param {Object[]} comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for current State
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
    */
   constructor({state, comps}) {
     super({state, comps, name: 'alien002'});
@@ -244,8 +248,9 @@ class Item001 extends Entity {
   /**
    * Create a new Item001 object
    * @constructor
-   * @param {Object} state - The State object for current State
-   * @param {Object[]} comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for current State
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
    */
   constructor({state, comps}) {
     super({state, comps, name: "item001"});
