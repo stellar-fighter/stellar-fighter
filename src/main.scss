@@ -1,30 +1,11 @@
 $bgcolor: #FFFFFF;
+
 html {
   background-color: $bgcolor;
   overscroll-behavior: contain;
   body {
     padding: 0px;
     margin: 0px;
-  }
-  .stellar-button {
-    opacity: 0.5;
-    color: black;
-    font-weight: bold;
-    font-size: 3vw;
-    width: 18vw;
-    border-top-left-radius: 10vw;
-    border-top-right-radius: 10vw;
-    border-bottom-left-radius: 10vw;    
-    border-bottom-right-radius: 10vw;
-    border: 0.5vw solid black;
-    background-color: rgba(0,0,0,0);
-    color: black;
-    margin-left: 2vw;
-    margin-bottom: 1vw;
-  }
-  .stellar-button:hover {
-    color:black;
-    background-color: #BDBDBD;
   }
 }
 
@@ -51,5 +32,43 @@ html {
   * {
     height: 100%;
     font-size: 2vh;
+  }
+}
+
+.stellar-button {
+  font-weight: bold;
+  font-size: 6vmin;
+  width: 36vmin;
+  border-top-left-radius: 10vmin;
+  border-top-right-radius: 10vmin;
+  border-bottom-left-radius: 10vmin;
+  border-bottom-right-radius: 10vmin;
+  border: 0.5vmin solid grey;
+  color: grey;
+  background-color: rgba(0,0,0,0);
+  margin-left: 4vmin;
+  margin-bottom: 2vmin;
+  &:hover {
+    color: black;
+    background-color: #BDBDBD;
+  }
+}
+
+.stellar-menu {
+  h1 {
+    font-size: 6vmin;
+    text-align: center
+  }
+  button {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid black;
+    font-size: 4vmin;
+    &:hover {
+      background-color: #BDBDBD;
+    }
   }
 }
