@@ -4,6 +4,7 @@
 class SceneNode {
   /**
    * Create a new SceneNode object
+   * @constructor
    * @param {Object} transform - not implemented yet
    * @param {Object} pos - The Vector object for entity's pos
    * @param {Object} size - The Vector object for entity's size

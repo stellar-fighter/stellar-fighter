@@ -2,7 +2,17 @@ import {PosComp, MovComp, SizeComp, VisComp, CamOutComp, CollComp, HpComp, TeamC
 import {Vec} from './vec';
 import {Sprite, HpDisplay} from './scene_nodes';
 
+/**
+ * A super Entity class that creates entity object
+ */
 class Entity {
+  /**
+   * Create a new Entity object
+   * @constructor
+   * @param {string} name - The name of entity object
+   * @param {Object} state - The State object for entity's current State
+   * @param {Object[]} comps - The array of Comps object including entity's pos, mov, shooting, team and etc
+   */
   constructor({name, state, comps}) {
     this.name = name;
     this.state = state;
@@ -28,7 +38,15 @@ class Entity {
   }
 }
 
+/**
+ * A Entity Manager class that manages entities in current state
+ */
 class EntityMan {
+  /**
+   * Create a new EntityMan object
+   * @constructor
+   * @param {Object[]} entities - The array of entity objects
+   */
   constructor({entities}) {
     this.entities = entities || {};
     this.nextId = 0;
@@ -49,6 +67,11 @@ class EntityMan {
     return entity.id;
   }
   del(id) {
+    /**
+     * Delete a single entitiy object
+     * @param {int} id - The id value of specific entity object to delete
+     * @return {Object} The deleted entity object
+     */
     const entity = this.entities[id];
     if(entity === undefined)
       return null;
@@ -62,7 +85,17 @@ class EntityMan {
   }
 }
 
+/**
+ * A Fighter001 class that creates player's fighter object
+ * @extends Entity
+ */
 class Fighter001 extends Entity {
+  /**
+   * Create a new Fighter001 object
+   * @constructor
+   * @param {Object} state - The State object for player's current State
+   * @param {Object[]} comps - The array of Comps object including player's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   */
   constructor({state, comps}) {
     super({state, comps});
     const {pos, mov, size, camOut, coll, hp, team, shooting, vis, score} = this.comps;
@@ -102,7 +135,17 @@ class Fighter001 extends Entity {
   }
 }
 
+/**
+ * An Alien001 class that creates enemy's fighter object
+ * @extends Entity
+ */
 class Alien001 extends Entity {
+  /**
+   * Create a new Alien001 object
+   * @constructor
+   * @param {Object} state - The State object for current State
+   * @param {Object[]} comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   */
   constructor({state, comps}) {
     super({state, comps, name: 'alien001'});
     const {pos, mov, size, camOut, coll, hp, team, shooting, vis, score} = this.comps;
@@ -142,7 +185,17 @@ class Alien001 extends Entity {
   }
 }
 
+/**
+ * An Alien002 class that creates enemy's fighter object
+ * @extends Entity
+ */
 class Alien002 extends Entity {
+  /**
+   * Create a new Alien002 object
+   * @constructor
+   * @param {Object} state - The State object for current State
+   * @param {Object[]} comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   */
   constructor({state, comps}) {
     super({state, comps, name: 'alien002'});
     const {pos, mov, size, vis, camOut, coll, hp, team, shooting, score} = this.comps;
@@ -182,7 +235,17 @@ class Alien002 extends Entity {
   }
 }
 
+/**
+ * An Item001 class that recovers player's HP
+ * @extends Entity
+ */
 class Item001 extends Entity {
+  /**
+   * Create a new Item001 object
+   * @constructor
+   * @param {Object} state - The State object for current State
+   * @param {Object[]} comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   */
   constructor({state, comps}) {
     super({state, comps, name: "item001"});
     const {pos, mov, size, camOut, coll, hp, team, vis, score} = this.comps;
@@ -218,7 +281,18 @@ class Item001 extends Entity {
   }
 }
 
+/**
+ * An Bullet001 class that creates bullet object made by player's control
+ * @extends Entity
+ */
 class Bullet001 extends Entity {
+  /**
+   * Create a new Bullet001 object
+   * @constructor
+   * @param {Object} state - The State object for current State
+   * @param {Object[]} comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   * @param {int} speed - The speed of bullet movement
+   */
   constructor({state, comps, speed}) {
     super({state, comps});
     const {pos, size, camOut, coll, team, hp, vis, score} = this.comps;

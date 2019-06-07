@@ -6,6 +6,7 @@ import {Vec} from './vec';
 class Comp {
   /**
    * Create a new Comp
+   * @constructor
    * @param {string} name - The component name parameter
    */
   constructor({name}) {
@@ -22,6 +23,7 @@ class Comp {
 class PosComp extends Comp {
   /**
    * Create a new PosComp
+   * @constructor
    * @param {Object} vec - The vector object
    * @param {boolean} abs - The abs boolean value
    */
@@ -41,6 +43,7 @@ class PosComp extends Comp {
 class MovComp extends Comp {
   /**
    * Create a new MovComp
+   * @constructor
    * @param {Object} vel - The velocity vector object
    * @param {Object} acc - The acceleration vector object
    */
@@ -58,6 +61,7 @@ class MovComp extends Comp {
 class SizeComp extends Comp {
   /**
    * Create a new SizeComp
+   * @constructor
    * @param {Object} vec - The vector object about entitiy's size
    */
   constructor({vec}) {
@@ -73,6 +77,7 @@ class SizeComp extends Comp {
 class VisComp extends Comp {
   /**
    * Create a new VisComp
+   * @constructor
    * @param {Object} sn - The Sprite object
    * @param {Object} visible - The visible boolean value
    */
@@ -92,6 +97,7 @@ class VisComp extends Comp {
 class CollComp extends Comp {
   /**
    * Create a new CollComp
+   * @constructor
    * @param {int} damage - The damage of entity collision
    * @param {Object} timer - The timer object for damage cooltime
    * @param {int} coolTime - The damage cooltime
@@ -126,6 +132,7 @@ class CollComp extends Comp {
 class CtrlComp extends Comp {
   /**
    * Create a new CtrlComp
+   * @constructor
    */
   constructor() {
     super({name: 'ctrl'});
@@ -139,6 +146,7 @@ class CtrlComp extends Comp {
 class HpComp extends Comp {
   /**
    * Create a new HpComp
+   * @constructor
    * @param {int} val - The HP of entity
    */
   constructor({val}) {
@@ -154,6 +162,7 @@ class HpComp extends Comp {
 class CamOutComp extends Comp {
   /**
    * Create a new CamOutComp
+   * @constructor
    * @param {Object} actions - The conditions and actions; keys: UP, DOWN, LEFT, RIGHT, values: NONE, DESTROY, BLOCK, BOUNCE
    */
   constructor({actions}) {
@@ -176,6 +185,7 @@ class CamOutComp extends Comp {
 class TeamComp extends Comp {
   /**
    * Create a new TeamComp
+   * @constructor
    * @param {string} val - The team of entity
    */
   constructor({val}) {
@@ -191,6 +201,7 @@ class TeamComp extends Comp {
 class ShootingComp extends Comp {
   /**
    * Create a new ShootingComp
+   * @constructor
    * @param {boolean} enabled - The ability to shoot
    * @param {Object} timer - The timer object of entity
    * @param {int} coolTime - The interval between continuous shooting
@@ -228,6 +239,7 @@ class ShootingComp extends Comp {
 class ScoreComp extends Comp {
   /**
    * Create a new ScoreComp
+   * @constructor
    * @param {int} score - The score of entity
    */
   constructor({score}) {

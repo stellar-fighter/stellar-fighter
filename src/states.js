@@ -6,7 +6,18 @@ import {Vec} from './vec';
 import {Timer} from './timer';
 import {SceneNode, Sprite, Background, ScoreDisplay} from './scene_nodes';
 
+/**
+ * A super State class that creates State object
+ */
 class State {
+  /**
+   * Create a new State object
+   * @constructor
+   * @param {string} game - The Game object of check states of current game
+   * @param {boolean} running - The boolean value to figure out whether this state is running or not
+   * @param {Object[]} systems - The array of systems object to handle entities and components in current state
+   * @param {Object} entityMan - The EntityMan object that manages entities in current state
+   */
   constructor({game, running, systems, entityMan}) {
     if(game === undefined)
       throw new Error('RequiredParam');
@@ -25,7 +36,21 @@ class State {
   destroy() { throw new Error('AbstractMethod'); }
 }
 
+/**
+ * A PlayState class that creates state object for playing game
+ * @extends State
+ */
 class PlayState extends State {
+  /**
+   * Create a new PlayState object with SceneNode, System, entity objects
+   * @constructor
+   * @param {string} game - The Game object of check states of current playing game
+   * @param {boolean} running - The boolean value to figure out whether this state is running or not
+   * @param {Object[]} systems - The array of systems object to handle entities and components in current state
+   * @param {Object} entityMan - The EntityMan object that manages entities in current state
+   * @param {Object} canvas - The main canvas object to show this state
+   * @param {Object[]} level - The array of level object that includes x, y, type, player
+   */
   constructor({game, running, systems, entityMan, canvas, level}) {
     super({game, running});
     this.systems = systems || [];
@@ -95,6 +120,9 @@ class PlayState extends State {
   set entities(entities) {
     this.entityMan.entities = entities;
   }
+  /**
+  * Create enemy objects randomly
+  */
   genEntity() {
     /*
     let entityData = this.level[this.levelEntityIndex];
@@ -166,6 +194,9 @@ class PlayState extends State {
       this.scene.children[1].addChild(alien002.comps['vis'].sn);
     }
   }
+  /**
+  * Update to PlayState object to check player's score and liveness
+  */
   update() {
     if(this.running == false)
       return;
@@ -196,7 +227,20 @@ class PlayState extends State {
   }
 }
 
+/**
+ * A GameOverState class that creates state object for the end of the game
+ * @extends State
+ */
 class GameOverState extends State {
+  /**
+   * Create a new GameOverState object and Save current score to localStorage
+   * @constructor
+   * @param {string} game - The Game object of check states of current ending game
+   * @param {boolean} running - The boolean value to figure out whether this state is running or not
+   * @param {Object} canvas - The main canvas object to show this state
+   * @param {Object} camera - The Camera object of this state
+   * @param {int} score - The score value of this game
+   */
   constructor({game, running, canvas, camera, score}) {
     super({game, running});
     this.canvas = canvas;
@@ -219,6 +263,9 @@ class GameOverState extends State {
     if(this.running == false)
       return;
   }
+  /**
+  * Render to show ranking data from LocalStorage
+  */
   render() {
     const ctx = this.ctx;
     const canvas = this.canvas;

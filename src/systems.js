@@ -3,9 +3,15 @@ import {Bullet001} from './entities';
 import {Vec} from './vec';
 
 /**
- * A class that handles entities and components
+ * A super System class that handles entities and components
  */
 class System {
+  /**
+   * Create a new System object
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     if(state === undefined)
       throw new Error('RequiredParam');
@@ -14,6 +20,8 @@ class System {
   }
   /**
    * Filters entities by their components
+   * @param {Object} state - The current State object
+   * @return {boolean} The boolean value to check the component is defined
    */
   filter(entity) {
     for(let compName of this.compNames) {
@@ -28,10 +36,17 @@ class System {
 }
 
 /**
- * A class that handles movements
+ * A MovSystem class that handles movements
+ * @extends System
  */
 class MovSystem extends System {
   constructor({state, compNames}) {
+    /**
+     * Create a new MovSystem object with PosComp, MovComp objects
+     * @constructor
+     * @param {Object} state - The current State object
+     * @param {string[]} compNames - The array of the names of Component objects
+     */
     super({state, compNames: ['pos', 'mov']});
   }
   process() {
@@ -52,9 +67,16 @@ class MovSystem extends System {
 }
 
 /**
- * A class that handles collisions
+ * A CollSystem class that handles collisions
+ * @extends System
  */
 class CollSystem extends System {
+  /**
+   * Check the collision happens between two entities
+   * @param {Object} entity1 - The first entity object to check collision
+   * @param {Object} entity2 - The second entity object to check collision
+   * @return {boolean} The boolean value to check the collision happens
+   */
   static checkColl(entity1, entity2) {
     const pos1 = entity1.comps['pos'];
     const size1 = entity1.comps['size'];
@@ -65,9 +87,18 @@ class CollSystem extends System {
             pos1.vec.y + size1.vec.y > pos2.vec.y &&
             pos2.vec.y + size2.vec.y > pos1.vec.y);
   }
+  /**
+   * Create a new MovSystem object with CollComp, TeamComp, PosComp, SizeComp objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['coll', 'team', 'pos', 'size']});
   }
+  /**
+   * Process to update entities' HP based on collision action
+   */
   process() {
     for(let id1 in this.state.entities) {
       const entity1 = this.state.entities[id1];
@@ -88,10 +119,23 @@ class CollSystem extends System {
   }
 }
 
+/**
+ * A CamOutSystem class that handles camera
+ * @extends System
+ */
 class CamOutSystem extends System {
+  /**
+   * Create a new CamOutSystem object with CamOutComp, PosComp, SizeComp objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['camOut', 'pos', 'size']});
   }
+  /**
+   * Process to update entities' appropriate location
+   */
   process() {
     const camera = this.state.camera;
     const canvas = this.state.canvas;
@@ -185,10 +229,23 @@ class CamOutSystem extends System {
   }
 }
 
+/**
+ * A HpSystem class that handles entities' HP
+ * @extends System
+ */
 class HpSystem extends System {
+  /**
+   * Create a new CamOutSystem object with HpComp objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['hp']});
   }
+  /**
+   * Process to update entities' liveness based on their HP
+   */
   process() {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
@@ -201,10 +258,23 @@ class HpSystem extends System {
   }
 }
 
+/**
+ * A ShootingSystem class that handles shooting action
+ * @extends System
+ */
 class ShootingSystem extends System {
+  /**
+   * Create a new CamOutSystem object with ShootingComp, PosComp, SizeComp, TeamComp objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['shooting', 'pos', 'size', 'team']});
   }
+  /**
+   * Process to create new bullet objects and sound effect
+   */
   process() {
     for(let id in this.state.entities) {
       const entity = this.state.entities[id];
@@ -236,10 +306,23 @@ class ShootingSystem extends System {
   }
 }
 
+/**
+ * A PlayerSystem class that handles player movement
+ * @extends System
+ */
 class PlayerSystem extends System {
+  /**
+   * Create a new PlayerSystem object with player's component objects
+   * @constructor
+   * @param {Object} state - The current State object
+   * @param {string[]} compNames - The array of the names of Component objects
+   */
   constructor({state, compNames}) {
     super({state, compNames: ['player']});
   }
+  /**
+   * Process to move player entity by keyboard control
+   */
   process() {
     const player = this.state.entityMan.get(this.state.playerId);
     if (player) {
