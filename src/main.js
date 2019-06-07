@@ -78,20 +78,20 @@ function main() {
           game.state.running = false;
           event.preventDefault();
           this.blur();
+          $('#button-menu-close').click((event) => {
+            game.state.running = true;
+            $.modal.close();
+          });
+          $('#button-to-main').click((event) => {
+            event.preventDefault();
+            this.blur();
+            page("/main");
+          });
           $('#menu').modal({
             escapeClose: false,
             clickClose: false,
             showClose: false
           });
-        });
-        $('#button-menu-close').click((event) => {
-          game.state.running = true;
-          $.modal.close();
-        });
-        $('#button-to-main').click((event) => {
-          event.preventDefault();
-          this.blur();
-          page("/main");
         });
         addEventListener('resize', resizeCanvas);
         addEventListener('focus', unfocusElement);
