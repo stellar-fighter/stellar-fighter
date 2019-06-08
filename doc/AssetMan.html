@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: CamOutSystem</title>
+    <title>JSDoc: Class: AssetMan</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: CamOutSystem</h1>
+    <h1 class="page-title">Class: AssetMan</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>CamOutSystem<span class="signature">(params)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>AssetMan<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">A CamOutSystem class that handles camera</div>
+            <div class="class-description">A class that manages assets</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="CamOutSystem"><span class="type-signature"></span>new CamOutSystem<span class="signature">(params)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="AssetMan"><span class="type-signature"></span>new AssetMan<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Create a new CamOutSystem object with CamOutComp, PosComp, SizeComp objects
+    Create a new AssetMan object
 </div>
 
 
@@ -62,127 +62,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The object for parameters
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>state</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The current State object</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>compNames</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The array of the names of Component objects</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -218,7 +97,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line137">line 137</a>
+        <a href="assets.js.html">assets.js</a>, <a href="assets.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -252,17 +131,6 @@
     </div>
 
     
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="System.html">System</a></li>
-    </ul>
-
-
-    
 
     
 
@@ -285,7 +153,7 @@
     
 
     
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(state)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="addAudio"><span class="type-signature"></span>addAudio<span class="signature">(name, src)</span><span class="type-signature"></span></h4>
     
 
     
@@ -293,7 +161,7 @@
 
 
 <div class="description">
-    Filters entities by their components
+    Add an audio
 </div>
 
 
@@ -329,13 +197,13 @@
 
         <tr>
             
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -345,7 +213,30 @@
 
             
 
-            <td class="description last">The current State object</td>
+            <td class="description last">The audio file name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>src</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The audio file source</td>
         </tr>
 
     
@@ -366,11 +257,6 @@
     
 
     
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="System.html#filter">System#filter</a>
-    </li></ul></dd>
-    
 
     
 
@@ -391,7 +277,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line27">line 27</a>
+        <a href="assets.js.html">assets.js</a>, <a href="assets.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -416,28 +302,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The boolean value to check the component is defined
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -449,7 +313,7 @@
     
 
     
-    <h4 class="name" id="process"><span class="type-signature"></span>process<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addCanvas"><span class="type-signature"></span>addCanvas<span class="signature">(name, image, spos, ssize, dsize)</span><span class="type-signature"></span></h4>
     
 
     
@@ -457,7 +321,7 @@
 
 
 <div class="description">
-    Process to update entities' appropriate location
+    Add an new canvas with an image, strat point and size
 </div>
 
 
@@ -466,6 +330,147 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The canvas name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>image</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The image file name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>spos</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The start position vector object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The start size vector object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dsize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The destination size vector object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -501,7 +506,167 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line143">line 143</a>
+        <a href="assets.js.html">assets.js</a>, <a href="assets.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addImage"><span class="type-signature"></span>addImage<span class="signature">(name, src)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Add an new image
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The image file name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>src</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The image file source</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="assets.js.html">assets.js</a>, <a href="assets.js.html#line18">line 18</a>
     </li></ul></dd>
     
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: game.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,76 +17,104 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: game.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>stellar-fighter <a href="https://travis-ci.org/stellar-fighter/stellar-fighter"><img src="https://travis-ci.org/stellar-fighter/stellar-fighter.svg?branch=master" alt="Build Status"></a></h1>
-<h2>Development guide for Windows</h2>
-<ul>
-<li>Install git (https://git-scm.com/)</li>
-<li>Install nodejs (https://nodejs.org/)</li>
-<li>Open git bash</li>
-<li>git clone -b dev https://github.com/stellar-fighter/stellar-fighter</li>
-<li>cd stellar-fighter</li>
-<li>npm install --development</li>
-<li>After setup:
-<ul>
-<li>Write some code with nano or vim command</li>
-<li>npm start</li>
-<li>Open http://localhost:8080 in your browser</li>
-</ul>
-</li>
-</ul>
-<h2>Using VS Code instead of Vim or Nano</h2>
-<ul>
-<li>Install VS Code (https://code.visualstudio.com/download)</li>
-<li>Install 'Terminal Here' plugin (https://marketplace.visualstudio.com/items?itemName=Tyriar.vscode-terminal-here)</li>
-<li>File -&gt; Open Folder</li>
-<li>File -&gt; Save Workspace As</li>
-<li>File -&gt; Open Workspace later</li>
-</ul>
-<h2>How to send a pull request</h2>
-<p>Please create a new branch from dev branch</p>
-<ul>
-<li>Fork this repository</li>
-<li>git clone 'YOUR FORKED REPOSITORY'</li>
-<li>git checkout dev</li>
-<li>git checkout -b 'NEW BRANCH NAME'</li>
-<li>Make changes to the code</li>
-<li>git commit -m 'COMMIT MESSAGE'</li>
-<li>git push (git push -u origin 'NEW BRANCH NAME' for initial push)</li>
-<li>Click 'New pull request' from github.com</li>
-<li>Send pull request to https://github.com/stellar-fighter/stellar-fighter dev branch</li>
-<li>Delete forked respository of closed pull request by
-git branch -d 'NEW BRANCH NAME'</li>
-<li>For more information: https://help.github.com/en/articles/creating-a-pull-request-from-a-fork</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {AssetMan} from './assets';
+import {Vec} from './vec';
+/**
+ * A Game class to manage states and assets
+ */
+class Game {
+  /**
+   * Create a new Game object with empty states array and new AssetManager object
+   * @constructor
+   */
+  constructor() {
+    this.states = [];
+    this.assetMan = new AssetMan();
+    this.assetMan.addAudio('shoot001', './asset/space-shooter-redux/Bonus/sfx_laser1.ogg');
+    this.assetMan.addAudio('shoot002', './asset/space-shooter-redux/Bonus/sfx_laser2.ogg');
+    this.assetMan.addImage('bg010', './asset/nebula/nebula10.png');
+    this.assetMan.addImage('sheet001', './asset/space-shooter-redux/Spritesheet/sheet.png');
+    const sheet001 = this.assetMan.images.sheet001;
+    sheet001.onload = () => {
+      this.assetMan.addCanvas(
+        'fighter001',
+        sheet001,
+        new Vec(211, 941),
+        new Vec(99, 75),
+      );
+      this.assetMan.addCanvas(
+        'alien001',
+        sheet001,
+        new Vec(425, 384),
+        new Vec(93, 84),
+      );
+      this.assetMan.addCanvas(
+        'alien002',
+        sheet001,
+        new Vec(120, 520),
+        new Vec(104, 84),
+      );
+      this.assetMan.addCanvas(
+        'bullet001',
+        sheet001,
+        new Vec(698, 795),
+        new Vec(38, 37),
+      );
+      this.assetMan.addCanvas(
+        'item001',
+        sheet001,
+        new Vec(444, 91),
+        new Vec(91, 91),
+      );
+    };
+  }
+  pushState(state) {
+    this.states.push(state);
+  }
+  popState() {
+    this.states[this.states.length - 1].destroy();
+    this.states.pop();
+  }
+  switchState(state) {
+    this.states[this.states.length - 1].destroy();
+    this.states[this.states.length - 1] = state;
+  }
+  flushStates() {
+    while(this.states.length - 1 >= 0) {
+      this.states[this.states.length - 1].destroy();
+      this.states.pop();
+    }
+  }
+  get state() {
+    return this.states[this.states.length - 1];
+  }
+  setTime(timeStamp) {
+    if(this.states.length > 0)
+      this.states[this.states.length - 1].setTime(timeStamp);
+  }
+  update() {
+    for(let index = this.states.length - 1; index >= 0; --index)
+      this.states[index].update();
+  }
+  render() {
+    for(let index = 0; index &lt; this.states.length; ++index)
+      this.states[index].render();
+  }
+}
+
+export {Game};
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

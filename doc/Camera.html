@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: CamOutSystem</title>
+    <title>JSDoc: Class: Camera</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: CamOutSystem</h1>
+    <h1 class="page-title">Class: Camera</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>CamOutSystem<span class="signature">(params)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Camera<span class="signature">(params)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">A CamOutSystem class that handles camera</div>
+            <div class="class-description">A Camera class related to show current canvas state</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="CamOutSystem"><span class="type-signature"></span>new CamOutSystem<span class="signature">(params)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Camera"><span class="type-signature"></span>new Camera<span class="signature">(params)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Create a new CamOutSystem object with CamOutComp, PosComp, SizeComp objects
+    Create a new SceneNode object
 </div>
 
 
@@ -131,7 +131,7 @@
 
         <tr>
             
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>canvas</code></td>
             
 
             <td class="type">
@@ -147,20 +147,20 @@
 
             
 
-            <td class="description last">The current State object</td>
+            <td class="description last">The canvas object of current state</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>compNames</code></td>
+                <td class="name"><code>pos</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type">Object</span>
 
 
             
@@ -170,7 +170,30 @@
 
             
 
-            <td class="description last">The array of the names of Component objects</td>
+            <td class="description last">The Vector object for canvas' pos</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>absSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Vector object for canvas' absolute size</td>
         </tr>
 
     
@@ -218,7 +241,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line137">line 137</a>
+        <a href="camera.js.html">camera.js</a>, <a href="camera.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -258,7 +281,7 @@
 
 
     <ul>
-        <li><a href="System.html">System</a></li>
+        <li><a href="Entity.html">Entity</a></li>
     </ul>
 
 
@@ -276,262 +299,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(state)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Filters entities by their components
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>state</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The current State object</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="System.html#filter">System#filter</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The boolean value to check the component is defined
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="process"><span class="type-signature"></span>process<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Process to update entities' appropriate location
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="systems.js.html">systems.js</a>, <a href="systems.js.html#line143">line 143</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
     
 
     

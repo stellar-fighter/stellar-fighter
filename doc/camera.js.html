@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: camera.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,76 +17,85 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: camera.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>stellar-fighter <a href="https://travis-ci.org/stellar-fighter/stellar-fighter"><img src="https://travis-ci.org/stellar-fighter/stellar-fighter.svg?branch=master" alt="Build Status"></a></h1>
-<h2>Development guide for Windows</h2>
-<ul>
-<li>Install git (https://git-scm.com/)</li>
-<li>Install nodejs (https://nodejs.org/)</li>
-<li>Open git bash</li>
-<li>git clone -b dev https://github.com/stellar-fighter/stellar-fighter</li>
-<li>cd stellar-fighter</li>
-<li>npm install --development</li>
-<li>After setup:
-<ul>
-<li>Write some code with nano or vim command</li>
-<li>npm start</li>
-<li>Open http://localhost:8080 in your browser</li>
-</ul>
-</li>
-</ul>
-<h2>Using VS Code instead of Vim or Nano</h2>
-<ul>
-<li>Install VS Code (https://code.visualstudio.com/download)</li>
-<li>Install 'Terminal Here' plugin (https://marketplace.visualstudio.com/items?itemName=Tyriar.vscode-terminal-here)</li>
-<li>File -&gt; Open Folder</li>
-<li>File -&gt; Save Workspace As</li>
-<li>File -&gt; Open Workspace later</li>
-</ul>
-<h2>How to send a pull request</h2>
-<p>Please create a new branch from dev branch</p>
-<ul>
-<li>Fork this repository</li>
-<li>git clone 'YOUR FORKED REPOSITORY'</li>
-<li>git checkout dev</li>
-<li>git checkout -b 'NEW BRANCH NAME'</li>
-<li>Make changes to the code</li>
-<li>git commit -m 'COMMIT MESSAGE'</li>
-<li>git push (git push -u origin 'NEW BRANCH NAME' for initial push)</li>
-<li>Click 'New pull request' from github.com</li>
-<li>Send pull request to https://github.com/stellar-fighter/stellar-fighter dev branch</li>
-<li>Delete forked respository of closed pull request by
-git branch -d 'NEW BRANCH NAME'</li>
-<li>For more information: https://help.github.com/en/articles/creating-a-pull-request-from-a-fork</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {Vec} from './vec';
+/**
+ * A Camera class related to show current canvas state
+ * @extends Entity
+ */
+class Camera {
+  /**
+   * Create a new SceneNode object
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.canvas - The canvas object of current state
+   * @param {Object} params.pos - The Vector object for canvas' pos
+   * @param {Object} params.absSize - The Vector object for canvas' absolute size
+   */
+  constructor({canvas, pos, absSize}) {
+    if(canvas === undefined)
+      throw new Error('RequiredParam');
+    this.canvas = canvas;
+    this.pos = pos || new Vec();
+    const defaultW = 2500;
+    this.absSize = absSize || new Vec(defaultW, defaultW * canvas.height / canvas.width);
+  }
+  get xScale() {
+    return this.canvas.width / this.absSize.x;
+  }
+  get yScale() {
+    return this.canvas.height / this.absSize.y;
+  }
+  get absW() {
+    return this.absSize.x;
+  }
+  get absH() {
+    return this.absSize.y;
+  }
+  get realW() {
+    return this.absSize.x * this.xScale;
+  }
+  get realH() {
+    return this.absSize.y * this.yScale;
+  }
+  toRealX(absX) {
+    return (absX - this.pos.x) * this.xScale;
+  }
+  toRealY(absY) {
+    return (absY - this.pos.y) * this.yScale;
+  }
+  toAbsX(realX) {
+    return (realX / this.xScale) + this.pos.x;
+  }
+  toAbsY(realY) {
+    return (realY / this.yScale) + this.pos.y;
+  }
+  toRealW(absW) {
+    return absW * this.xScale;
+  }
+  toRealH(absH) {
+    return absH * this.yScale;
+  }
+  toAbsW(realW) {
+    return realW / this.xScale;
+  }
+  toAbsH(realH) {
+    return realH / this.yScale;
+  }
+}
+
+export {Camera};
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
