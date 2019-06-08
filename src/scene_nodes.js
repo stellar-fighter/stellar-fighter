@@ -216,7 +216,7 @@ class HpDisplay extends SceneNode {
    * @param {Object} params.pos - The Vector object for entity's pos
    * @param {Object} params.size - The Vector object for entity's size
    * @param {Object[]} params.children - The array of childeren SceneNode object
-   * @param {int} params.hp - The hp of entity
+   * @param {number} params.hp - The hp of entity
    */
   constructor({pos, size, children, hp}) {
     super({

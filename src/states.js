@@ -242,7 +242,7 @@ class GameOverState extends State {
    * @param {boolean} params.running - The boolean value to figure out whether this state is running or not
    * @param {Object} params.canvas - The main canvas object to show this state
    * @param {Object} params.camera - The Camera object of this state
-   * @param {int} params.score - The score value of this game
+   * @param {number} params.score - The score value of this game
    */
   constructor({game, running, canvas, camera, score}) {
     super({game, running});

@@ -214,7 +214,7 @@ class ShootingComp extends Comp {
    * @param {Object} params - The object for parameters
    * @param {boolean} params.enabled - The ability to shoot
    * @param {Object} params.timer - The timer object of entity
-   * @param {number} params.coolTime - The numbererval between continuous shooting
+   * @param {number} params.coolTime - The interval between continuous shooting
    * @param {Object} params.power - The Vector object of moving shooted bullet
    * @param {string} params.sound - The sound effect of shooting action
    * @param {Object} params.bullet - The class of a bullet

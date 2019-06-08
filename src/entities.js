@@ -71,7 +71,7 @@ class EntityMan {
   del(id) {
     /**
      * Delete a single entitiy object
-     * @param {int} id - The id value of specific entity object to delete
+     * @param {number} id - The id value of specific entity object to delete
      * @return {Object} The deleted entity object
      */
     const entity = this.entities[id];
@@ -298,7 +298,7 @@ class Bullet001 extends Entity {
    * @param {Object} params - The object for parameters
    * @param {Object} params.state - The State object for current State
    * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
-   * @param {int} params.speed - The speed of bullet movement
+   * @param {number} params.speed - The speed of bullet movement
    */
   constructor({state, comps, speed}) {
     super({state, comps});
@@ -346,7 +346,7 @@ class Bullet002 extends Entity {
    * @param {Object} params - The object for parameters
    * @param {Object} params.state - The State object for current State
    * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
-   * @param {int} params.speed - The speed of bullet movement
+   * @param {number} params.speed - The speed of bullet movement
    */
   constructor({state, comps, speed}) {
     super({state, comps});
@@ -394,7 +394,7 @@ class Bullet003 extends Entity {
    * @param {Object} params - The object for parameters
    * @param {Object} params.state - The State object for current State
    * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
-   * @param {int} params.speed - The speed of bullet movement
+   * @param {number} params.speed - The speed of bullet movement
    */
   constructor({state, comps, speed}) {
     super({state, comps});
