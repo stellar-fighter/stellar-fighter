@@ -99,7 +99,7 @@ class EntityMan {
   del(id) {
     /**
      * Delete a single entitiy object
-     * @param {int} id - The id value of specific entity object to delete
+     * @param {number} id - The id value of specific entity object to delete
      * @return {Object} The deleted entity object
      */
     const entity = this.entities[id];
@@ -147,7 +147,7 @@ class Fighter001 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'PLAYER'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({coolTime: 100, timer: this.state.timer, power: new Vec(0, -1).setMag(5)}));
+      this.addComp(new ShootingComp({coolTime: 100, timer: this.state.timer, power: new Vec(0, -1).setMag(5), bullet: Bullet001}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -198,7 +198,7 @@ class Alien001 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 1).setMag(5)}));
+      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 1).setMag(5), bullet: Bullet002}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -249,7 +249,7 @@ class Alien002 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, 0)}));
+      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, 0), bullet: Bullet002}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -296,9 +296,9 @@ class Item001 extends Entity {
     if(coll === undefined)
       this.addComp(new CollComp({damage: -5, timer: this.state.timer, coolTime: 800}));
     if(hp === undefined)
-      this.addComp(new HpComp({val: Infinity}));
+      this.addComp(new HpComp({val: 250}));
     if(team === undefined)
-      this.addComp(new TeamComp({val: 'ENEMY'}));
+      this.addComp(new TeamComp({val: 'NEUTRAL'}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -325,8 +325,8 @@ class Bullet001 extends Entity {
    * @constructor
    * @param {Object} params - The object for parameters
    * @param {Object} params.state - The State object for current State
-   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
-   * @param {int} params.speed - The speed of bullet movement
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
+   * @param {number} params.speed - The speed of bullet movement
    */
   constructor({state, comps, speed}) {
     super({state, comps});
@@ -363,7 +363,104 @@ class Bullet001 extends Entity {
   }
 }
 
-export {Entity, EntityMan, Fighter001, Alien001, Bullet001, Alien002, Item001};
+/**
+ * An Bullet002 class that creates bullet object made by enemies
+ * @extends Entity
+ */
+class Bullet002 extends Entity {
+  /**
+   * Create a new Bullet002 object
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for current State
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
+   * @param {number} params.speed - The speed of bullet movement
+   */
+  constructor({state, comps, speed}) {
+    super({state, comps});
+    const {pos, size, camOut, coll, team, hp, vis, score} = this.comps;
+    const assetMan = this.state.game.assetMan;
+    this.addComp(new MovComp({vel: new Vec(1, 1).setMag(5)}));
+    if(pos === undefined)
+      this.addComp(new PosComp({}));
+    if(size === undefined)
+      this.addComp(new SizeComp({vec: Bullet002.defaultSize}));
+    if(camOut === undefined)
+      this.addComp(new CamOutComp({actions: {UP: 'DESTROY', DOWN: 'DESTROY', LEFT: 'DESTROY', RIGHT: 'DESTROY'}}));
+    if(coll === undefined)
+      this.addComp(new CollComp({damage: 10, timer: this.state.timer}));
+    if(hp === undefined)
+      this.addComp(new HpComp({val: 1}));
+    if(team === undefined)
+      this.addComp(new TeamComp({val: 'ENEMY'}));
+    if(vis === undefined) {
+      const {pos, size, hp} = this.comps;
+      const sn = new Sprite({
+        canvas: this.state.canvas,
+        ctx: this.state.ctx,
+        camera: this.state.camera,
+        pos: pos.vec,
+        size: size.vec,
+        texture: assetMan.images.bullet002
+      });
+      this.addComp(new VisComp({sn}));
+    }
+  }
+  static get defaultSize() { // temporary fix for bullet positioning, at last, we have to use relative coordinates
+    return new Vec(100, 100);
+  }
+}
+
+/**
+ * An Bullet003 class that creates bullet object made by enemies
+ * @extends Entity
+ */
+class Bullet003 extends Entity {
+  /**
+   * Create a new Bullet003 object
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for current State
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
+   * @param {number} params.speed - The speed of bullet movement
+   */
+  constructor({state, comps, speed}) {
+    super({state, comps});
+    const {pos, size, camOut, coll, team, hp, vis} = this.comps;
+    const assetMan = this.state.game.assetMan;
+    this.addComp(new MovComp({vel: new Vec(1, 1).setMag(5)}));
+    if(pos === undefined)
+      this.addComp(new PosComp({}));
+    if(size === undefined)
+      this.addComp(new SizeComp({vec: Bullet002.defaultSize}));
+    if(camOut === undefined)
+      this.addComp(new CamOutComp({actions: {UP: 'DESTROY', DOWN: 'DESTROY', LEFT: 'DESTROY', RIGHT: 'DESTROY'}}));
+    if(coll === undefined)
+      this.addComp(new CollComp({damage: 10, timer: this.state.timer}));
+    if(hp === undefined)
+      this.addComp(new HpComp({val: 1}));
+    if(team === undefined)
+      this.addComp(new TeamComp({val: 'ENEMY'}));
+    if(vis === undefined) {
+      const {pos, size, hp} = this.comps;
+      const sn = new Sprite({
+        canvas: this.state.canvas,
+        ctx: this.state.ctx,
+        camera: this.state.camera,
+        pos: pos.vec,
+        size: size.vec,
+        texture: assetMan.images.bullet003
+      });
+      this.addComp(new VisComp({sn}));
+    }
+  }
+  static get defaultSize() { // temporary fix for bullet positioning, at last, we have to use relative coordinates
+    return new Vec(100, 100);
+  }
+}
+
+
+export {Entity, EntityMan, Fighter001, Alien001, Alien002, Bullet001, Bullet002, Bullet003, Item001};
 </code></pre>
         </article>
     </section>
@@ -374,13 +471,13 @@ export {Entity, EntityMan, Fighter001, Alien001, Bullet001, Alien002, Item001};
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Alien001.html">Alien001</a></li><li><a href="Alien002.html">Alien002</a></li><li><a href="AssetMan.html">AssetMan</a></li><li><a href="Background.html">Background</a></li><li><a href="Bullet001.html">Bullet001</a></li><li><a href="Camera.html">Camera</a></li><li><a href="CamOutComp.html">CamOutComp</a></li><li><a href="CamOutSystem.html">CamOutSystem</a></li><li><a href="CollComp.html">CollComp</a></li><li><a href="CollSystem.html">CollSystem</a></li><li><a href="Comp.html">Comp</a></li><li><a href="CtrlComp.html">CtrlComp</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityMan.html">EntityMan</a></li><li><a href="Fighter001.html">Fighter001</a></li><li><a href="Game.html">Game</a></li><li><a href="GameOverState.html">GameOverState</a></li><li><a href="HpComp.html">HpComp</a></li><li><a href="HpDisplay.html">HpDisplay</a></li><li><a href="HpSystem.html">HpSystem</a></li><li><a href="Item001.html">Item001</a></li><li><a href="MovComp.html">MovComp</a></li><li><a href="MovSystem.html">MovSystem</a></li><li><a href="PlayerSystem.html">PlayerSystem</a></li><li><a href="PlayState.html">PlayState</a></li><li><a href="PosComp.html">PosComp</a></li><li><a href="SceneNode.html">SceneNode</a></li><li><a href="ScoreComp.html">ScoreComp</a></li><li><a href="ScoreDisplay.html">ScoreDisplay</a></li><li><a href="ShootingComp.html">ShootingComp</a></li><li><a href="ShootingSystem.html">ShootingSystem</a></li><li><a href="SizeComp.html">SizeComp</a></li><li><a href="Sprite.html">Sprite</a></li><li><a href="State.html">State</a></li><li><a href="System.html">System</a></li><li><a href="TeamComp.html">TeamComp</a></li><li><a href="Timer.html">Timer</a></li><li><a href="Vec.html">Vec</a></li><li><a href="VisComp.html">VisComp</a></li></ul><h3>Global</h3><ul><li><a href="global.html#main">main</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Alien001.html">Alien001</a></li><li><a href="Alien002.html">Alien002</a></li><li><a href="AssetMan.html">AssetMan</a></li><li><a href="Background.html">Background</a></li><li><a href="Bullet001.html">Bullet001</a></li><li><a href="Bullet002.html">Bullet002</a></li><li><a href="Bullet003.html">Bullet003</a></li><li><a href="Camera.html">Camera</a></li><li><a href="CamOutComp.html">CamOutComp</a></li><li><a href="CamOutSystem.html">CamOutSystem</a></li><li><a href="CollComp.html">CollComp</a></li><li><a href="CollSystem.html">CollSystem</a></li><li><a href="Comp.html">Comp</a></li><li><a href="CtrlComp.html">CtrlComp</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityMan.html">EntityMan</a></li><li><a href="Fighter001.html">Fighter001</a></li><li><a href="Game.html">Game</a></li><li><a href="GameOverState.html">GameOverState</a></li><li><a href="HpComp.html">HpComp</a></li><li><a href="HpDisplay.html">HpDisplay</a></li><li><a href="HpSystem.html">HpSystem</a></li><li><a href="Item001.html">Item001</a></li><li><a href="MovComp.html">MovComp</a></li><li><a href="MovSystem.html">MovSystem</a></li><li><a href="PlayerSystem.html">PlayerSystem</a></li><li><a href="PlayState.html">PlayState</a></li><li><a href="PosComp.html">PosComp</a></li><li><a href="SceneNode.html">SceneNode</a></li><li><a href="ScoreComp.html">ScoreComp</a></li><li><a href="ScoreDisplay.html">ScoreDisplay</a></li><li><a href="ShootingComp.html">ShootingComp</a></li><li><a href="ShootingSystem.html">ShootingSystem</a></li><li><a href="SizeComp.html">SizeComp</a></li><li><a href="Sprite.html">Sprite</a></li><li><a href="State.html">State</a></li><li><a href="System.html">System</a></li><li><a href="TeamComp.html">TeamComp</a></li><li><a href="Timer.html">Timer</a></li><li><a href="Vec.html">Vec</a></li><li><a href="VisComp.html">VisComp</a></li></ul><h3>Global</h3><ul><li><a href="global.html#main">main</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Sat Jun 08 2019 19:07:45 GMT+0900 (KST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Sat Jun 08 2019 23:52:29 GMT+0900 (KST)
 </footer>
 
 <script> prettyPrint(); </script>
