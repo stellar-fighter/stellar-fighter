@@ -4,10 +4,9 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha-webpack --webpack-config test/webpack.config-test.js test/**/*.js",
     "lint": "eslint \"./src/**/*.js\"",
     "lint-fix": "eslint \"./src/**/*.js\" --fix",
-    "test": "mocha-webpack --webpack-config test/webpack.config-test.js test/**/*.js",
     "doc": "jsdoc src -c jsdoc.conf.json --readme README.md -d dist/doc",
     "build": "mocha-webpack --webpack-config test/webpack.config-test.js test/**/*.js && eslint \"./src/**/*.js\" && jsdoc src -c jsdoc.conf.json --readme README.md -d dist/doc && webpack --mode production",
     "start": "eslint \"./src/**/*.js\" && webpack-dev-server --hot --inline"
