@@ -42,6 +42,18 @@ class Game {
         new Vec(38, 37),
       );
       this.assetMan.addCanvas(
+        'bullet002',
+        sheet001,
+        new Vec(737, 613),
+        new Vec(37, 37),
+      );
+      this.assetMan.addCanvas(
+        'bullet003',
+        sheet001,
+        new Vec(602, 600),
+        new Vec(48, 46),
+      );
+      this.assetMan.addCanvas(
         'item001',
         sheet001,
         new Vec(444, 91),
