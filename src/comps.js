@@ -104,9 +104,9 @@ class CollComp extends Comp {
    * Create a new CollComp
    * @constructor
    * @param {Object} params - The object for parameters
-   * @param {int} params.damage - The damage of entity collision
+   * @param {number} params.damage - The damage of entity collision
    * @param {Object} params.timer - The timer object for damage cooltime
-   * @param {int} params.coolTime - The damage cooltime
+   * @param {number} params.coolTime - The damage cooltime
    * @param {boolean} params.enabled - The ability for damage
    */
   constructor({damage, timer, coolTime, enabled}) {
@@ -154,7 +154,7 @@ class HpComp extends Comp {
    * Create a new HpComp
    * @constructor
    * @param {Object} params - The object for parameters
-   * @param {int} params.val - The HP of entity
+   * @param {number} params.val - The HP of entity
    */
   constructor({val}) {
     super({name: 'hp'});
@@ -214,14 +214,18 @@ class ShootingComp extends Comp {
    * @param {Object} params - The object for parameters
    * @param {boolean} params.enabled - The ability to shoot
    * @param {Object} params.timer - The timer object of entity
-   * @param {int} params.coolTime - The interval between continuous shooting
+   * @param {number} params.coolTime - The numbererval between continuous shooting
    * @param {Object} params.power - The Vector object of moving shooted bullet
    * @param {string} params.sound - The sound effect of shooting action
+   * @param {Object} params.bullet - The class of a bullet
    */
-  constructor({enabled, timer, coolTime, power, sound}) {
+  constructor({enabled, timer, coolTime, power, sound, bullet}) {
     super({name: 'shooting'});
     this.timer = timer;
     if(this.timer === undefined)
+      throw new Error('RequiredParam');
+    this.bullet = bullet;
+    if(this.bullet === undefined)
       throw new Error('RequiredParam');
     this.prevTime = 0;
     this.coolTime = coolTime || 150;
@@ -251,7 +255,7 @@ class ScoreComp extends Comp {
    * Create a new ScoreComp
    * @constructor
    * @param {Object} params - The object for parameters
-   * @param {int} params.score - The score of entity
+   * @param {number} params.score - The score of entity
    */
   constructor({score}) {
     super({name: 'score'});

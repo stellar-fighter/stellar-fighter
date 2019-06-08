@@ -1,5 +1,4 @@
 import {CamOutComp, ShootingComp, PosComp, TeamComp} from './comps';
-import {Bullet001} from './entities';
 import {Vec} from './vec';
 
 /**
@@ -286,14 +285,14 @@ class ShootingSystem extends System {
       const entity = this.state.entities[id];
       const {pos, size, shooting, team} = entity.comps;
       if(this.filter(entity) && shooting.enabled) {
-        const bullet = new Bullet001({
+        const bullet = new shooting.bullet({
           state: this.state,
           comps: {
             team: new TeamComp({val: team.val}),
             pos: new PosComp({
               vec: new Vec(
-                pos.vec.x + size.vec.x / 2 - Bullet001.defaultSize.x / 2,
-                pos.vec.y + size.vec.y / 2 - Bullet001.defaultSize.y / 2
+                pos.vec.x + size.vec.x / 2 - shooting.bullet.defaultSize.x / 2,
+                pos.vec.y + size.vec.y / 2 - shooting.bullet.defaultSize.y / 2
               )
             })
           }

@@ -119,7 +119,7 @@ class Fighter001 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'PLAYER'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({coolTime: 100, timer: this.state.timer, power: new Vec(0, -1).setMag(5)}));
+      this.addComp(new ShootingComp({coolTime: 100, timer: this.state.timer, power: new Vec(0, -1).setMag(5), bullet: Bullet001}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -170,7 +170,7 @@ class Alien001 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 1).setMag(5)}));
+      this.addComp(new ShootingComp({enabled: true, coolTime: 3000, timer: this.state.timer, power: new Vec(0, 1).setMag(5), bullet: Bullet002}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -221,7 +221,7 @@ class Alien002 extends Entity {
     if(team === undefined)
       this.addComp(new TeamComp({val: 'ENEMY'}));
     if(shooting === undefined)
-      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, 0)}));
+      this.addComp(new ShootingComp({enabled: true, coolTime: 500, timer: this.state.timer, power: new Vec(0, 0), bullet: Bullet002}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
@@ -297,7 +297,7 @@ class Bullet001 extends Entity {
    * @constructor
    * @param {Object} params - The object for parameters
    * @param {Object} params.state - The State object for current State
-   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis, score value
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
    * @param {int} params.speed - The speed of bullet movement
    */
   constructor({state, comps, speed}) {
@@ -335,4 +335,101 @@ class Bullet001 extends Entity {
   }
 }
 
-export {Entity, EntityMan, Fighter001, Alien001, Bullet001, Alien002, Item001};
+/**
+ * An Bullet002 class that creates bullet object made by enemies
+ * @extends Entity
+ */
+class Bullet002 extends Entity {
+  /**
+   * Create a new Bullet002 object
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for current State
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
+   * @param {int} params.speed - The speed of bullet movement
+   */
+  constructor({state, comps, speed}) {
+    super({state, comps});
+    const {pos, size, camOut, coll, team, hp, vis, score} = this.comps;
+    const assetMan = this.state.game.assetMan;
+    this.addComp(new MovComp({vel: new Vec(1, 1).setMag(5)}));
+    if(pos === undefined)
+      this.addComp(new PosComp({}));
+    if(size === undefined)
+      this.addComp(new SizeComp({vec: Bullet002.defaultSize}));
+    if(camOut === undefined)
+      this.addComp(new CamOutComp({actions: {UP: 'DESTROY', DOWN: 'DESTROY', LEFT: 'DESTROY', RIGHT: 'DESTROY'}}));
+    if(coll === undefined)
+      this.addComp(new CollComp({damage: 10, timer: this.state.timer}));
+    if(hp === undefined)
+      this.addComp(new HpComp({val: 1}));
+    if(team === undefined)
+      this.addComp(new TeamComp({val: 'ENEMY'}));
+    if(vis === undefined) {
+      const {pos, size, hp} = this.comps;
+      const sn = new Sprite({
+        canvas: this.state.canvas,
+        ctx: this.state.ctx,
+        camera: this.state.camera,
+        pos: pos.vec,
+        size: size.vec,
+        texture: assetMan.images.bullet002
+      });
+      this.addComp(new VisComp({sn}));
+    }
+  }
+  static get defaultSize() { // temporary fix for bullet positioning, at last, we have to use relative coordinates
+    return new Vec(100, 100);
+  }
+}
+
+/**
+ * An Bullet003 class that creates bullet object made by enemies
+ * @extends Entity
+ */
+class Bullet003 extends Entity {
+  /**
+   * Create a new Bullet003 object
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.state - The State object for current State
+   * @param {Object[]} params.comps - The array of Comps object including enemy fighter's pos, mov, size, camOut, coll, hp, team, shooting, vis value
+   * @param {int} params.speed - The speed of bullet movement
+   */
+  constructor({state, comps, speed}) {
+    super({state, comps});
+    const {pos, size, camOut, coll, team, hp, vis} = this.comps;
+    const assetMan = this.state.game.assetMan;
+    this.addComp(new MovComp({vel: new Vec(1, 1).setMag(5)}));
+    if(pos === undefined)
+      this.addComp(new PosComp({}));
+    if(size === undefined)
+      this.addComp(new SizeComp({vec: Bullet002.defaultSize}));
+    if(camOut === undefined)
+      this.addComp(new CamOutComp({actions: {UP: 'DESTROY', DOWN: 'DESTROY', LEFT: 'DESTROY', RIGHT: 'DESTROY'}}));
+    if(coll === undefined)
+      this.addComp(new CollComp({damage: 10, timer: this.state.timer}));
+    if(hp === undefined)
+      this.addComp(new HpComp({val: 1}));
+    if(team === undefined)
+      this.addComp(new TeamComp({val: 'ENEMY'}));
+    if(vis === undefined) {
+      const {pos, size, hp} = this.comps;
+      const sn = new Sprite({
+        canvas: this.state.canvas,
+        ctx: this.state.ctx,
+        camera: this.state.camera,
+        pos: pos.vec,
+        size: size.vec,
+        texture: assetMan.images.bullet003
+      });
+      this.addComp(new VisComp({sn}));
+    }
+  }
+  static get defaultSize() { // temporary fix for bullet positioning, at last, we have to use relative coordinates
+    return new Vec(100, 100);
+  }
+}
+
+
+export {Entity, EntityMan, Fighter001, Alien001, Alien002, Bullet001, Bullet002, Bullet003, Item001};
