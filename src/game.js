@@ -56,7 +56,7 @@ class Game {
       this.assetMan.addCanvas(
         'item001',
         sheet001,
-        new Vec(444, 91),
+        new Vec(505, 898),
         new Vec(91, 91),
       );
     };

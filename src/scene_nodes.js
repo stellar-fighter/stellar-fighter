@@ -164,8 +164,8 @@ class Background extends SceneNode {
     if(!(ctx && camera))
       return;
     ctx.save();
-    ctx.drawImage(this.texture, camera.toRealX(0), camera.toRealY(Math.floor(Math.abs(camera.pos.y) / camera.absH) * -camera.absH), camera.realW, camera.realH); // TODO: remove hardcoded numbers
-    ctx.drawImage(this.texture, camera.toRealX(0), camera.toRealY((Math.floor(Math.abs(camera.pos.y) / camera.absH) + 1) * -camera.absH), camera.realW, camera.realH);
+    ctx.drawImage(this.texture, camera.toRealX(0), camera.toRealY(Math.floor(Math.abs(camera.pos.y) / camera.absH) * -camera.absH), camera.realW, camera.realH);
+    ctx.drawImage(this.texture, camera.toRealX(0), camera.toRealY((Math.floor(Math.abs(camera.pos.y) / camera.absH) + 1) * -camera.absH + 1), camera.realW, camera.realH);
     ctx.restore();
   }
 }

@@ -80,7 +80,6 @@ class PlayState extends State {
     this.systems.push(new ShootingSystem({state: this}));
     this.systems.push(new PlayerSystem({state: this}));
     this.scene.children[0].addChild(new Background({texture: this.game.assetMan.images.bg010}));
-    this.scene.children[1].addChild(new ScoreDisplay({state: this}));
     const player = new Fighter001({
       state: this,
       comps: {
@@ -90,6 +89,7 @@ class PlayState extends State {
       }
     });
     this.scene.children[2].addChild(player.comps['vis'].sn);
+    this.scene.children[2].addChild(new ScoreDisplay({state: this}));
     this.playerId = this.entityMan.add(player);
     const that = this;
     addEventListener('keydown', (event) => {
@@ -172,8 +172,7 @@ class PlayState extends State {
               Math.random() * this.camera.absW,
               this.camera.toAbsY(-0.1 * this.camera.absH)
             )
-          }),
-          team: new TeamComp({val: 'ENEMY'}),
+          })
         },
       });
       this.entityMan.add(item001);

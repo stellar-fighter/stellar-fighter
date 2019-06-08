@@ -268,9 +268,9 @@ class Item001 extends Entity {
     if(coll === undefined)
       this.addComp(new CollComp({damage: -5, timer: this.state.timer, coolTime: 800}));
     if(hp === undefined)
-      this.addComp(new HpComp({val: Infinity}));
+      this.addComp(new HpComp({val: 250}));
     if(team === undefined)
-      this.addComp(new TeamComp({val: 'ENEMY'}));
+      this.addComp(new TeamComp({val: 'NEUTRAL'}));
     if(vis === undefined) {
       const {pos, size, hp} = this.comps;
       const sn = new Sprite({
