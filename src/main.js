@@ -35,6 +35,7 @@ function main() {
    */
   function play() {
     if(animId === null) {
+      game.flushStates();
       game.pushState(new PlayState({game, running: true, canvas}));
       animId = requestAnimationFrame(step);
     }
@@ -108,6 +109,7 @@ function main() {
         addEventListener('focus', unfocusElement);
         resizeCanvas();
         if(animId === null) {
+          game.flushStates();
           game.pushState(new GameOverState({game, running: true, canvas}));
           animId = requestAnimationFrame(step);
         }
