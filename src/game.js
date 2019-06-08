@@ -1,6 +1,13 @@
 import {AssetMan} from './assets';
 import {Vec} from './vec';
+/**
+ * A Game class to manage states and assets
+ */
 class Game {
+  /**
+   * Create a new Game object with empty states array and new AssetManager object
+   * @constructor
+   */
   constructor() {
     this.states = [];
     this.assetMan = new AssetMan();

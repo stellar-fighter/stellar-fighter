@@ -1,5 +1,17 @@
 import {Vec} from './vec';
+/**
+ * A Camera class related to show current canvas state
+ * @extends Entity
+ */
 class Camera {
+  /**
+   * Create a new SceneNode object
+   * @constructor
+   * @param {Object} params - The object for parameters
+   * @param {Object} params.canvas - The canvas object of current state
+   * @param {Object} params.pos - The Vector object for canvas' pos
+   * @param {Object} params.absSize - The Vector object for canvas' absolute size
+   */
   constructor({canvas, pos, absSize}) {
     if(canvas === undefined)
       throw new Error('RequiredParam');
