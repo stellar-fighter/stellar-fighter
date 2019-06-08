@@ -114,6 +114,8 @@ function main() {
       });
     });
     page.exit('/scores', (ctx, next) => {
+      removeEventListener('resize', resizeCanvas);
+      removeEventListener('focus', unfocusElement);
       cancelAnimationFrame(animId);
       animId = null;
       next();
@@ -149,6 +151,8 @@ function main() {
       });
     });
     page.exit('/play', (ctx, next) => {
+      removeEventListener('resize', resizeCanvas);
+      removeEventListener('focus', unfocusElement);
       cancelAnimationFrame(animId);
       animId = null;
       next();
