@@ -1,6 +1,6 @@
 import './main.scss';
 import {Game} from './game';
-import {State, PlayState} from './states';
+import {State, PlayState, GameOverState} from './states';
 import $ from 'jquery';
 import 'jquery-modal/jquery.modal';
 import jqery_modal_css from 'jquery-modal/jquery.modal.css';
@@ -77,8 +77,46 @@ function main() {
       $.get('./page/main.html', (res) => {
         $('body').html(res);
         $('#play-button').click((event) => page('/play'));
+        $('#scores-button').click((event) => page('/scores'));
       });
       normalStart = true;
+    });
+    page('/scores', (ctx, next) => {
+      if(!normalStart) return;
+      $.get('./page/play.html', (res) => {
+        $('body').html(res);
+        $('#button-menu').click((event) => {
+          game.state.running = false;
+          event.preventDefault();
+          this.blur();
+          $('#button-menu-close').click((event) => {
+            game.state.running = true;
+            $.modal.close();
+          });
+          $('#button-to-main').click((event) => {
+            event.preventDefault();
+            this.blur();
+            page("/main");
+          });
+          $('#menu').modal({
+            escapeClose: false,
+            clickClose: false,
+            showClose: false
+          });
+        });
+        addEventListener('resize', resizeCanvas);
+        addEventListener('focus', unfocusElement);
+        resizeCanvas();
+        if(animId === null) {
+          game.pushState(new GameOverState({game, running: true, canvas}));
+          animId = requestAnimationFrame(step);
+        }
+      });
+    });
+    page.exit('/scores', (ctx, next) => {
+      cancelAnimationFrame(animId);
+      animId = null;
+      next();
     });
     page('/play', (ctx, next) => {
       if(!normalStart) return;

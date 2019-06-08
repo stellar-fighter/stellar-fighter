@@ -300,4 +300,4 @@ class GameOverState extends State {
   destroy() {}
 }
 
-export {State, PlayState};
+export {State, PlayState, GameOverState};
