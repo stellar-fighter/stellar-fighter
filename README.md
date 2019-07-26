@@ -1,4 +1,8 @@
-# stellar-fighter [![Build Status](https://travis-ci.org/stellar-fighter/stellar-fighter.svg?branch=master)](https://travis-ci.org/stellar-fighter/stellar-fighter)
+# stellar-fighter
+[![Build Status](https://travis-ci.org/stellar-fighter/stellar-fighter.svg?branch=master)](https://travis-ci.org/stellar-fighter/stellar-fighter)
+[![GitHub release](http://img.shields.io/github/release/stellar-fighter/stellar-fighter.svg)](https://github.com/stellar-fighter/stellar-fighter/releases)
+[![license](http://img.shields.io/github/license/stellar-fighter/stellar-fighter.svg)](https://raw.githubusercontent.com/stellar-fighter/stellar-fighter/master/LICENSE)
+
 ## Development guide for Windows
 - Install git (https://git-scm.com/)
 - Install nodejs (https://nodejs.org/)
