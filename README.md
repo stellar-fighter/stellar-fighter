@@ -6,7 +6,7 @@
 <img src="https://raw.githubusercontent.com/stellar-fighter/stellar-fighter/master/img/game-play.png" alt="game-play" height="500"/>
 
 ## Intoduction
-An example responsive HTML5 shooter game.
+An example responsive HTML5 shooter game without using any game engine.
 
 ## Development guide for Windows
 - Install git (https://git-scm.com/)
