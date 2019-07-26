@@ -3,8 +3,7 @@
 [![GitHub release](http://img.shields.io/github/release/stellar-fighter/stellar-fighter.svg)](https://github.com/stellar-fighter/stellar-fighter/releases)
 [![license](http://img.shields.io/github/license/stellar-fighter/stellar-fighter.svg)](https://raw.githubusercontent.com/stellar-fighter/stellar-fighter/master/LICENSE)
 
-[![game-play](https://raw.githubusercontent.com/stellar-fighter/stellar-fighter/master/img/game-play.png)](https://raw.githubusercontent.com/stellar-fighter/stellar-fighter/master/img/game-play.png)
-
+<img src="https://raw.githubusercontent.com/stellar-fighter/stellar-fighter/master/img/game-play.png" alt="game-play" height="500"/>
 
 ## Development guide for Windows
 - Install git (https://git-scm.com/)
